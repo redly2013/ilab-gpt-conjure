@@ -193,9 +193,9 @@ jobs:
 
           ## 免安装一键包
 
-          - Windows x64：`ilab-gpt-conjure_windows_portable_x64_${release_version}.zip`
-          - macOS Apple Silicon：`ilab-gpt-conjure_macos_portable_arm64_${release_version}.zip`
-          - macOS Intel：`ilab-gpt-conjure_macos_portable_x64_${release_version}.zip`
+          - Windows x64：ilab-gpt-conjure_windows_portable_x64_${release_version}.zip
+          - macOS Apple Silicon：ilab-gpt-conjure_macos_portable_arm64_${release_version}.zip
+          - macOS Intel：ilab-gpt-conjure_macos_portable_x64_${release_version}.zip
 
           macOS 包是未签名的 portable zip。如果 macOS 拦截启动脚本，可以右键或 Control-click 启动脚本，选择 Open；也可以对解压目录移除 quarantine 标记。
           EOF
