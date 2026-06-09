@@ -189,6 +189,7 @@ jobs:
           ## 发布说明
 
           此版本包含 iLab GPT Conjure 对应 tag 的源码和免安装一键包。
+          完整版本说明见 [RELEASES.md](https://github.com/${GITHUB_REPOSITORY}/blob/${RELEASE_TAG}/RELEASES.md)。
 
           ## 免安装一键包
 

@@ -145,6 +145,7 @@ class PortablePackagingTests(unittest.TestCase):
         self.assertIn("GH_REPO: ${{ github.repository }}", text)
         self.assertIn("## 发布说明", text)
         self.assertIn("此版本包含 iLab GPT Conjure 对应 tag 的源码和免安装一键包。", text)
+        self.assertIn("完整版本说明见 [RELEASES.md](https://github.com/${GITHUB_REPOSITORY}/blob/${RELEASE_TAG}/RELEASES.md)。", text)
         self.assertIn("## 免安装一键包", text)
         self.assertIn('release_version="${RELEASE_TAG#v}"', text)
         self.assertIn("- Windows x64：ilab-gpt-conjure_windows_portable_x64_${release_version}.zip", text)
