@@ -11,21 +11,44 @@ class WebUIStaticHistoryTests(unittest.TestCase):
 
         self.assertIn('class="history-page"', html)
         self.assertIn('id="historyDetailClose"', html)
+        self.assertIn('data-history-resizer="left"', html)
+        self.assertIn('data-history-resizer="right"', html)
+        self.assertIn('role="separator"', html)
+        self.assertIn('class="history-filter-heading history-filter-heading-orientation"', html)
+        self.assertIn('class="history-filter-heading-icon"', html)
+        self.assertIn('data-i18n-attr="aria-label:history.resizeFilters"', html)
+        self.assertIn('data-i18n-attr="aria-label:history.resizeDetail"', html)
         self.assertRegex(styles, r"\.history-page\s*\{[^}]*height:\s*100dvh")
         self.assertRegex(styles, r"\.history-page\s*\{[^}]*overflow:\s*hidden")
+        self.assertRegex(styles, r"\.history-page\s*\{[^}]*--history-sidebar-width:\s*280px")
+        self.assertRegex(styles, r"\.history-page\s*\{[^}]*--history-detail-width:\s*380px")
+        self.assertRegex(styles, r"\.history-page\s*\{[^}]*grid-template-columns:[^}]*clamp\(220px,\s*var\(--history-sidebar-width\),\s*420px\)[^}]*var\(--history-resizer-width\)[^}]*minmax\(360px,\s*1fr\)[^}]*clamp\(300px,\s*var\(--history-detail-width\),\s*620px\)")
+        self.assertRegex(styles, r"\.history-resizer\s*\{[^}]*cursor:\s*col-resize")
+        self.assertRegex(styles, r"\.history-resizer\s*\{[^}]*touch-action:\s*none")
+        self.assertRegex(styles, r"\.history-resizer::after\s*\{[^}]*background-image:\s*[\s\S]*linear-gradient")
+        self.assertRegex(styles, r"\.history-resizer::after\s*\{[^}]*background-position:[\s\S]*calc\(50%\s*-\s*4px\)\s+center[\s\S]*50%\s+center[\s\S]*calc\(50%\s*\+\s*4px\)\s+center")
+        self.assertRegex(styles, r"\.history-resizer::after\s*\{[^}]*background-size:[\s\S]*1px\s+34px[\s\S]*1px\s+38px[\s\S]*1px\s+34px")
+        self.assertRegex(styles, r"\.history-resizer::after\s*\{[^}]*opacity:\s*0\.72")
+        self.assertRegex(styles, r"\.history-resizer:hover::before,\s*\.history-resizer:focus-visible::before,\s*\.history-page\.history-resizing \.history-resizer::before\s*\{[^}]*background:\s*var\(--primary\)")
+        self.assertRegex(styles, r"\.history-resizer:hover::after,\s*\.history-resizer:focus-visible::after,\s*\.history-page\.history-resizing \.history-resizer::after\s*\{[^}]*background-color:\s*color-mix")
+        self.assertRegex(styles, r"\.history-page\.history-resizing,\s*\.history-page\.history-resizing \*\s*\{[^}]*user-select:\s*none")
         self.assertRegex(styles, r"\.history-results\s*\{[^}]*position:\s*relative")
         self.assertRegex(styles, r"\.history-results\s*\{[^}]*grid-template-rows:\s*auto\s+minmax\(0,\s*1fr\)")
+        self.assertRegex(styles, r"\.history-results\s*\{[^}]*padding:\s*18px\s+6px\s+calc\(18px\s+\+\s+env\(safe-area-inset-bottom,\s*0px\)\)\s+18px")
         self.assertNotRegex(styles, r"\.history-results\s*\{[^}]*grid-template-rows:\s*auto\s+minmax\(0,\s*1fr\)\s+auto")
         self.assertRegex(styles, r"\.history-task-list\s*\{[^}]*overflow:\s*auto")
         self.assertRegex(styles, r"\.history-task-list\.history-view-grid\s*\{[^}]*--history-task-thumb-row-height:\s*clamp")
         self.assertRegex(styles, r"\.history-task-list\.history-view-grid\s*\{[^}]*display:\s*flex")
         self.assertRegex(styles, r"\.history-task-list\.history-view-grid\s*\{[^}]*flex-wrap:\s*wrap")
         self.assertRegex(styles, r"\.history-task-list\.history-view-grid\s*\{[^}]*align-items:\s*flex-start")
+        self.assertRegex(styles, r"\.history-task-list\.history-view-grid\s*\{[^}]*padding:\s*6px\s+4px\s+6px\s+6px")
         self.assertNotRegex(styles, r"\.history-task-list\.history-view-grid\s*\{[^}]*grid-template-columns:\s*repeat\(auto-fill")
         self.assertNotRegex(styles, r"\.history-task-list\.history-view-grid\s*\{[^}]*grid-auto-rows:")
         self.assertRegex(styles, r"\.history-task-list\.history-view-list\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\)")
         self.assertRegex(styles, r"\.history-task-list\.history-view-list \.history-task-card\s*\{[^}]*grid-template-columns:\s*40px\s+minmax\(0,\s*1fr\)")
         self.assertRegex(styles, r"\.history-task-list\.history-view-grid \.history-task-select\s*\{[^}]*width:\s*32px")
+        self.assertRegex(styles, r"\.history-task-list\.history-view-grid \.history-task-select\s*\{[^}]*top:\s*0")
+        self.assertRegex(styles, r"\.history-task-list\.history-view-grid \.history-task-select\s*\{[^}]*left:\s*0")
         self.assertRegex(styles, r"\.history-task-list\.history-view-grid \.history-task-select\s*\{[^}]*border:\s*0")
         self.assertRegex(styles, r"\.history-task-list\.history-view-grid \.history-task-select\s*\{[^}]*background:\s*transparent")
         self.assertRegex(styles, r"\.history-task-list\.history-view-grid \.history-task-select\s*\{[^}]*box-shadow:\s*none")
@@ -50,15 +73,23 @@ class WebUIStaticHistoryTests(unittest.TestCase):
         )
         self.assertRegex(
             styles,
+            r"@media \(max-width:\s*1100px\)\s*\{[\s\S]*\.history-resizer\s*\{[^}]*display:\s*none",
+        )
+        self.assertRegex(
+            styles,
             r"@media \(max-width:\s*1100px\)\s*\{[\s\S]*\.history-detail\s*\{[^}]*position:\s*fixed",
         )
         self.assertRegex(styles, r"\.history-detail-title\s*\{[^}]*-webkit-line-clamp:\s*2")
         self.assertRegex(styles, r"\.history-filter-button\s*\{[^}]*min-height:\s*40px")
+        self.assertRegex(styles, r"\.history-filter-heading-icon,\s*\.history-filter-icon\s*\{[^}]*stroke:\s*currentColor")
+        self.assertRegex(styles, r"\.history-filter-button\[data-history-filter-key=\"orientation\"\]\s*\{[^}]*padding-left:\s*10px")
 
     def test_history_page_feature_contracts_are_complete(self) -> None:
         html = Path("codex_image/webui/static/history.html").read_text(encoding="utf-8")
         source = Path("codex_image/webui/frontend/src/history.ts").read_text(encoding="utf-8")
+        detail_media_source = Path("codex_image/webui/frontend/src/history-detail-media.ts").read_text(encoding="utf-8")
         window_source = Path("codex_image/webui/frontend/src/history-window.ts").read_text(encoding="utf-8")
+        lightbox_source = Path("codex_image/webui/frontend/src/history-lightbox.ts").read_text(encoding="utf-8")
 
         for marker in [
             'id="historyOrientationList"',
@@ -77,6 +108,8 @@ class WebUIStaticHistoryTests(unittest.TestCase):
             'id="historyBulkRestoreButton"',
             'id="historyBulkDeleteButton"',
             'id="historySearchClear"',
+            'data-history-resizer="left"',
+            'data-history-resizer="right"',
         ]:
             self.assertIn(marker, html)
         self.assertNotIn('id="historyStatusList"', html)
@@ -94,6 +127,24 @@ class WebUIStaticHistoryTests(unittest.TestCase):
             "layoutJustifiedHistoryGrid",
             "scheduleHistoryGridLayout",
             "historyGridLayoutSettings",
+            "HISTORY_LAYOUT_STORAGE_KEY",
+            "HISTORY_LAYOUT_DEFAULTS",
+            "HISTORY_LAYOUT_LIMITS",
+            "restoreHistoryLayoutPreference()",
+            "bindHistoryResizerEvents()",
+            'import { closeHistoryLightbox, isHistoryLightboxOpen, openHistoryLightbox } from "./history-lightbox"',
+            "historyDetailImagesLayoutClass",
+            "startHistoryResize",
+            "updateHistoryResize",
+            "endHistoryResize",
+            "preserveActiveTask",
+            "activeHistoryTaskVisible",
+            "ensureHistoryTaskCardVisible",
+            'scrollIntoView({ block: "nearest", inline: "nearest" })',
+            "resizeHistoryLayoutByKeyboard",
+            "localStorage.setItem(HISTORY_LAYOUT_STORAGE_KEY",
+            "setPointerCapture",
+            "history-resizing",
             "applyHistoryGridRowLayout",
             "--history-task-card-width",
             "--history-task-row-height",
@@ -159,10 +210,66 @@ class WebUIStaticHistoryTests(unittest.TestCase):
             "outputs.zip",
             "HISTORY_REFERENCE_HANDOFF_KEY",
             "data-history-reference-handoff-url",
+            "data-history-input-lightbox-index",
+            "openHistoryInputLightbox",
+            "openHistoryDetailLightbox",
+            "openHistoryTaskLightbox",
+            'addEventListener("dblclick"',
             "try {",
             "catch (error)",
         ]:
             self.assertIn(marker, source)
+
+        for marker in [
+            "export function taskOutputRecords",
+            "export function taskInputRecords",
+            "export function historyDetailImagesLayoutClass",
+            "function parseSizeParts",
+            "function outputOrientation",
+            "history-detail-images-multi",
+            "history-detail-images-count-${Math.min(records.length, 4)}",
+            "history-detail-images-${orientation}",
+            "history-detail-images-stack",
+            "export function historyDetailImagesHtml",
+            "export function historyInputReferencesHtml",
+            "export function historyLightboxUrlsFromTask",
+            "export function historyInputLightboxUrlsFromTask",
+            "class=\"history-detail-image history-detail-output-card",
+            "class=\"history-detail-image-actions\"",
+            "class=\"history-detail-overlay-button primary\"",
+            "data-history-lightbox-index",
+            "data-history-output-selected-task-id",
+            "data-history-reference-handoff-url",
+            "class=\"history-detail-inputs\"",
+            "class=\"history-detail-input-thumb\"",
+            "data-history-input-lightbox-index",
+            "input_sources",
+            "input_thumbnail_urls",
+        ]:
+            self.assertIn(marker, detail_media_source)
+
+        for marker in [
+            "export function openHistoryLightbox",
+            "export function closeHistoryLightbox",
+            "export function isHistoryLightboxOpen",
+            "function showPreviousHistoryLightboxImage",
+            "function showNextHistoryLightboxImage",
+            "historyLightboxState.scale = Math.min(Math.max(0.5",
+            'addEventListener("wheel"',
+            "{ passive: false }",
+            'addEventListener("mousedown"',
+            'window.addEventListener("mousemove"',
+            'event.key === "ArrowLeft"',
+            'event.key === "ArrowRight"',
+            "history-lightbox-counter",
+            "data-history-lightbox-prev",
+            "data-history-lightbox-next",
+            "data-history-lightbox-image",
+            'class="drawer-close-icon"',
+            '<path d="M6 6l12 12M18 6L6 18"></path>',
+        ]:
+            self.assertIn(marker, lightbox_source)
+        self.assertNotIn('data-history-lightbox-close aria-label="${escapeHtml(translate("history.closePreview"))}">×</button>', lightbox_source)
 
         self.assertRegex(
             source,
@@ -191,6 +298,17 @@ class WebUIStaticHistoryTests(unittest.TestCase):
         self.assertIn("quality", source)
         self.assertIn("HISTORY_RATIO_OTHER_VALUE", source)
         self.assertIn('translate("history.ratioOther")', source)
+        self.assertIn('if (key === "orientation")', source)
+        self.assertIn('translate("output.portrait")', source)
+        self.assertIn('translate("output.landscape")', source)
+        self.assertIn('translate("output.square")', source)
+        self.assertIn("historyOrientationIconHtml", source)
+        self.assertIn("historyFilterButtonLabelHtml", source)
+        self.assertIn("history-filter-icon", source)
+        self.assertIn("history-filter-icon-portrait", source)
+        self.assertIn("history-filter-icon-landscape", source)
+        self.assertIn("history-filter-icon-square", source)
+        self.assertIn('data-history-filter-key="${key}"', source)
         self.assertNotIn('formatTranslation("history.windowNotice"', source)
         self.assertNotIn('notice.className = "history-window-notice"', source)
         self.assertNotIn("statusList", source)
@@ -300,6 +418,12 @@ class WebUIStaticHistoryTests(unittest.TestCase):
             '"history.viewing": "Viewing"',
             '"history.reuseTask": "复用任务"',
             '"history.reuseTask": "Reuse task"',
+            '"history.outputActions": "结果图操作"',
+            '"history.outputActions": "Result image actions"',
+            '"history.inputReferences": "输入参考图"',
+            '"history.inputReferences": "Input references"',
+            '"history.inputReferenceIndex": "输入参考图 {index}"',
+            '"history.inputReferenceIndex": "Input reference {index}"',
             '"history.downloadSelectedTasks": "批量下载"',
             '"history.downloadSelectedTasks": "Batch download"',
             '"history.contextMenuLabel": "历史任务右键菜单"',
@@ -342,20 +466,53 @@ class WebUIStaticHistoryTests(unittest.TestCase):
         self.assertRegex(styles, r"\.history-detail-image-preview\s*\{[^}]*place-items:\s*center")
         self.assertRegex(styles, r"\.history-detail-image-preview\s*\{[^}]*justify-items:\s*center")
         self.assertRegex(styles, r"\.history-detail-image-preview img\s*\{[^}]*margin:\s*0 auto")
+        self.assertRegex(styles, r"\.history-detail-image\s*\{[^}]*position:\s*relative")
+        self.assertRegex(styles, r"\.history-detail-image\s*\{[^}]*overflow:\s*hidden")
+        self.assertRegex(styles, r"\.history-detail-output-index\s*\{[^}]*position:\s*absolute")
         self.assertRegex(styles, r"\.history-detail-images\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\)")
         self.assertRegex(styles, r"\.history-detail-images\s*\{[^}]*justify-items:\s*center")
         self.assertRegex(styles, r"\.history-detail-images\s*\{[^}]*width:\s*100%")
+        self.assertRegex(styles, r"\.history-detail-images-multi\s*\{[^}]*grid-template-columns:\s*repeat\(auto-fit,\s*minmax\(min\(180px,\s*100%\),\s*1fr\)\)")
+        self.assertRegex(styles, r"\.history-detail-images-multi\s*\{[^}]*justify-items:\s*stretch")
+        self.assertRegex(styles, r"\.history-detail-images-multi\.history-detail-images-count-2\s*\{[^}]*grid-template-columns:\s*repeat\(auto-fit,\s*minmax\(min\(180px,\s*100%\),\s*1fr\)\)")
+        self.assertRegex(styles, r"\.history-detail-images-multi\.history-detail-images-count-4\s*\{[^}]*grid-template-columns:\s*repeat\(auto-fit,\s*minmax\(min\(220px,\s*100%\),\s*1fr\)\)")
+        self.assertRegex(styles, r"\.history-detail-images-multi\.history-detail-images-stack\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\)")
+        self.assertRegex(styles, r"\.history-detail-images-multi\.history-detail-images-stack\s*\{[^}]*justify-items:\s*center")
+        self.assertRegex(styles, r"\.history-detail-images-multi \.history-detail-image\s*\{[^}]*max-width:\s*none")
+        self.assertRegex(styles, r"\.history-detail-images-stack \.history-detail-image\s*\{[^}]*width:\s*min\(100%,\s*760px\)")
+        self.assertRegex(styles, r"\.history-detail-images-multi \.history-detail-image-preview\s*\{[^}]*min-height:\s*clamp")
+        self.assertRegex(styles, r"\.history-detail-images-multi \.history-detail-image-preview img\s*\{[^}]*max-height:\s*clamp")
+        self.assertRegex(styles, r"\.history-detail-images-stack \.history-detail-image-preview img\s*\{[^}]*width:\s*100%")
+        self.assertRegex(styles, r"\.history-detail-images-stack \.history-detail-image-preview img\s*\{[^}]*max-height:\s*none")
         self.assertRegex(styles, r"\.history-detail-actions\s*\{[^}]*justify-content:\s*safe center")
         self.assertRegex(styles, r"\.history-detail-actions\s*\{[^}]*width:\s*100%")
         self.assertRegex(styles, r"\.history-detail-actions\s*>\s*\*\s*\{[^}]*white-space:\s*nowrap")
-        self.assertRegex(styles, r"\.history-detail-image-actions\s*\{[^}]*flex-wrap:\s*nowrap")
+        self.assertRegex(styles, r"\.history-detail-image-actions\s*\{[^}]*position:\s*absolute")
+        self.assertRegex(styles, r"\.history-detail-image-actions\s*\{[^}]*opacity:\s*0")
+        self.assertRegex(styles, r"\.history-detail-image-actions\s*\{[^}]*pointer-events:\s*none")
+        self.assertRegex(styles, r"\.history-detail-image:hover \.history-detail-image-actions,\s*\.history-detail-image:focus-within \.history-detail-image-actions\s*\{[^}]*opacity:\s*1")
         self.assertRegex(styles, r"\.history-detail-image-actions\s*\{[^}]*justify-content:\s*safe center")
         self.assertRegex(styles, r"\.history-detail-image-actions\s*\{[^}]*width:\s*100%")
         self.assertRegex(styles, r"\.history-detail-image-actions\s*>\s*\*\s*\{[^}]*white-space:\s*nowrap")
+        self.assertRegex(styles, r"\.history-detail-overlay-button\s*\{[^}]*border-radius:\s*999px")
+        self.assertRegex(styles, r"\.history-detail-overlay-button\.primary,\s*\.history-detail-overlay-button\[aria-pressed=\"true\"\]\s*\{[^}]*background:\s*var\(--primary\)")
+        self.assertRegex(styles, r"\.history-detail-inputs\s*\{[^}]*border-top:\s*1px solid")
+        self.assertRegex(styles, r"\.history-detail-inputs-list\s*\{[^}]*display:\s*flex")
+        self.assertRegex(styles, r"\.history-detail-input-thumb\s*\{[^}]*width:\s*54px")
+        self.assertRegex(styles, r"\.history-detail-input-thumb\s*\{[^}]*opacity:\s*0\.72")
+        self.assertRegex(styles, r"\.history-detail-input-thumb img\s*\{[^}]*object-fit:\s*cover")
         self.assertRegex(styles, r"\.history-prompt-panel-header\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\)\s*auto")
         self.assertRegex(styles, r"\.history-prompt-copy\.copied\s*\{[^}]*background:\s*var\(--primary-light\)")
         self.assertRegex(styles, r"\.history-results\s*\{[^}]*env\(safe-area-inset-bottom")
+        self.assertRegex(styles, r"\.history-toolbar-actions\s*\{[^}]*--history-toolbar-control-height:\s*44px")
+        self.assertRegex(styles, r"\.history-view-toggle\s*\{[^}]*box-sizing:\s*border-box")
+        self.assertRegex(styles, r"\.history-view-toggle\s*\{[^}]*height:\s*var\(--history-toolbar-control-height\)")
+        self.assertRegex(styles, r"\.history-view-button\s*\{[^}]*font-size:\s*14px")
         self.assertRegex(styles, r"\.history-sort-label\s+span\s*\{[^}]*white-space:\s*nowrap")
+        self.assertRegex(styles, r"\.history-sort-label\s+span\s*\{[^}]*clip-path:\s*inset\(50%\)")
+        self.assertRegex(styles, r"\.history-toolbar-actions \.control,\s*\.history-toolbar-actions \.ghost-button\.text-sm\s*\{[^}]*min-height:\s*var\(--history-toolbar-control-height\)")
+        self.assertRegex(styles, r"\.history-toolbar-actions \.control,\s*\.history-toolbar-actions \.ghost-button\.text-sm\s*\{[^}]*font-size:\s*14px")
+        self.assertRegex(styles, r"\.history-toolbar-actions \.control,\s*\.history-toolbar-actions \.ghost-button\.text-sm\s*\{[^}]*font-weight:\s*600")
         self.assertRegex(styles, r"\.history-load-sentinel\s*\{[^}]*position:\s*absolute")
         self.assertRegex(styles, r"\.history-load-sentinel\s*\{[^}]*bottom:\s*calc\(8px \+ env\(safe-area-inset-bottom")
         self.assertRegex(styles, r"\.history-load-sentinel\s*\{[^}]*width:\s*auto")
@@ -378,6 +535,17 @@ class WebUIStaticHistoryTests(unittest.TestCase):
         self.assertRegex(styles, r"\.history-bulk-toolbar\s*\{[^}]*box-shadow:\s*var\(--shadow-popover\)")
         self.assertRegex(styles, r"\.history-bulk-toolbar\s*>\s*\.segmented-indicator\s*\{[^}]*display:\s*none")
         self.assertIn(".history-lightbox", styles)
+        self.assertRegex(styles, r"body\.history-lightbox-open\s*\{[^}]*overflow:\s*hidden")
+        self.assertRegex(styles, r"\.history-lightbox\s*\{[^}]*position:\s*fixed")
+        self.assertRegex(styles, r"\.history-lightbox\s*\{[^}]*z-index:\s*9999")
+        self.assertRegex(styles, r"\.history-lightbox\s*\{[^}]*display:\s*flex")
+        self.assertRegex(styles, r"\.history-lightbox\s*\{[^}]*backdrop-filter:\s*blur\(10px\)")
+        self.assertRegex(styles, r"\.history-lightbox img\s*\{[^}]*cursor:\s*grab")
+        self.assertRegex(styles, r"\.history-lightbox img\s*\{[^}]*user-select:\s*none")
+        self.assertRegex(styles, r"\.history-lightbox-close\s*\{[^}]*display:\s*inline-flex")
+        self.assertRegex(styles, r"\.history-lightbox-close\s*\{[^}]*align-items:\s*center")
+        self.assertRegex(styles, r"\.history-lightbox-nav\s*\{[^}]*position:\s*absolute")
+        self.assertRegex(styles, r"\.history-lightbox-counter\s*\{[^}]*position:\s*absolute")
         self.assertIn(':root[data-theme="dark"] .history-task-card.selected', styles)
 
     def test_history_task_reuse_handoff_is_consumed_by_main_page(self) -> None:

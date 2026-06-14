@@ -2047,6 +2047,10 @@ body.lightbox-open {
   width: min(620px, 94vw);
 }
 
+.version-modal-panel {
+  width: min(430px, 94vw);
+}
+
 .api-settings-modal-panel {
   width: min(620px, 94vw);
 }
@@ -2068,6 +2072,45 @@ body.lightbox-open {
   margin: 0;
   color: var(--muted);
   font-size: 13px;
+}
+
+.version-detail-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.version-detail-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-soft);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.version-detail-row strong {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.version-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.version-modal-actions .run-button,
+.version-modal-actions .ghost-button {
+  width: auto;
+  min-width: 112px;
+  height: 34px;
 }
 
 .api-settings-feedback {

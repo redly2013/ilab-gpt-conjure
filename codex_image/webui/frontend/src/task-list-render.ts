@@ -574,16 +574,50 @@ function waitingQueueIndex(taskId: any, queueIds = queueTaskIdsBySection()) {
   return queueIds.waiting.get(normalizedTaskId) ?? -1;
 }
 
+function taskQueueActionIconHtml(icon: "cancel" | "up" | "down" | "top" | "delete") {
+  if (icon === "cancel") {
+    return `<svg class="task-queue-action-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+        <path d="M5.25 5.25h5.5v5.5h-5.5z" />
+      </svg>`;
+  }
+  if (icon === "up") {
+    return `<svg class="task-queue-action-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+        <path d="M8 12V4.5" />
+        <path d="M4.75 7.75 8 4.5l3.25 3.25" />
+      </svg>`;
+  }
+  if (icon === "down") {
+    return `<svg class="task-queue-action-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+        <path d="M8 4v7.5" />
+        <path d="M4.75 8.25 8 11.5l3.25-3.25" />
+      </svg>`;
+  }
+  if (icon === "top") {
+    return `<svg class="task-queue-action-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+        <path d="M4.5 3.5h7" />
+        <path d="M8 12.5V6" />
+        <path d="M5.25 8.75 8 6l2.75 2.75" />
+      </svg>`;
+  }
+  return `<svg class="task-queue-action-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+      <path d="M5.25 6.25v5.5" />
+      <path d="M8 6.25v5.5" />
+      <path d="M10.75 6.25v5.5" />
+      <path d="M4.25 4.25h7.5" />
+      <path d="M6.25 4.25l.5-1h2.5l.5 1" />
+      <path d="M5 4.25h6l-.45 9H5.45z" />
+    </svg>`;
+}
+
 function taskQueueActionStripHtml(task: any, queueSection = taskQueueSection(task), waitingIndex = waitingQueueIndex(task?.task_id)) {
   if (!queueSection) return "";
   const taskId = escapeHtml(task.task_id);
   if (queueSection === "running") {
     const runningActionsLabel = escapeHtml(translate("queue.runningActions"));
-    const cancelLabel = escapeHtml(translate("queue.cancelRunning"));
     const cancelTitle = escapeHtml(translate("queue.cancelRunningTitle"));
     return `
       <div class="task-queue-actions task-queue-actions-running" role="group" aria-label="${runningActionsLabel}" data-task-queue-section="${escapeHtml(queueSection)}">
-        <button class="task-queue-action task-queue-cancel-button" type="button" data-task-queue-cancel-id="${taskId}" aria-label="${cancelTitle}" title="${cancelTitle}">${cancelLabel}</button>
+        <button class="task-queue-action task-queue-cancel-button" type="button" data-task-queue-cancel-id="${taskId}" aria-label="${cancelTitle}" title="${cancelTitle}">${taskQueueActionIconHtml("cancel")}</button>
       </div>
     `;
   }
@@ -593,13 +627,9 @@ function taskQueueActionStripHtml(task: any, queueSection = taskQueueSection(tas
   const waitingActionsLabel = escapeHtml(translate("queue.waitingActions"));
   const dragWaitingLabel = escapeHtml(translate("queue.dragWaiting"));
   const dragSortLabel = escapeHtml(translate("queue.dragSort"));
-  const moveUpLabel = escapeHtml(translate("queue.moveUp"));
   const moveUpTitle = escapeHtml(translate("queue.moveUpTitle"));
-  const moveDownLabel = escapeHtml(translate("queue.moveDown"));
   const moveDownTitle = escapeHtml(translate("queue.moveDownTitle"));
-  const promoteLabel = escapeHtml(translate("queue.promote"));
   const promoteTitle = escapeHtml(translate("queue.promoteTitle"));
-  const deleteLabel = escapeHtml(translate("queue.deleteWaitingShort"));
   const deleteTitle = escapeHtml(translate("queue.deleteWaitingTitle"));
   return `
     <div class="task-queue-actions task-queue-actions-waiting" role="group" aria-label="${waitingActionsLabel}" data-task-queue-section="${escapeHtml(queueSection)}">
@@ -608,10 +638,10 @@ function taskQueueActionStripHtml(task: any, queueSection = taskQueueSection(tas
           <path d="M5 3.5h.1M5 8h.1M5 12.5h.1M10.5 3.5h.1M10.5 8h.1M10.5 12.5h.1" />
         </svg>
       </button>
-      <button class="task-queue-action" type="button" data-task-queue-move-id="${taskId}" data-task-queue-direction="up" aria-label="${moveUpTitle}" title="${moveUpTitle}"${disableMoveUp ? " disabled" : ""}>${moveUpLabel}</button>
-      <button class="task-queue-action" type="button" data-task-queue-move-id="${taskId}" data-task-queue-direction="down" aria-label="${moveDownTitle}" title="${moveDownTitle}"${disableMoveDown ? " disabled" : ""}>${moveDownLabel}</button>
-      <button class="task-queue-action" type="button" data-task-queue-promote-id="${taskId}" aria-label="${promoteTitle}" title="${promoteTitle}">${promoteLabel}</button>
-      <button class="task-queue-action task-queue-delete-button" type="button" data-task-queue-delete-id="${taskId}" aria-label="${deleteTitle}" title="${deleteTitle}">${deleteLabel}</button>
+      <button class="task-queue-action" type="button" data-task-queue-move-id="${taskId}" data-task-queue-direction="up" aria-label="${moveUpTitle}" title="${moveUpTitle}"${disableMoveUp ? " disabled" : ""}>${taskQueueActionIconHtml("up")}</button>
+      <button class="task-queue-action" type="button" data-task-queue-move-id="${taskId}" data-task-queue-direction="down" aria-label="${moveDownTitle}" title="${moveDownTitle}"${disableMoveDown ? " disabled" : ""}>${taskQueueActionIconHtml("down")}</button>
+      <button class="task-queue-action" type="button" data-task-queue-promote-id="${taskId}" aria-label="${promoteTitle}" title="${promoteTitle}">${taskQueueActionIconHtml("top")}</button>
+      <button class="task-queue-action task-queue-delete-button" type="button" data-task-queue-delete-id="${taskId}" aria-label="${deleteTitle}" title="${deleteTitle}">${taskQueueActionIconHtml("delete")}</button>
     </div>
   `;
 }

@@ -6,6 +6,7 @@ $AssetPattern = "^ilab-gpt-conjure_windows_portable_x64_.+\.zip$"
 $BundleDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $DataDir = Join-Path $BundleDir "data"
 $VersionFile = Join-Path $BundleDir "portable-version.txt"
+$UpdateNoticeFile = Join-Path $DataDir "update-notice.json"
 $Timestamp = Get-Date -Format "yyyyMMdd-HHmmss"
 $TempRoot = Join-Path ([System.IO.Path]::GetTempPath()) "ilab-gpt-conjure-update-$Timestamp"
 $ExtractDir = Join-Path $TempRoot "extract"
@@ -90,6 +91,12 @@ function Test-VersionCurrentOrNewer {
   return $true
 }
 
+function Clear-UpdateNotice {
+  if (Test-Path $UpdateNoticeFile) {
+    Remove-Item -Force $UpdateNoticeFile -ErrorAction SilentlyContinue
+  }
+}
+
 function Restore-Backup {
   if (-not (Test-Path $BackupDir)) {
     return
@@ -135,6 +142,7 @@ try {
 
   $CurrentVersion = Get-CurrentPortableVersion
   if (Test-VersionCurrentOrNewer -Current $CurrentVersion -Latest $Release.tag_name) {
+    Clear-UpdateNotice
     Write-Host ""
     Write-Host "Already up to date ($($Release.tag_name))."
     Write-Host "No app files were changed."
@@ -214,6 +222,7 @@ try {
   }
 
   Write-Step "Update complete"
+  Clear-UpdateNotice
   Write-Host "Updated to $($Release.tag_name)."
   Write-Host "Data was preserved at $DataDir"
   Write-Host "Backup was saved at $BackupDir"

@@ -19,65 +19,65 @@
       "#promptTemplateDrawer.open, #galleryDrawer.open, .modal-overlay:not(.hidden), .prompt-popover:not(.hidden), .confirm-popover:not(.hidden), .compression-popover:not(.hidden), .task-notification-center:not(.hidden)"
     ));
   }
-  function handleRunTaskShortcut(event, els42, methods) {
+  function handleRunTaskShortcut(event, els43, methods) {
     if (!isRunTaskShortcut(event)) return;
-    if (hasOpenShortcutBlockingLayer() || els42.runButton.disabled) return;
+    if (hasOpenShortcutBlockingLayer() || els43.runButton.disabled) return;
     event.preventDefault();
     void call(methods, "runTask");
   }
-  function bindWebUIEvents(state32, els42, methods) {
+  function bindWebUIEvents(state32, els43, methods) {
     call(methods, "bindShellUiEvents");
     call(methods, "bindFormControlEvents");
-    els42.clearPromptButton.addEventListener("click", () => {
+    els43.clearPromptButton.addEventListener("click", () => {
       call(methods, "setPromptText", "");
       call(methods, "syncGalleryInputsFromPrompt");
       call(methods, "updatePromptCount");
       call(methods, "updateRequestPreview");
     });
-    els42.quickGalleryRail?.addEventListener("mouseover", (event) => call(methods, "handleQuickGalleryCategoryEvent", event));
-    els42.quickGalleryRail?.addEventListener("focusin", (event) => call(methods, "handleQuickGalleryCategoryEvent", event));
-    els42.quickGalleryRail?.addEventListener("click", (event) => call(methods, "handleQuickGalleryCategoryEvent", event));
-    els42.quickGalleryList?.addEventListener("scroll", () => call(methods, "scheduleQuickGalleryFocusUpdate"));
-    els42.quickGalleryList?.addEventListener("wheel", (event) => call(methods, "handleQuickGalleryBoundaryWheel", event), { passive: false });
-    els42.addGalleryCategoryButton?.addEventListener("click", () => call(methods, "createGalleryCategory"));
-    els42.addToGalleryClose?.addEventListener("click", () => call(methods, "closeAddToGallery"));
-    els42.addToGalleryModal?.addEventListener("click", (event) => {
-      if (event.target === els42.addToGalleryModal) call(methods, "closeAddToGallery");
+    els43.quickGalleryRail?.addEventListener("mouseover", (event) => call(methods, "handleQuickGalleryCategoryEvent", event));
+    els43.quickGalleryRail?.addEventListener("focusin", (event) => call(methods, "handleQuickGalleryCategoryEvent", event));
+    els43.quickGalleryRail?.addEventListener("click", (event) => call(methods, "handleQuickGalleryCategoryEvent", event));
+    els43.quickGalleryList?.addEventListener("scroll", () => call(methods, "scheduleQuickGalleryFocusUpdate"));
+    els43.quickGalleryList?.addEventListener("wheel", (event) => call(methods, "handleQuickGalleryBoundaryWheel", event), { passive: false });
+    els43.addGalleryCategoryButton?.addEventListener("click", () => call(methods, "createGalleryCategory"));
+    els43.addToGalleryClose?.addEventListener("click", () => call(methods, "closeAddToGallery"));
+    els43.addToGalleryModal?.addEventListener("click", (event) => {
+      if (event.target === els43.addToGalleryModal) call(methods, "closeAddToGallery");
     });
-    els42.saveToGalleryButton?.addEventListener("click", () => call(methods, "saveUploadToGallery"));
-    els42.settingsButton?.addEventListener("click", () => call(methods, "openSettingsModal"));
-    els42.settingsModalClose?.addEventListener("click", () => call(methods, "closeSettingsModal"));
-    els42.settingsModal?.addEventListener("click", (event) => {
-      if (event.target === els42.settingsModal) call(methods, "closeSettingsModal");
+    els43.saveToGalleryButton?.addEventListener("click", () => call(methods, "saveUploadToGallery"));
+    els43.settingsButton?.addEventListener("click", () => call(methods, "openSettingsModal"));
+    els43.settingsModalClose?.addEventListener("click", () => call(methods, "closeSettingsModal"));
+    els43.settingsModal?.addEventListener("click", (event) => {
+      if (event.target === els43.settingsModal) call(methods, "closeSettingsModal");
     });
-    els42.saveSettingsButton?.addEventListener("click", () => call(methods, "saveSettings"));
-    els42.authSourceGroup?.addEventListener("click", (event) => call(methods, "handleAuthSourceClick", event));
-    els42.apiSourceSettingsButton?.addEventListener("click", () => call(methods, "openApiSettingsModal"));
-    els42.apiDirectSettingsButton?.addEventListener("click", () => call(methods, "openApiSettingsModal"));
-    els42.apiSettingsModalClose?.addEventListener("click", () => call(methods, "closeApiSettingsModal"));
-    els42.apiSettingsModal?.addEventListener("click", (event) => {
-      if (event.target === els42.apiSettingsModal) call(methods, "closeApiSettingsModal");
+    els43.saveSettingsButton?.addEventListener("click", () => call(methods, "saveSettings"));
+    els43.authSourceGroup?.addEventListener("click", (event) => call(methods, "handleAuthSourceClick", event));
+    els43.apiSourceSettingsButton?.addEventListener("click", () => call(methods, "openApiSettingsModal"));
+    els43.apiDirectSettingsButton?.addEventListener("click", () => call(methods, "openApiSettingsModal"));
+    els43.apiSettingsModalClose?.addEventListener("click", () => call(methods, "closeApiSettingsModal"));
+    els43.apiSettingsModal?.addEventListener("click", (event) => {
+      if (event.target === els43.apiSettingsModal) call(methods, "closeApiSettingsModal");
     });
-    els42.saveApiSettingsButton?.addEventListener("click", () => call(methods, "saveApiSettings"));
-    els42.apiProviderQuick?.addEventListener("change", () => {
+    els43.saveApiSettingsButton?.addEventListener("click", () => call(methods, "saveApiSettings"));
+    els43.apiProviderQuick?.addEventListener("change", () => {
       call(methods, "readApiSettingsForm");
-      state32.apiSettings.active_provider_id = els42.apiProviderQuick?.value || call(methods, "currentApiProviderId");
+      state32.apiSettings.active_provider_id = els43.apiProviderQuick?.value || call(methods, "currentApiProviderId");
       call(methods, "populateApiSettingsForm");
       call(methods, "persistApiSettings");
       call(methods, "renderAuthSource", state32.authStatus);
       call(methods, "updateRequestPreview");
     });
-    els42.apiProvider?.addEventListener("change", () => {
+    els43.apiProvider?.addEventListener("change", () => {
       call(methods, "readApiSettingsForm");
-      state32.apiSettings.active_provider_id = els42.apiProvider?.value || call(methods, "currentApiProviderId");
+      state32.apiSettings.active_provider_id = els43.apiProvider?.value || call(methods, "currentApiProviderId");
       call(methods, "populateApiSettingsForm");
       call(methods, "persistApiSettings");
       call(methods, "renderAuthSource", state32.authStatus);
       call(methods, "updateRequestPreview");
     });
-    els42.addApiProviderButton?.addEventListener("click", () => call(methods, "addApiProvider"));
-    els42.deleteApiProviderButton?.addEventListener("click", () => call(methods, "deleteApiProvider"));
-    [els42.apiProviderName, els42.apiBaseUrl, els42.apiKey, els42.apiMode, els42.apiImageModel, els42.apiImagesConcurrency].filter(Boolean).forEach((element2) => {
+    els43.addApiProviderButton?.addEventListener("click", () => call(methods, "addApiProvider"));
+    els43.deleteApiProviderButton?.addEventListener("click", () => call(methods, "deleteApiProvider"));
+    [els43.apiProviderName, els43.apiBaseUrl, els43.apiKey, els43.apiMode, els43.apiImageModel, els43.apiImagesConcurrency].filter(Boolean).forEach((element2) => {
       element2?.addEventListener("input", () => {
         call(methods, "readApiSettingsForm");
         call(methods, "persistApiSettings");
@@ -86,9 +86,9 @@
       });
     });
     call(methods, "bindOverlayPopoverEvents");
-    els42.runButton.addEventListener("click", () => call(methods, "runTask"));
-    document.addEventListener("keydown", (event) => handleRunTaskShortcut(event, els42, methods));
-    els42.refreshButton.addEventListener("click", () => {
+    els43.runButton.addEventListener("click", () => call(methods, "runTask"));
+    document.addEventListener("keydown", (event) => handleRunTaskShortcut(event, els43, methods));
+    els43.refreshButton.addEventListener("click", () => {
       void handleRefreshButtonClick(methods);
     });
     call(methods, "bindTaskListControlEvents");
@@ -98,8 +98,8 @@
   function call2(methods, name, ...args) {
     return methods[name]?.(...args);
   }
-  function bootWebUI(state32, els42, methods) {
-    bindWebUIEvents(state32, els42, methods);
+  function bootWebUI(state32, els43, methods) {
+    bindWebUIEvents(state32, els43, methods);
     call2(methods, "restoreThemePreference");
     call2(methods, "restoreSidebarWidth");
     call2(methods, "restoreMainModel");
@@ -151,6 +151,17 @@
       apiSourceSettingsButton: document.querySelector("#apiSourceSettingsButton"),
       githubLink: document.querySelector("#githubLink"),
       apiStatus: document.querySelector("#apiStatus"),
+      versionInfo: document.querySelector("#versionInfo"),
+      versionLabel: document.querySelector("#versionLabel"),
+      versionUpdateBadge: document.querySelector("#versionUpdateBadge"),
+      versionModal: document.querySelector("#versionModal"),
+      versionModalClose: document.querySelector("#versionModalClose"),
+      versionModalStatus: document.querySelector("#versionModalStatus"),
+      versionCurrent: document.querySelector("#versionCurrent"),
+      versionLatest: document.querySelector("#versionLatest"),
+      versionSource: document.querySelector("#versionSource"),
+      versionReleaseLink: document.querySelector("#versionReleaseLink"),
+      versionUpdateButton: document.querySelector("#versionUpdateButton"),
       apiDirectSettingsButton: document.querySelector("#apiDirectSettingsButton"),
       queueButton: document.querySelector("#queueButton"),
       queueStatusText: document.querySelector("#queueStatusText"),
@@ -551,6 +562,8 @@
       "history.detail": "\u4EFB\u52A1\u8BE6\u60C5",
       "history.detailTitle": "\u5386\u53F2\u4EFB\u52A1",
       "history.closeDetail": "\u5173\u95ED\u4EFB\u52A1\u8BE6\u60C5",
+      "history.resizeFilters": "\u8C03\u6574\u7B5B\u9009\u680F\u5BBD\u5EA6",
+      "history.resizeDetail": "\u8C03\u6574\u8BE6\u60C5\u680F\u5BBD\u5EA6",
       "history.detailEmpty": "\u9009\u62E9\u4E00\u4E2A\u5386\u53F2\u4EFB\u52A1\u67E5\u770B\u8BE6\u60C5",
       "history.loadingDetail": "\u8F7D\u5165\u8BE6\u60C5...",
       "history.loadMore": "\u7EE7\u7EED\u8F7D\u5165",
@@ -574,6 +587,9 @@
       "history.select": "\u7CBE\u9009",
       "history.downloadIndex": "\u4E0B\u8F7D {index}",
       "history.addReference": "\u52A0\u5165\u53C2\u8003\u56FE",
+      "history.outputActions": "\u7ED3\u679C\u56FE\u64CD\u4F5C",
+      "history.inputReferences": "\u8F93\u5165\u53C2\u8003\u56FE",
+      "history.inputReferenceIndex": "\u8F93\u5165\u53C2\u8003\u56FE {index}",
       "history.copyPrompt": "\u590D\u5236\u63D0\u793A\u8BCD",
       "history.copyPrompts": "\u590D\u5236\u63D0\u793A\u8BCD",
       "history.copyPromptShort": "\u590D\u5236",
@@ -613,7 +629,25 @@
       "footer.batch": "\u6279\u91CF\u7BA1\u7406",
       "footer.storage": "\u5B58\u50A8\u8BBE\u7F6E",
       "footer.apiStatus": "API \u72B6\u6001: \u6B63\u5E38",
-      "footer.version": "\u7248\u672C v1.0.0",
+      "footer.version": "\u7248\u672C {version}",
+      "footer.versionInfo": "\u7248\u672C\u4FE1\u606F",
+      "footer.versionLoading": "\u7248\u672C ...",
+      "footer.updateBadge": "\u6709\u65B0\u7248\u672C",
+      "footer.updateAvailable": "\u6709\u65B0\u7248\u672C {version}",
+      "version.title": "\u7248\u672C\u4E0E\u66F4\u65B0",
+      "version.loading": "\u6B63\u5728\u8BFB\u53D6\u7248\u672C\u72B6\u6001",
+      "version.current": "\u5F53\u524D\u7248\u672C",
+      "version.latest": "\u6700\u65B0\u7248\u672C",
+      "version.source": "\u8FD0\u884C\u65B9\u5F0F",
+      "version.sourcePortable": "\u4E00\u952E\u5305",
+      "version.sourceSource": "\u6E90\u7801\u8FD0\u884C",
+      "version.upToDate": "\u5F53\u524D\u5DF2\u7ECF\u662F\u6700\u65B0\u7248",
+      "version.updateAvailable": "\u53D1\u73B0\u65B0\u7248\u672C {version}\u3002\u5173\u95ED WebUI \u670D\u52A1\u7A97\u53E3\u540E\u8FD0\u884C\u66F4\u65B0\u5668\u5373\u53EF\u5347\u7EA7\u3002",
+      "version.noUpdater": "\u5F53\u524D\u4E0D\u662F\u4E00\u952E\u5305\u8FD0\u884C\uFF0C\u4E0D\u80FD\u81EA\u52A8\u542F\u52A8\u66F4\u65B0\u5668\u3002",
+      "version.openUpdater": "\u542F\u52A8\u66F4\u65B0\u5668",
+      "version.release": "\u67E5\u770B\u53D1\u5E03\u9875",
+      "version.updaterStarted": "\u66F4\u65B0\u5668\u5DF2\u542F\u52A8\u3002\u8BF7\u5173\u95ED\u5F53\u524D WebUI \u670D\u52A1\u7A97\u53E3\uFF0C\u518D\u6309\u66F4\u65B0\u5668\u63D0\u793A\u64CD\u4F5C\u3002",
+      "version.updaterFailed": "\u542F\u52A8\u66F4\u65B0\u5668\u5931\u8D25\uFF0C\u8BF7\u624B\u52A8\u8FD0\u884C\u5305\u5185\u66F4\u65B0\u811A\u672C\u3002",
       "notifications.title": "\u4EFB\u52A1\u901A\u77E5",
       "notifications.unread": "\u4EFB\u52A1\u901A\u77E5\uFF0C{count} \u6761\u672A\u8BFB",
       "notifications.unreadSummary": "{count} \u672A\u8BFB",
@@ -1160,7 +1194,8 @@
       "close.apiSettings": "\u5173\u95ED API \u8BBE\u7F6E\u9762\u677F",
       "close.imageEditor": "\u5173\u95ED\u7F16\u8F91\u8F93\u5165\u56FE\u7247\u9762\u677F",
       "close.gallery": "\u5173\u95ED\u516C\u7528\u56FE\u5E93\u9762\u677F",
-      "close.addGallery": "\u5173\u95ED\u6DFB\u52A0\u5230\u56FE\u5E93\u9762\u677F"
+      "close.addGallery": "\u5173\u95ED\u6DFB\u52A0\u5230\u56FE\u5E93\u9762\u677F",
+      "close.version": "\u5173\u95ED\u7248\u672C\u66F4\u65B0\u9762\u677F"
     },
     en: {
       "app.newTask": "New",
@@ -1326,6 +1361,8 @@
       "history.detail": "Task detail",
       "history.detailTitle": "History task",
       "history.closeDetail": "Close task detail",
+      "history.resizeFilters": "Resize filter sidebar",
+      "history.resizeDetail": "Resize detail pane",
       "history.detailEmpty": "Select a historical task to view details",
       "history.loadingDetail": "Loading detail...",
       "history.loadMore": "Load more",
@@ -1349,6 +1386,9 @@
       "history.select": "Select",
       "history.downloadIndex": "Download {index}",
       "history.addReference": "Add reference",
+      "history.outputActions": "Result image actions",
+      "history.inputReferences": "Input references",
+      "history.inputReferenceIndex": "Input reference {index}",
       "history.copyPrompt": "Copy prompt",
       "history.copyPrompts": "Copy prompts",
       "history.copyPromptShort": "Copy",
@@ -1388,7 +1428,25 @@
       "footer.batch": "Batch",
       "footer.storage": "Storage",
       "footer.apiStatus": "API status: OK",
-      "footer.version": "Version v1.0.0",
+      "footer.version": "Version {version}",
+      "footer.versionInfo": "Version info",
+      "footer.versionLoading": "Version ...",
+      "footer.updateBadge": "New version available",
+      "footer.updateAvailable": "New version {version}",
+      "version.title": "Version & Update",
+      "version.loading": "Reading version status",
+      "version.current": "Current version",
+      "version.latest": "Latest version",
+      "version.source": "Runtime",
+      "version.sourcePortable": "Portable package",
+      "version.sourceSource": "Source checkout",
+      "version.upToDate": "You are already on the latest version",
+      "version.updateAvailable": "Version {version} is available. Close the WebUI server window, then run the updater to upgrade.",
+      "version.noUpdater": "This runtime is not a portable package, so the updater cannot be started automatically.",
+      "version.openUpdater": "Start updater",
+      "version.release": "View release",
+      "version.updaterStarted": "Updater started. Close the current WebUI server window, then follow the updater prompts.",
+      "version.updaterFailed": "Could not start the updater. Run the updater script from the package manually.",
       "notifications.title": "Notifications",
       "notifications.unread": "Notifications, {count} unread",
       "notifications.unreadSummary": "{count} unread",
@@ -1935,7 +1993,8 @@
       "close.apiSettings": "Close API settings panel",
       "close.imageEditor": "Close image editor panel",
       "close.gallery": "Close gallery panel",
-      "close.addGallery": "Close add to gallery panel"
+      "close.addGallery": "Close add to gallery panel",
+      "close.version": "Close version update panel"
     }
   };
   var currentLocale = DEFAULT_LOCALE;
@@ -2143,8 +2202,8 @@
   function setTextIfChanged(element2, text) {
     if (element2.textContent !== text) element2.textContent = text;
   }
-  function activeElapsedTaskCards(els42, taskId) {
-    const roots = [els42.taskActiveList, els42.taskList].filter((root) => root instanceof HTMLElement);
+  function activeElapsedTaskCards(els43, taskId) {
+    const roots = [els43.taskActiveList, els43.taskList].filter((root) => root instanceof HTMLElement);
     const cards = roots.flatMap(
       (root) => Array.from(root.querySelectorAll(`.task-card[data-task-id="${cssEscape(taskId)}"]`))
     );
@@ -2170,19 +2229,19 @@
     if (retryElement) setTextIfChanged(retryElement, taskRetryStateText(task));
   }
   function updateTaskElapsedDisplays() {
-    const { state: state32, els: els42 } = getLegacyBridge();
+    const { state: state32, els: els43 } = getLegacyBridge();
     const activeTasks = state32.tasks.filter((task) => taskNeedsElapsedTick(task));
     if (!activeTasks.length) return;
     activeTasks.forEach((task) => {
       const taskId = String(task.task_id || "");
       if (!taskId) return;
-      activeElapsedTaskCards(els42, taskId).forEach((card) => updateTaskElapsedCard(card, task));
+      activeElapsedTaskCards(els43, taskId).forEach((card) => updateTaskElapsedCard(card, task));
     });
   }
   function updatePreviewElapsedDisplay() {
-    const { els: els42 } = getLegacyBridge();
-    if (!els42.previewGrid) return;
-    els42.previewGrid.querySelectorAll("[data-preview-elapsed]").forEach((element2) => {
+    const { els: els43 } = getLegacyBridge();
+    if (!els43.previewGrid) return;
+    els43.previewGrid.querySelectorAll("[data-preview-elapsed]").forEach((element2) => {
       updateElapsedTimerElement(element2, elapsedMillisecondsSince(element2.dataset.previewStart));
     });
   }
@@ -2218,9 +2277,9 @@
     }
   }
   function updatePromptCount() {
-    const { els: els42 } = getLegacyBridge();
-    if (!els42.charCount) return;
-    els42.charCount.textContent = `${getPromptText().length} / 4000`;
+    const { els: els43 } = getLegacyBridge();
+    if (!els43.charCount) return;
+    els43.charCount.textContent = `${getPromptText().length} / 4000`;
   }
   function addPendingTask(task) {
     const state32 = getLegacyBridge().state;
@@ -2256,20 +2315,20 @@
     renderPreview(task);
   }
   function startRunFeedback(task, actionLabel = null) {
-    const { state: state32, els: els42 } = getLegacyBridge();
+    const { state: state32, els: els43 } = getLegacyBridge();
     stopRunFeedback();
     state32.runFeedbackAction = actionLabel;
     state32.runStartedAt = timestampMs(task.started_at || task.created_at) || Date.now();
     state32.runTimerId = window.setInterval(updateRunFeedback, 100);
-    els42.runButton?.classList.add("running");
+    els43.runButton?.classList.add("running");
     updateRunFeedback();
   }
   function updateRunFeedback() {
-    const { state: state32, els: els42 } = getLegacyBridge();
+    const { state: state32, els: els43 } = getLegacyBridge();
     if (!state32.runStartedAt) return;
     const elapsed = formatDurationTenths(elapsedMillisecondsSince(state32.runStartedAt));
     const action = state32.runFeedbackAction || (state32.mode === "edit" ? translate("runFeedback.editing") : translate("runFeedback.generating"));
-    if (els42.runButton) els42.runButton.textContent = `${action} ${elapsed}`;
+    if (els43.runButton) els43.runButton.textContent = `${action} ${elapsed}`;
     setStatus(formatTranslation("runFeedback.status", { action, elapsed }), "running");
     updateElapsedDisplays();
     if (state32.selectedTaskId === state32.pendingTaskId) {
@@ -2277,14 +2336,14 @@
     }
   }
   function stopRunFeedback() {
-    const { state: state32, els: els42 } = getLegacyBridge();
+    const { state: state32, els: els43 } = getLegacyBridge();
     if (state32.runTimerId) {
       window.clearInterval(state32.runTimerId);
     }
     state32.runTimerId = null;
     state32.runStartedAt = null;
     state32.runFeedbackAction = null;
-    els42.runButton?.classList.remove("running");
+    els43.runButton?.classList.remove("running");
     syncRunButtonLabel();
   }
 
@@ -2799,8 +2858,8 @@
     });
   }
   function focusImagePasteTarget() {
-    const els42 = getEls();
-    els42.imageUploadSource?.focus({ preventScroll: true });
+    const els43 = getEls();
+    els43.imageUploadSource?.focus({ preventScroll: true });
   }
   function handleImagePaste(event) {
     const files = imageFilesFromClipboardItems(event.clipboardData?.items);
@@ -2875,13 +2934,13 @@
     return files;
   }
   async function pasteClipboardImages() {
-    const els42 = getEls();
+    const els43 = getEls();
     if (!navigator.clipboard?.read) {
       focusImagePasteTarget();
       setStatus2(clipboardReadFallbackMessage(translate("inputSource.clipboardUnsupported")), "error");
       return;
     }
-    els42.pasteClipboardButton.disabled = true;
+    els43.pasteClipboardButton.disabled = true;
     try {
       const files = await readClipboardImageFiles();
       const added = addImageFiles(files, {
@@ -2894,7 +2953,7 @@
       const reason = ["NotAllowedError", "SecurityError"].includes(String(error?.name || "")) ? translate("inputSource.clipboardDenied") : translate("inputSource.clipboardReadFailed");
       setStatus2(clipboardReadFallbackMessage(reason), "error");
     } finally {
-      els42.pasteClipboardButton.disabled = false;
+      els43.pasteClipboardButton.disabled = false;
     }
   }
   function missingGalleryInputs() {
@@ -2933,16 +2992,16 @@
   }
   function renderReferenceCollector() {
     const state32 = getState();
-    const els42 = getEls();
-    if (!els42.referenceCollector) return;
+    const els43 = getEls();
+    if (!els43.referenceCollector) return;
     const items = state32.collectedReferences;
     if (!items.length) {
-      els42.referenceCollector.classList.add("hidden");
-      els42.referenceCollector.innerHTML = "";
+      els43.referenceCollector.classList.add("hidden");
+      els43.referenceCollector.innerHTML = "";
       return;
     }
-    els42.referenceCollector.classList.remove("hidden");
-    els42.referenceCollector.innerHTML = `
+    els43.referenceCollector.classList.remove("hidden");
+    els43.referenceCollector.innerHTML = `
     <div class="reference-collector-header">
       <span>${escapeHtml2(formatTranslation("referenceCollector.title", { count: items.length }))}</span>
       <div class="reference-collector-actions">
@@ -2959,9 +3018,9 @@
       `).join("")}
     </div>
   `;
-    els42.referenceCollector.querySelector("[data-reference-collector-add-all]")?.addEventListener("click", addCollectedReferencesToInput);
-    els42.referenceCollector.querySelector("[data-reference-collector-clear]")?.addEventListener("click", () => clearCollectedReferences());
-    els42.referenceCollector.querySelectorAll("[data-reference-collector-remove]").forEach((button) => {
+    els43.referenceCollector.querySelector("[data-reference-collector-add-all]")?.addEventListener("click", addCollectedReferencesToInput);
+    els43.referenceCollector.querySelector("[data-reference-collector-clear]")?.addEventListener("click", () => clearCollectedReferences());
+    els43.referenceCollector.querySelectorAll("[data-reference-collector-remove]").forEach((button) => {
       button.addEventListener("click", () => removeCollectedReference(button.dataset.referenceCollectorRemove));
     });
   }
@@ -3012,10 +3071,10 @@
   }
   async function addCollectedReferencesToInput() {
     const state32 = getState();
-    const els42 = getEls();
+    const els43 = getEls();
     const items = state32.collectedReferences.slice();
     if (!items.length) return;
-    const addButton = els42.referenceCollector?.querySelector("[data-reference-collector-add-all]");
+    const addButton = els43.referenceCollector?.querySelector("[data-reference-collector-add-all]");
     if (addButton) addButton.disabled = true;
     try {
       const files = [];
@@ -3054,13 +3113,13 @@
     }
   }
   function bindInputSourceEvents() {
-    const els42 = getEls();
-    els42.pasteClipboardButton?.addEventListener("click", pasteClipboardImages);
+    const els43 = getEls();
+    els43.pasteClipboardButton?.addEventListener("click", pasteClipboardImages);
     document.addEventListener("paste", handleImagePaste);
-    els42.imageUploaderGrid?.addEventListener("dragenter", handleImageDragEnter);
-    els42.imageUploaderGrid?.addEventListener("dragover", handleImageDragOver);
-    els42.imageUploaderGrid?.addEventListener("dragleave", handleImageDragLeave);
-    els42.imageUploaderGrid?.addEventListener("drop", handleImageDrop);
+    els43.imageUploaderGrid?.addEventListener("dragenter", handleImageDragEnter);
+    els43.imageUploaderGrid?.addEventListener("dragover", handleImageDragOver);
+    els43.imageUploaderGrid?.addEventListener("dragleave", handleImageDragLeave);
+    els43.imageUploaderGrid?.addEventListener("drop", handleImageDrop);
   }
   function initInputSourcesFeature() {
     if (inputSourcesFeatureInitialized) return;
@@ -3155,10 +3214,10 @@
     return remoteImageSourceFile(source);
   }
   function setImageEditorStatus(message, type = "") {
-    const els42 = getEls();
-    if (!els42.imageEditorStatus) return;
-    els42.imageEditorStatus.textContent = message || "";
-    els42.imageEditorStatus.className = `image-editor-status ${type || ""}`.trim();
+    const els43 = getEls();
+    if (!els43.imageEditorStatus) return;
+    els43.imageEditorStatus.textContent = message || "";
+    els43.imageEditorStatus.className = `image-editor-status ${type || ""}`.trim();
   }
   function nextImageEditorSession() {
     imageEditorState.sessionId += 1;
@@ -3288,8 +3347,8 @@
     pushImageEditorHistory();
   }
   function renderImageEditor() {
-    const els42 = getEls();
-    const visible = els42.imageEditorCanvas;
+    const els43 = getEls();
+    const visible = els43.imageEditorCanvas;
     const work = imageEditorState.workCanvas;
     if (!visible || !work) return;
     visible.width = work.width;
@@ -3325,12 +3384,12 @@
     restoreImageEditorSnapshot(imageEditorState.history[imageEditorState.historyIndex]);
   }
   function updateImageEditorControls() {
-    const els42 = getEls();
+    const els43 = getEls();
     const canUndo = imageEditorState.historyIndex > 0;
     const canRedo = imageEditorState.historyIndex >= 0 && imageEditorState.historyIndex < imageEditorState.history.length - 1;
-    if (els42.imageEditorUndo) els42.imageEditorUndo.disabled = !canUndo;
-    if (els42.imageEditorRedo) els42.imageEditorRedo.disabled = !canRedo;
-    if (els42.imageEditorStrokeValue) els42.imageEditorStrokeValue.textContent = `${imageEditorState.strokeWidth}px`;
+    if (els43.imageEditorUndo) els43.imageEditorUndo.disabled = !canUndo;
+    if (els43.imageEditorRedo) els43.imageEditorRedo.disabled = !canRedo;
+    if (els43.imageEditorStrokeValue) els43.imageEditorStrokeValue.textContent = `${imageEditorState.strokeWidth}px`;
     document.querySelectorAll("[data-image-editor-tool]").forEach((button) => {
       button.classList.toggle("active", button.dataset.imageEditorTool === imageEditorState.tool);
     });
@@ -3339,9 +3398,9 @@
     });
   }
   function updateImageEditorCropBox() {
-    const els42 = getEls();
-    const box = els42.imageEditorCropBox;
-    const canvas = els42.imageEditorCanvas;
+    const els43 = getEls();
+    const box = els43.imageEditorCropBox;
+    const canvas = els43.imageEditorCanvas;
     const crop = imageEditorState.crop;
     if (!box || !canvas || !crop) {
       box?.classList.add("hidden");
@@ -3660,7 +3719,7 @@ ${hint}` : hint;
   }
   async function saveImageEdit() {
     const state32 = getState();
-    const els42 = getEls();
+    const els43 = getEls();
     const sessionId = imageEditorState.sessionId;
     const source = imageEditorState.source;
     const saveCanvas = imageEditorCanvasForSave();
@@ -3668,7 +3727,7 @@ ${hint}` : hint;
       setImageEditorStatus(translate("imageEditor.saveFailed"), "error");
       return;
     }
-    if (els42.imageEditorSave) els42.imageEditorSave.disabled = true;
+    if (els43.imageEditorSave) els43.imageEditorSave.disabled = true;
     try {
       const blob = await imageEditorExportBlob(saveCanvas);
       const sourceIndex = state32.images.indexOf(source);
@@ -3699,12 +3758,12 @@ ${hint}` : hint;
     } catch (error) {
       setImageEditorStatus(error.message || translate("imageEditor.saveFailed"), "error");
     } finally {
-      if (els42.imageEditorSave) els42.imageEditorSave.disabled = false;
+      if (els43.imageEditorSave) els43.imageEditorSave.disabled = false;
     }
   }
   async function openImageEditor(index) {
     const state32 = getState();
-    const els42 = getEls();
+    const els43 = getEls();
     const source = state32.images[index];
     if (!source || !isEditableImageSource(source)) {
       legacyMethod3("setStatus", translate("imageEditor.uneditable"), "error");
@@ -3715,15 +3774,15 @@ ${hint}` : hint;
     imageEditorState.source = source;
     imageEditorState.originalFile = null;
     imageEditorState.tool = "crop";
-    imageEditorState.color = els42.imageEditorColor?.value || "#ff3b30";
-    imageEditorState.strokeWidth = Number(els42.imageEditorStroke?.value || 8);
+    imageEditorState.color = els43.imageEditorColor?.value || "#ff3b30";
+    imageEditorState.strokeWidth = Number(els43.imageEditorStroke?.value || 8);
     imageEditorState.hasInstructionMarks = false;
     imageEditorState.drawing = null;
     setImageEditorStatus("");
-    if (els42.imageEditorSubtitle) {
-      els42.imageEditorSubtitle.textContent = legacyMethod3("sourceName", source) || translate("imageEditor.inputFallback");
+    if (els43.imageEditorSubtitle) {
+      els43.imageEditorSubtitle.textContent = legacyMethod3("sourceName", source) || translate("imageEditor.inputFallback");
     }
-    els42.imageEditorModal?.classList.remove("hidden");
+    els43.imageEditorModal?.classList.remove("hidden");
     try {
       const file = await imageEditorSourceFile(source);
       if (sessionId !== imageEditorState.sessionId || imageEditorState.source !== source) return;
@@ -3740,9 +3799,9 @@ ${hint}` : hint;
     }
   }
   function closeImageEditor() {
-    const els42 = getEls();
+    const els43 = getEls();
     nextImageEditorSession();
-    els42.imageEditorModal?.classList.add("hidden");
+    els43.imageEditorModal?.classList.add("hidden");
     imageEditorState.sourceIndex = null;
     imageEditorState.source = null;
     imageEditorState.originalFile = null;
@@ -3783,8 +3842,8 @@ ${hint}` : hint;
     }
   }
   function isImageEditorModalOpen() {
-    const els42 = getEls();
-    return Boolean(els42.imageEditorModal && !els42.imageEditorModal.classList.contains("hidden"));
+    const els43 = getEls();
+    return Boolean(els43.imageEditorModal && !els43.imageEditorModal.classList.contains("hidden"));
   }
   function handleImageEditorHistoryShortcut(event) {
     if (!isImageEditorModalOpen()) return false;
@@ -3807,11 +3866,11 @@ ${hint}` : hint;
     return false;
   }
   function bindImageEditorEvents() {
-    const els42 = getEls();
-    els42.imageEditorClose?.addEventListener("click", closeImageEditor);
-    els42.imageEditorCancel?.addEventListener("click", closeImageEditor);
-    els42.imageEditorModal?.addEventListener("click", (event) => {
-      if (event.target === els42.imageEditorModal) closeImageEditor();
+    const els43 = getEls();
+    els43.imageEditorClose?.addEventListener("click", closeImageEditor);
+    els43.imageEditorCancel?.addEventListener("click", closeImageEditor);
+    els43.imageEditorModal?.addEventListener("click", (event) => {
+      if (event.target === els43.imageEditorModal) closeImageEditor();
     });
     document.querySelectorAll("[data-image-editor-tool]").forEach((button) => {
       button.addEventListener("click", () => setImageEditorTool(button.dataset.imageEditorTool));
@@ -3819,26 +3878,26 @@ ${hint}` : hint;
     document.querySelectorAll("[data-image-editor-color]").forEach((button) => {
       button.addEventListener("click", () => {
         imageEditorState.color = button.dataset.imageEditorColor || imageEditorState.color;
-        if (els42.imageEditorColor) els42.imageEditorColor.value = imageEditorState.color;
+        if (els43.imageEditorColor) els43.imageEditorColor.value = imageEditorState.color;
         updateImageEditorControls();
       });
     });
-    els42.imageEditorColor?.addEventListener("input", () => {
-      imageEditorState.color = els42.imageEditorColor.value || imageEditorState.color;
+    els43.imageEditorColor?.addEventListener("input", () => {
+      imageEditorState.color = els43.imageEditorColor.value || imageEditorState.color;
       updateImageEditorControls();
     });
-    els42.imageEditorStroke?.addEventListener("input", () => {
-      imageEditorState.strokeWidth = Number(els42.imageEditorStroke.value || 8);
+    els43.imageEditorStroke?.addEventListener("input", () => {
+      imageEditorState.strokeWidth = Number(els43.imageEditorStroke.value || 8);
       updateImageEditorControls();
     });
-    els42.imageEditorUndo?.addEventListener("click", undoImageEdit);
-    els42.imageEditorRedo?.addEventListener("click", redoImageEdit);
-    els42.imageEditorReset?.addEventListener("click", resetImageEdit);
-    els42.imageEditorSave?.addEventListener("click", saveImageEdit);
-    els42.imageEditorCanvas?.addEventListener("pointerdown", handleImageEditorPointerDown);
-    els42.imageEditorCanvas?.addEventListener("pointermove", handleImageEditorPointerMove);
-    els42.imageEditorCanvas?.addEventListener("pointerup", handleImageEditorPointerUp);
-    els42.imageEditorCanvas?.addEventListener("pointercancel", handleImageEditorPointerCancel);
+    els43.imageEditorUndo?.addEventListener("click", undoImageEdit);
+    els43.imageEditorRedo?.addEventListener("click", redoImageEdit);
+    els43.imageEditorReset?.addEventListener("click", resetImageEdit);
+    els43.imageEditorSave?.addEventListener("click", saveImageEdit);
+    els43.imageEditorCanvas?.addEventListener("pointerdown", handleImageEditorPointerDown);
+    els43.imageEditorCanvas?.addEventListener("pointermove", handleImageEditorPointerMove);
+    els43.imageEditorCanvas?.addEventListener("pointerup", handleImageEditorPointerUp);
+    els43.imageEditorCanvas?.addEventListener("pointercancel", handleImageEditorPointerCancel);
   }
   function initImageEditorFeature() {
     if (imageEditorFeatureInitialized) return;
@@ -3887,9 +3946,9 @@ ${hint}` : hint;
   }
   function imageStripNeedsCompactGrid() {
     const state32 = getState();
-    const els42 = getEls();
-    if (!els42.imageUploaderGrid || !state32.images.length) return false;
-    const availableWidth = Math.max(0, els42.imageUploaderGrid.clientWidth - 24);
+    const els43 = getEls();
+    if (!els43.imageUploaderGrid || !state32.images.length) return false;
+    const availableWidth = Math.max(0, els43.imageUploaderGrid.clientWidth - 24);
     if (!availableWidth) return false;
     const thumbCount = state32.images.length;
     const fullSizeThumbsWidth = thumbCount * 116 + Math.max(0, thumbCount - 1) * 10;
@@ -3899,24 +3958,24 @@ ${hint}` : hint;
   }
   function updateImageStripDensity() {
     const state32 = getState();
-    const els42 = getEls();
+    const els43 = getEls();
     const hasImages = Boolean(state32.images.length);
     const compactGrid = imageStripNeedsCompactGrid();
-    els42.imageUploaderGrid?.classList.toggle("has-images", hasImages);
-    els42.imageUploaderGrid?.classList.toggle("compact-grid", compactGrid);
+    els43.imageUploaderGrid?.classList.toggle("has-images", hasImages);
+    els43.imageUploaderGrid?.classList.toggle("compact-grid", compactGrid);
   }
   function wheelDeltaInPixels(event) {
     const dominantDelta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
     if (event.deltaMode === WheelEvent.DOM_DELTA_LINE) return dominantDelta * 16;
     if (event.deltaMode === WheelEvent.DOM_DELTA_PAGE) {
-      const els42 = getEls();
-      return dominantDelta * Math.max(1, els42.imageStrip?.clientWidth || 1);
+      const els43 = getEls();
+      return dominantDelta * Math.max(1, els43.imageStrip?.clientWidth || 1);
     }
     return dominantDelta;
   }
   function handleImageStripWheel(event) {
-    const els42 = getEls();
-    const scrollTarget = els42.imageUploaderGrid?.classList.contains("compact-grid") ? els42.imageStrip : els42.imageThumbList;
+    const els43 = getEls();
+    const scrollTarget = els43.imageUploaderGrid?.classList.contains("compact-grid") ? els43.imageStrip : els43.imageThumbList;
     if (!scrollTarget) return;
     const maxScrollLeft = Math.max(0, scrollTarget.scrollWidth - scrollTarget.clientWidth);
     if (!maxScrollLeft) return;
@@ -3929,9 +3988,9 @@ ${hint}` : hint;
   }
   function renderImageStrip() {
     const state32 = getState();
-    const els42 = getEls();
+    const els43 = getEls();
     const hasImages = Boolean(state32.images.length);
-    const thumbList = els42.imageThumbList || els42.imageStrip;
+    const thumbList = els43.imageThumbList || els43.imageStrip;
     updateImageStripDensity();
     if (!thumbList) return;
     if (!hasImages) {
@@ -4013,10 +4072,10 @@ ${hint}` : hint;
     legacyMethod4("updateCustomRatioReferenceButtonState");
   }
   function bindImageStripEvents() {
-    const els42 = getEls();
-    els42.imageInput?.addEventListener("change", addImages);
-    els42.clearImagesButton?.addEventListener("click", clearImages);
-    els42.imageStrip?.addEventListener("wheel", handleImageStripWheel, { passive: false });
+    const els43 = getEls();
+    els43.imageInput?.addEventListener("change", addImages);
+    els43.clearImagesButton?.addEventListener("click", clearImages);
+    els43.imageStrip?.addEventListener("wheel", handleImageStripWheel, { passive: false });
     window.addEventListener("resize", updateImageStripDensity);
     document.addEventListener(LOCALE_CHANGE_EVENT, renderImageStrip);
   }
@@ -5660,12 +5719,12 @@ ${hint}` : hint;
       }
     });
   }
-  async function patchGalleryItem(itemId, payload) {
+  async function patchGalleryItem(itemId, payload2) {
     try {
       const response = await fetch(`/api/gallery/${encodeURIComponent(itemId)}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload2)
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.detail || translate("gallery.updateFailed"));
@@ -6499,7 +6558,7 @@ ${hint}` : hint;
     }
     const settings = readApiSettingsForm();
     persistApiSettings();
-    const payload = {
+    const payload2 = {
       active_provider_id: settings.active_provider_id,
       providers: settings.providers.map((provider) => {
         const item = {
@@ -6521,7 +6580,7 @@ ${hint}` : hint;
       const response = await fetch("/api/api-settings", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload2)
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.detail || translate("apiSettings.saveFailed"));
@@ -6792,11 +6851,11 @@ ${hint}` : hint;
       state10.colorPalette = defaultColorPalette();
     }
   }
-  async function persistColorPalette(payload) {
+  async function persistColorPalette(payload2) {
     const response = await fetch(COLOR_PALETTE_ENDPOINT, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload2)
     });
     const data = await response.json();
     if (!response.ok) throw new Error(data.detail || translate("colors.saveFailed"));
@@ -7894,7 +7953,7 @@ ${hint}` : hint;
   async function savePromptSnippetFromPopover() {
     const popover = promptSnippetPopoverElement();
     if (!popover) return;
-    const payload = {
+    const payload2 = {
       tag: popover.querySelector("[data-prompt-snippet-tag]")?.value || "",
       title: popover.querySelector("[data-prompt-snippet-title]")?.value || "",
       category: popover.querySelector("[data-prompt-snippet-category]")?.value || DEFAULT_PROMPT_SNIPPET_CATEGORY,
@@ -7905,7 +7964,7 @@ ${hint}` : hint;
       const response = await fetch(isEdit ? `${PROMPT_SNIPPETS_ENDPOINT}/${encodeURIComponent(promptSnippetPopoverState.snippetId)}` : PROMPT_SNIPPETS_ENDPOINT, {
         method: isEdit ? "PATCH" : "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload2)
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.detail || translate("snippets.saveFailed"));
@@ -8593,7 +8652,7 @@ ${hint}` : hint;
     const form = els15.promptTemplateForm?.querySelector(".prompt-template-form");
     if (!form) return;
     const templateId = form.dataset.promptTemplateFormId || "";
-    const payload = {
+    const payload2 = {
       title: form.querySelector("[data-prompt-template-title]")?.value || "",
       short_title: form.querySelector("[data-prompt-template-short-title]")?.value || "",
       category: form.querySelector("[data-prompt-template-category-input]")?.value || PROMPT_TEMPLATE_CATEGORY_COMMON,
@@ -8608,7 +8667,7 @@ ${hint}` : hint;
       const response = await fetch(templateId ? `${PROMPT_TEMPLATES_ENDPOINT}/${encodeURIComponent(templateId)}` : PROMPT_TEMPLATES_ENDPOINT, {
         method: templateId ? "PATCH" : "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload2)
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.detail || translate("templates.saveFailed"));
@@ -11856,16 +11915,49 @@ ${galleryText}`;
     const normalizedTaskId = String(taskId || "");
     return queueIds.waiting.get(normalizedTaskId) ?? -1;
   }
+  function taskQueueActionIconHtml(icon) {
+    if (icon === "cancel") {
+      return `<svg class="task-queue-action-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+        <path d="M5.25 5.25h5.5v5.5h-5.5z" />
+      </svg>`;
+    }
+    if (icon === "up") {
+      return `<svg class="task-queue-action-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+        <path d="M8 12V4.5" />
+        <path d="M4.75 7.75 8 4.5l3.25 3.25" />
+      </svg>`;
+    }
+    if (icon === "down") {
+      return `<svg class="task-queue-action-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+        <path d="M8 4v7.5" />
+        <path d="M4.75 8.25 8 11.5l3.25-3.25" />
+      </svg>`;
+    }
+    if (icon === "top") {
+      return `<svg class="task-queue-action-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+        <path d="M4.5 3.5h7" />
+        <path d="M8 12.5V6" />
+        <path d="M5.25 8.75 8 6l2.75 2.75" />
+      </svg>`;
+    }
+    return `<svg class="task-queue-action-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+      <path d="M5.25 6.25v5.5" />
+      <path d="M8 6.25v5.5" />
+      <path d="M10.75 6.25v5.5" />
+      <path d="M4.25 4.25h7.5" />
+      <path d="M6.25 4.25l.5-1h2.5l.5 1" />
+      <path d="M5 4.25h6l-.45 9H5.45z" />
+    </svg>`;
+  }
   function taskQueueActionStripHtml(task, queueSection = taskQueueSection(task), waitingIndex = waitingQueueIndex(task?.task_id)) {
     if (!queueSection) return "";
     const taskId = escapeHtml13(task.task_id);
     if (queueSection === "running") {
       const runningActionsLabel = escapeHtml13(translate("queue.runningActions"));
-      const cancelLabel = escapeHtml13(translate("queue.cancelRunning"));
       const cancelTitle = escapeHtml13(translate("queue.cancelRunningTitle"));
       return `
       <div class="task-queue-actions task-queue-actions-running" role="group" aria-label="${runningActionsLabel}" data-task-queue-section="${escapeHtml13(queueSection)}">
-        <button class="task-queue-action task-queue-cancel-button" type="button" data-task-queue-cancel-id="${taskId}" aria-label="${cancelTitle}" title="${cancelTitle}">${cancelLabel}</button>
+        <button class="task-queue-action task-queue-cancel-button" type="button" data-task-queue-cancel-id="${taskId}" aria-label="${cancelTitle}" title="${cancelTitle}">${taskQueueActionIconHtml("cancel")}</button>
       </div>
     `;
     }
@@ -11875,13 +11967,9 @@ ${galleryText}`;
     const waitingActionsLabel = escapeHtml13(translate("queue.waitingActions"));
     const dragWaitingLabel = escapeHtml13(translate("queue.dragWaiting"));
     const dragSortLabel = escapeHtml13(translate("queue.dragSort"));
-    const moveUpLabel = escapeHtml13(translate("queue.moveUp"));
     const moveUpTitle = escapeHtml13(translate("queue.moveUpTitle"));
-    const moveDownLabel = escapeHtml13(translate("queue.moveDown"));
     const moveDownTitle = escapeHtml13(translate("queue.moveDownTitle"));
-    const promoteLabel = escapeHtml13(translate("queue.promote"));
     const promoteTitle = escapeHtml13(translate("queue.promoteTitle"));
-    const deleteLabel = escapeHtml13(translate("queue.deleteWaitingShort"));
     const deleteTitle = escapeHtml13(translate("queue.deleteWaitingTitle"));
     return `
     <div class="task-queue-actions task-queue-actions-waiting" role="group" aria-label="${waitingActionsLabel}" data-task-queue-section="${escapeHtml13(queueSection)}">
@@ -11890,10 +11978,10 @@ ${galleryText}`;
           <path d="M5 3.5h.1M5 8h.1M5 12.5h.1M10.5 3.5h.1M10.5 8h.1M10.5 12.5h.1" />
         </svg>
       </button>
-      <button class="task-queue-action" type="button" data-task-queue-move-id="${taskId}" data-task-queue-direction="up" aria-label="${moveUpTitle}" title="${moveUpTitle}"${disableMoveUp ? " disabled" : ""}>${moveUpLabel}</button>
-      <button class="task-queue-action" type="button" data-task-queue-move-id="${taskId}" data-task-queue-direction="down" aria-label="${moveDownTitle}" title="${moveDownTitle}"${disableMoveDown ? " disabled" : ""}>${moveDownLabel}</button>
-      <button class="task-queue-action" type="button" data-task-queue-promote-id="${taskId}" aria-label="${promoteTitle}" title="${promoteTitle}">${promoteLabel}</button>
-      <button class="task-queue-action task-queue-delete-button" type="button" data-task-queue-delete-id="${taskId}" aria-label="${deleteTitle}" title="${deleteTitle}">${deleteLabel}</button>
+      <button class="task-queue-action" type="button" data-task-queue-move-id="${taskId}" data-task-queue-direction="up" aria-label="${moveUpTitle}" title="${moveUpTitle}"${disableMoveUp ? " disabled" : ""}>${taskQueueActionIconHtml("up")}</button>
+      <button class="task-queue-action" type="button" data-task-queue-move-id="${taskId}" data-task-queue-direction="down" aria-label="${moveDownTitle}" title="${moveDownTitle}"${disableMoveDown ? " disabled" : ""}>${taskQueueActionIconHtml("down")}</button>
+      <button class="task-queue-action" type="button" data-task-queue-promote-id="${taskId}" aria-label="${promoteTitle}" title="${promoteTitle}">${taskQueueActionIconHtml("top")}</button>
+      <button class="task-queue-action task-queue-delete-button" type="button" data-task-queue-delete-id="${taskId}" aria-label="${deleteTitle}" title="${deleteTitle}">${taskQueueActionIconHtml("delete")}</button>
     </div>
   `;
   }
@@ -13510,7 +13598,7 @@ ${galleryText}`;
     const authSource = currentAuthSource3();
     const isApi = authSource === "api";
     const requestedBackend = backendForAuthSource2(authSource, isApi ? currentApiMode4() : null);
-    const payload = {
+    const payload2 = {
       mode: state24.mode,
       auth_source: authSource,
       requested_backend: requestedBackend,
@@ -13531,16 +13619,16 @@ ${galleryText}`;
     if (isApi) {
       const apiMode = currentApiMode4();
       const action = state24.mode === "edit" || uploads.length || assets.length || galleries.length ? "edit" : "generate";
-      payload.api_provider_id = currentApiProviderId3();
-      payload.api_provider_name = currentApiProviderLabel3();
-      payload.webui_api_provider_id = payload.api_provider_id;
-      payload.webui_api_provider_name = payload.api_provider_name;
-      payload.api_mode = apiMode;
-      payload.api_images_concurrency = currentApiImagesConcurrency2();
+      payload2.api_provider_id = currentApiProviderId3();
+      payload2.api_provider_name = currentApiProviderLabel3();
+      payload2.webui_api_provider_id = payload2.api_provider_id;
+      payload2.webui_api_provider_name = payload2.api_provider_name;
+      payload2.api_mode = apiMode;
+      payload2.api_images_concurrency = currentApiImagesConcurrency2();
       if (apiMode === "responses") {
-        payload.endpoint = "/responses";
-        payload.model = params.main_model;
-        payload.tools = [{
+        payload2.endpoint = "/responses";
+        payload2.model = params.main_model;
+        payload2.tools = [{
           type: "image_generation",
           action,
           model: params.model,
@@ -13550,15 +13638,15 @@ ${galleryText}`;
           moderation: params.moderation
         }];
         if (params.output_compression !== null && params.output_compression !== void 0) {
-          payload.tools[0].output_compression = params.output_compression;
+          payload2.tools[0].output_compression = params.output_compression;
         }
       } else {
-        payload.endpoint = action === "edit" ? "/images/edits" : "/images/generations";
+        payload2.endpoint = action === "edit" ? "/images/edits" : "/images/generations";
       }
     } else {
-      payload.main_model = params.main_model;
+      payload2.main_model = params.main_model;
     }
-    return payload;
+    return payload2;
   }
   function createPendingTask() {
     const taskId = `pending-${Date.now()}`;
@@ -13857,8 +13945,8 @@ ${galleryText}`;
     window.updateQueueElapsedDisplays = updateQueueElapsedDisplays;
   }
   function bindQueueControls() {
-    const els42 = getEls();
-    els42.queueButton?.addEventListener("click", jumpToActiveTaskGroup);
+    const els43 = getEls();
+    els43.queueButton?.addEventListener("click", jumpToActiveTaskGroup);
   }
   function startRealtimeUpdates({ migrateLegacyArchives = false } = {}) {
     const state32 = getState();
@@ -13892,30 +13980,30 @@ ${galleryText}`;
   }
   async function handleRealtimeMessage(event) {
     if (!event.data) return;
-    const payload = JSON.parse(String(event.data));
-    await handleRealtimePayload(payload);
+    const payload2 = JSON.parse(String(event.data));
+    await handleRealtimePayload(payload2);
   }
-  async function handleRealtimePayload(payload) {
+  async function handleRealtimePayload(payload2) {
     const bridge39 = getLegacyBridge();
     const state32 = bridge39.state;
-    if (payload?.type === "snapshot") {
-      applyQueueState(payload.queue);
-      await bridge39.methods.applyTasksSnapshot(payload.tasks || [], {
+    if (payload2?.type === "snapshot") {
+      applyQueueState(payload2.queue);
+      await bridge39.methods.applyTasksSnapshot(payload2.tasks || [], {
         migrateLegacyArchives: state32.realtimeSnapshotNeedsArchiveMigration
       });
-      applyQueueTasks(payload.queue);
+      applyQueueTasks(payload2.queue);
       state32.realtimeSnapshotNeedsArchiveMigration = false;
       return;
     }
-    if (payload?.type === "queue") {
-      applyQueueState(payload.queue);
-      applyQueueTasks(payload.queue);
+    if (payload2?.type === "queue") {
+      applyQueueState(payload2.queue);
+      applyQueueTasks(payload2.queue);
       return;
     }
-    if (payload?.type === "task") {
-      const previousTask = state32.tasks.find((item) => String(item.task_id) === String(payload.task?.task_id));
-      bridge39.methods.notifyTaskUpdate?.(previousTask, payload.task);
-      bridge39.methods.applyTaskUpdate(payload.task);
+    if (payload2?.type === "task") {
+      const previousTask = state32.tasks.find((item) => String(item.task_id) === String(payload2.task?.task_id));
+      bridge39.methods.notifyTaskUpdate?.(previousTask, payload2.task);
+      bridge39.methods.applyTaskUpdate(payload2.task);
     }
   }
   async function refreshQueue() {
@@ -13996,16 +14084,16 @@ ${galleryText}`;
     usableChannelCount,
     dispatchPending
   }) {
-    const els42 = getEls();
+    const els43 = getEls();
     const total = waitingCount + runningCount;
     const channelText = usableChannelCount === channelCount ? formatTranslation("queue.channel", { count: channelCount }) : formatTranslation("queue.availableChannels", { usable: usableChannelCount, total: channelCount });
     const text = dispatchPending ? formatTranslation("queue.dispatching", { waiting: waitingCount }) : total ? formatTranslation("queue.runningWaiting", { running: runningCount, waiting: waitingCount }) : translate("queue.empty");
     const label = total ? formatTranslation("queue.statusLabel", { text, channelText }) : translate("queue.emptyAria");
-    if (els42.queueStatusText) els42.queueStatusText.textContent = text;
-    if (els42.queueButton) {
-      els42.queueButton.setAttribute("aria-label", label);
-      els42.queueButton.title = total ? translate("queue.jumpTitle") : translate("queue.emptyTitle");
-      els42.queueButton.classList.toggle("has-queue", total > 0 || dispatchPending);
+    if (els43.queueStatusText) els43.queueStatusText.textContent = text;
+    if (els43.queueButton) {
+      els43.queueButton.setAttribute("aria-label", label);
+      els43.queueButton.title = total ? translate("queue.jumpTitle") : translate("queue.emptyTitle");
+      els43.queueButton.classList.toggle("has-queue", total > 0 || dispatchPending);
     }
   }
   function jumpToActiveTaskGroup() {
@@ -14292,6 +14380,7 @@ ${galleryText}`;
   var queueDragCommitted = false;
   var queueDragOverTargetId = "";
   var queueDragOverPlacement = "after";
+  var queueTransparentDragImage = null;
   function eventTargetElement2(event) {
     return event.target instanceof Element ? event.target : null;
   }
@@ -14396,6 +14485,15 @@ ${galleryText}`;
       }
     });
   }
+  function taskQueueTransparentDragImage() {
+    if (queueTransparentDragImage?.isConnected) return queueTransparentDragImage;
+    const element2 = document.createElement("div");
+    element2.className = "task-queue-transparent-drag-image";
+    element2.setAttribute("aria-hidden", "true");
+    document.body.append(element2);
+    queueTransparentDragImage = element2;
+    return element2;
+  }
   function moveWaitingQueueDragPlaceholder(targetCard, placement) {
     const draggedId = String(state26.queueDragTaskId || "");
     if (!draggedId) return;
@@ -14425,7 +14523,7 @@ ${galleryText}`;
     stopQueueDragEvent(event);
     card.classList.add("queue-dragging");
     if (event.dataTransfer) {
-      event.dataTransfer.setDragImage(card, Math.min(28, card.clientWidth / 2), Math.min(28, card.clientHeight / 2));
+      event.dataTransfer.setDragImage(taskQueueTransparentDragImage(), 0, 0);
     }
     handleQueueDragStart(event);
     queueDragOriginalOrder = waitingQueueDomOrder();
@@ -14794,35 +14892,35 @@ ${galleryText}`;
   function renderTaskNotifications() {
     const bridge39 = getLegacyBridge();
     const state32 = bridge39.state;
-    const els42 = bridge39.els;
+    const els43 = bridge39.els;
     const unreadCount = state32.taskNotifications.filter((notification) => notification.unread).length;
     state32.taskNotificationUnreadCount = unreadCount;
     const unreadLabel = unreadCount > 0 ? formatTranslation("notifications.unread", { count: unreadCount }) : translate("notifications.title");
-    if (els42.taskNotificationBadge) {
-      els42.taskNotificationBadge.textContent = "";
-      els42.taskNotificationBadge.setAttribute("aria-hidden", "true");
-      els42.taskNotificationBadge.classList.toggle("hidden", unreadCount === 0);
+    if (els43.taskNotificationBadge) {
+      els43.taskNotificationBadge.textContent = "";
+      els43.taskNotificationBadge.setAttribute("aria-hidden", "true");
+      els43.taskNotificationBadge.classList.toggle("hidden", unreadCount === 0);
     }
-    if (els42.taskNotificationButton) {
-      els42.taskNotificationButton.classList.toggle("has-unread", unreadCount > 0);
-      els42.taskNotificationButton.setAttribute("aria-label", unreadLabel);
-      els42.taskNotificationButton.title = unreadLabel;
-      els42.taskNotificationButton.setAttribute("aria-expanded", state32.taskNotificationCenterOpen ? "true" : "false");
+    if (els43.taskNotificationButton) {
+      els43.taskNotificationButton.classList.toggle("has-unread", unreadCount > 0);
+      els43.taskNotificationButton.setAttribute("aria-label", unreadLabel);
+      els43.taskNotificationButton.title = unreadLabel;
+      els43.taskNotificationButton.setAttribute("aria-expanded", state32.taskNotificationCenterOpen ? "true" : "false");
     }
-    if (els42.taskNotificationUnreadSummary) {
-      els42.taskNotificationUnreadSummary.textContent = formatTranslation("notifications.unreadSummary", { count: unreadCount });
-      els42.taskNotificationUnreadSummary.classList.toggle("hidden", unreadCount === 0);
+    if (els43.taskNotificationUnreadSummary) {
+      els43.taskNotificationUnreadSummary.textContent = formatTranslation("notifications.unreadSummary", { count: unreadCount });
+      els43.taskNotificationUnreadSummary.classList.toggle("hidden", unreadCount === 0);
     }
-    if (els42.taskNotificationCenter) {
-      els42.taskNotificationCenter.classList.toggle("hidden", !state32.taskNotificationCenterOpen);
-      els42.taskNotificationCenter.setAttribute("aria-hidden", state32.taskNotificationCenterOpen ? "false" : "true");
+    if (els43.taskNotificationCenter) {
+      els43.taskNotificationCenter.classList.toggle("hidden", !state32.taskNotificationCenterOpen);
+      els43.taskNotificationCenter.setAttribute("aria-hidden", state32.taskNotificationCenterOpen ? "false" : "true");
     }
-    if (!els42.taskNotificationList) return;
+    if (!els43.taskNotificationList) return;
     if (!state32.taskNotifications.length) {
-      els42.taskNotificationList.innerHTML = `<div class="task-notification-empty">${translate("notifications.empty")}</div>`;
+      els43.taskNotificationList.innerHTML = `<div class="task-notification-empty">${translate("notifications.empty")}</div>`;
       return;
     }
-    els42.taskNotificationList.innerHTML = state32.taskNotifications.map((notification) => taskNotificationItemHtml(notification)).join("");
+    els43.taskNotificationList.innerHTML = state32.taskNotifications.map((notification) => taskNotificationItemHtml(notification)).join("");
   }
   async function requestSystemNotificationPermission() {
     if (typeof Notification === "undefined") {
@@ -14843,23 +14941,23 @@ ${galleryText}`;
     return true;
   }
   function bindTaskNotificationEvents() {
-    const els42 = getLegacyBridge().els;
-    els42.taskNotificationButton?.addEventListener("click", (event) => {
+    const els43 = getLegacyBridge().els;
+    els43.taskNotificationButton?.addEventListener("click", (event) => {
       event.stopPropagation();
       toggleTaskNotificationCenter();
     });
-    els42.taskNotificationClearButton?.addEventListener("click", (event) => {
+    els43.taskNotificationClearButton?.addEventListener("click", (event) => {
       event.stopPropagation();
       clearTaskNotifications();
     });
-    els42.taskNotificationList?.addEventListener("click", (event) => {
+    els43.taskNotificationList?.addEventListener("click", (event) => {
       const item = eventTargetElement4(event)?.closest("[data-task-notification-id]");
       if (!(item instanceof HTMLElement)) return;
       const notification = notificationById(item.dataset.taskNotificationId);
       if (notification) void openNotificationTask(notification);
     });
-    els42.taskNotificationInApp?.addEventListener("change", handleTaskNotificationInAppChange);
-    els42.taskNotificationSystem?.addEventListener("change", (event) => {
+    els43.taskNotificationInApp?.addEventListener("change", handleTaskNotificationInAppChange);
+    els43.taskNotificationSystem?.addEventListener("change", (event) => {
       void handleTaskNotificationSystemChange(event);
     });
     document.addEventListener("click", handleTaskNotificationDocumentClick);
@@ -14891,9 +14989,9 @@ ${galleryText}`;
   }
   function handleTaskNotificationDocumentClick(event) {
     const target = event.target;
-    const els42 = getLegacyBridge().els;
+    const els43 = getLegacyBridge().els;
     if (!(target instanceof Node)) return;
-    if (els42.taskNotificationCenter?.contains(target) || els42.taskNotificationButton?.contains(target)) return;
+    if (els43.taskNotificationCenter?.contains(target) || els43.taskNotificationButton?.contains(target)) return;
     closeTaskNotificationCenter();
   }
   function handleTaskNotificationKeydown(event) {
@@ -17788,6 +17886,113 @@ ${galleryText}`;
     });
   }
 
+  // codex_image/webui/frontend/src/app-version.ts
+  var appVersionInitialized = false;
+  var payload = null;
+  function els42() {
+    return getLegacyBridge().els;
+  }
+  function setModalHidden(hidden) {
+    const modal = els42().versionModal;
+    if (!modal) return;
+    modal.classList.toggle("hidden", hidden);
+    modal.setAttribute("aria-hidden", hidden ? "true" : "false");
+  }
+  function renderAppVersion(statusText) {
+    const versionInfo = els42().versionInfo;
+    const versionLabel = els42().versionLabel;
+    const badge = els42().versionUpdateBadge;
+    const current = els42().versionCurrent;
+    const latest = els42().versionLatest;
+    const source = els42().versionSource;
+    const releaseLink = els42().versionReleaseLink;
+    const updateButton = els42().versionUpdateButton;
+    const modalStatus = els42().versionModalStatus;
+    const currentLabel = payload?.current_version_label || "...";
+    const latestLabel = payload?.latest_version_label || currentLabel;
+    const updateAvailable = Boolean(payload?.update_available);
+    const updateAvailableText = formatTranslation("footer.updateAvailable", { version: latestLabel });
+    if (versionLabel) {
+      versionLabel.textContent = payload ? formatTranslation("footer.version", { version: currentLabel }) : translate("footer.versionLoading");
+    }
+    if (versionInfo) {
+      versionInfo.classList.toggle("has-update", updateAvailable);
+      versionInfo.title = updateAvailable ? updateAvailableText : translate("footer.versionInfo");
+      versionInfo.setAttribute("aria-label", updateAvailable ? updateAvailableText : translate("footer.versionInfo"));
+    }
+    if (badge) {
+      badge.classList.toggle("hidden", !updateAvailable);
+      badge.setAttribute("aria-label", translate("footer.updateBadge"));
+    }
+    if (current) current.textContent = currentLabel;
+    if (latest) latest.textContent = latestLabel;
+    if (source) {
+      source.textContent = payload?.source === "portable" ? translate("version.sourcePortable") : translate("version.sourceSource");
+    }
+    if (releaseLink) {
+      releaseLink.href = payload?.release_url || "https://github.com/kadevin/ilab-gpt-conjure/releases";
+    }
+    if (updateButton) {
+      updateButton.disabled = !(payload?.update_available && payload?.updater_available);
+    }
+    if (modalStatus) {
+      modalStatus.textContent = statusText || (updateAvailable ? formatTranslation("version.updateAvailable", { version: latestLabel }) : payload?.updater_available === false && payload?.source !== "portable" ? translate("version.noUpdater") : translate("version.upToDate"));
+    }
+  }
+  async function refreshAppVersion() {
+    try {
+      const response = await fetch("/api/app-version");
+      if (!response.ok) throw new Error(`Version API failed: ${response.status}`);
+      payload = await response.json();
+    } catch {
+      payload = {
+        current_version_label: "...",
+        latest_version_label: "...",
+        source: "source",
+        update_available: false,
+        updater_available: false,
+        release_url: "https://github.com/kadevin/ilab-gpt-conjure/releases"
+      };
+    }
+    renderAppVersion();
+  }
+  async function openUpdater() {
+    const updateButton = els42().versionUpdateButton;
+    if (updateButton) updateButton.disabled = true;
+    try {
+      const response = await fetch("/api/app-version/open-updater", { method: "POST" });
+      if (!response.ok) throw new Error(`Updater API failed: ${response.status}`);
+      payload = await response.json();
+      renderAppVersion(translate("version.updaterStarted"));
+    } catch {
+      renderAppVersion(translate("version.updaterFailed"));
+    }
+  }
+  function bindAppVersionEvents() {
+    els42().versionInfo?.addEventListener("click", () => {
+      renderAppVersion();
+      setModalHidden(false);
+    });
+    els42().versionModalClose?.addEventListener("click", () => setModalHidden(true));
+    els42().versionModal?.addEventListener("click", (event) => {
+      if (event.target === els42().versionModal) setModalHidden(true);
+    });
+    els42().versionUpdateButton?.addEventListener("click", () => {
+      void openUpdater();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") setModalHidden(true);
+    });
+    document.addEventListener(LOCALE_CHANGE_EVENT, () => renderAppVersion());
+  }
+  function initAppVersionFeature() {
+    if (appVersionInitialized) return;
+    appVersionInitialized = true;
+    bindAppVersionEvents();
+    renderAppVersion();
+    void refreshAppVersion();
+  }
+
   // codex_image/webui/frontend/src/lightbox.ts
   var lightboxFeatureInitialized = false;
   var lightboxEl = null;
@@ -18102,6 +18307,7 @@ ${galleryText}`;
   initOverlayPopoversFeature();
   initShellUiFeature();
   initI18nFeature();
+  initAppVersionFeature();
   initLightboxFeature();
   initializeQueueFeature();
   initSegmentedIndicatorFeature();

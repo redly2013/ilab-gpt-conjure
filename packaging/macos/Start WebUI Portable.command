@@ -62,6 +62,7 @@ clear_macos_quarantine() {
 clear_macos_quarantine
 
 mkdir -p "${DATA_DIR}/logs"
+export ILAB_CONJURE_BUNDLE_DIR="${BUNDLE_DIR}"
 export ILAB_CONJURE_DATA_DIR="${DATA_DIR}"
 export PYTHONPATH="${APP_DIR}:${APP_DIR}/.deps"
 CERTIFI_CA_BUNDLE="${APP_DIR}/.deps/certifi/cacert.pem"
@@ -72,6 +73,7 @@ fi
 LOG_FILE="${DATA_DIR}/logs/webui-server.log"
 AUTH_SETTINGS_PATH="${DATA_DIR}/webui-auth-settings.json"
 VERSION_FILE="${BUNDLE_DIR}/portable-version.txt"
+UPDATE_NOTICE_FILE="${DATA_DIR}/update-notice.json"
 LATEST_RELEASE_URL="https://api.github.com/repos/kadevin/ilab-gpt-conjure/releases/latest"
 "$PYTHON_BIN" -m codex_image.webui.startup_auth --settings-path "$AUTH_SETTINGS_PATH" >/dev/null
 
@@ -79,6 +81,7 @@ cd "$APP_DIR"
 
 check_latest_release_notice() {
   if [ "${ILAB_SKIP_VERSION_CHECK:-}" = "1" ]; then
+    rm -f "$UPDATE_NOTICE_FILE" 2>/dev/null || true
     return 0
   fi
   if [ ! -f "$VERSION_FILE" ] || ! command -v curl >/dev/null 2>&1; then
@@ -98,13 +101,17 @@ check_latest_release_notice() {
 
   local latest_version
   latest_version="$(printf "%s" "$release_json" | "$PYTHON_BIN" -c '
+from datetime import datetime, timezone
 import json
+import os
 import re
 import sys
 
 current = sys.argv[1].strip()
+notice_path = sys.argv[2]
 try:
-    latest = str(json.load(sys.stdin).get("tag_name") or "").strip()
+    release = json.load(sys.stdin)
+    latest = str(release.get("tag_name") or "").strip()
 except Exception:
     raise SystemExit(0)
 
@@ -117,8 +124,27 @@ def parse(value):
 current_parts = parse(current)
 latest_parts = parse(latest)
 if current_parts and latest_parts and latest_parts > current_parts:
-    print(".".join(str(part) for part in latest_parts))
-' "$current_version" 2>/dev/null || true)"
+    latest_version = ".".join(str(part) for part in latest_parts)
+    os.makedirs(os.path.dirname(notice_path), exist_ok=True)
+    with open(notice_path, "w", encoding="utf-8") as handle:
+        json.dump(
+            {
+                "current_version": current,
+                "latest_version": latest_version,
+                "checked_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+                "release_url": release.get("html_url") or f"https://github.com/kadevin/ilab-gpt-conjure/releases/tag/v{latest_version}",
+                "updater": "Update WebUI Portable.command",
+            },
+            handle,
+            ensure_ascii=False,
+        )
+    print(latest_version)
+else:
+    try:
+        os.remove(notice_path)
+    except FileNotFoundError:
+        pass
+' "$current_version" "$UPDATE_NOTICE_FILE" 2>/dev/null || true)"
 
   if [ -n "$latest_version" ]; then
     echo "New version available: v${latest_version}. Close WebUI and run \"Update WebUI Portable.command\" to update."

@@ -1,5 +1,14 @@
 import { LOCALE_CHANGE_EVENT, formatTranslation, restoreLocalePreference, translate } from "./i18n";
 import {
+  historyDetailImagesHtml,
+  historyDetailImagesLayoutClass,
+  historyInputLightboxUrlsFromTask,
+  historyInputReferencesHtml,
+  historyLightboxUrlsFromTask,
+  taskOutputRecords,
+  taskSelectedOutputIndexes,
+} from "./history-detail-media";
+import {
   type HistoryWindowEdge,
   type HistoryWindowDirection,
   captureHistoryScrollAnchor,
@@ -7,6 +16,7 @@ import {
   historyWindowEdgeCursor,
   restoreHistoryScrollAnchor,
 } from "./history-window";
+import { closeHistoryLightbox, isHistoryLightboxOpen, openHistoryLightbox } from "./history-lightbox";
 
 type HistoryFacet = { value: string; count: number };
 type HistoryMonth = { month: string; count: number };
@@ -47,6 +57,7 @@ type HistoryViewMode = "grid" | "list";
 type HistoryRenderPosition = "replace" | "append" | "prepend";
 type HistoryTaskPage = { tasks: HistoryTask[]; next_cursor: string | null; previous_cursor?: string | null; detail?: string };
 type HistoryContextMenuMode = "single" | "multi";
+type HistoryResizerSide = "left" | "right";
 
 const HISTORY_FILTER_KEYS: HistoryFilterKey[] = ["month", "prompt_mode", "quality", "ratio", "orientation", "backend", "provider", "archived"];
 const HISTORY_RATIO_OTHER_VALUE = "__other__";
@@ -57,6 +68,16 @@ const HISTORY_TASK_REUSE_HANDOFF_KEY = "codex-image-history-task-reuse-handoff";
 const HISTORY_THEME_STORAGE_KEY = "codex-image-theme-preference";
 const HISTORY_THUMBNAIL_CACHE_VERSION = "thumb-768-fit";
 const HISTORY_GRID_DEFAULT_GAP = 14;
+const HISTORY_LAYOUT_STORAGE_KEY = "codex-image-history-layout";
+const HISTORY_LAYOUT_DEFAULTS = { left: 280, right: 380 };
+const HISTORY_LAYOUT_LIMITS = {
+  leftMin: 220,
+  leftMax: 420,
+  rightMin: 300,
+  rightMax: 620,
+  middleMin: 360,
+  resizerWidth: 8,
+};
 
 type HistoryGridLayoutSettings = {
   targetHeight: number;
@@ -101,10 +122,22 @@ const historyState = {
 };
 
 let historyGridLayoutFrame = 0;
+let pendingHistoryGridKeepTaskId = "";
 let historyContextMenuEl: HTMLElement | null = null;
+let activeHistoryResizer: {
+  side: HistoryResizerSide;
+  pointerId: number;
+  startX: number;
+  startLeft: number;
+  startRight: number;
+  element: HTMLElement;
+} | null = null;
 
 const els = {
   page: document.querySelector<HTMLElement>(".history-page"),
+  sidebar: document.querySelector<HTMLElement>(".history-sidebar"),
+  leftResizer: document.querySelector<HTMLElement>('[data-history-resizer="left"]'),
+  rightResizer: document.querySelector<HTMLElement>('[data-history-resizer="right"]'),
   total: document.querySelector<HTMLElement>("#historyTotal"),
   search: document.querySelector<HTMLInputElement>("#historySearch"),
   searchClear: document.querySelector<HTMLButtonElement>("#historySearchClear"),
@@ -206,8 +239,41 @@ function facetDisplayValue(key: HistoryFilterKey, value: string): string {
     if (value === "low") return translate("history.quality.low");
     if (value === "auto") return translate("history.quality.auto");
   }
+  if (key === "orientation") {
+    if (value === "portrait") return translate("output.portrait");
+    if (value === "landscape") return translate("output.landscape");
+    if (value === "square") return translate("output.square");
+  }
   if (key === "ratio" && value === HISTORY_RATIO_OTHER_VALUE) return translate("history.ratioOther");
   return value;
+}
+
+function historyOrientationIconHtml(value: string): string {
+  if (value === "portrait") {
+    return `<svg class="history-filter-icon history-filter-icon-portrait" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+        <rect x="6.5" y="3" width="7" height="14" rx="2"></rect>
+      </svg>`;
+  }
+  if (value === "landscape") {
+    return `<svg class="history-filter-icon history-filter-icon-landscape" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+        <rect x="3" y="6.5" width="14" height="7" rx="2"></rect>
+      </svg>`;
+  }
+  if (value === "square") {
+    return `<svg class="history-filter-icon history-filter-icon-square" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+        <rect x="5" y="5" width="10" height="10" rx="2"></rect>
+      </svg>`;
+  }
+  return `<svg class="history-filter-icon history-filter-icon-all" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+      <rect x="3.5" y="4" width="5" height="8" rx="1.5"></rect>
+      <rect x="10.5" y="5" width="6" height="4.5" rx="1.4"></rect>
+      <rect x="10.5" y="11.5" width="5" height="5" rx="1.4"></rect>
+    </svg>`;
+}
+
+function historyFilterButtonLabelHtml(key: HistoryFilterKey, label: string, value = ""): string {
+  if (key !== "orientation") return escapeHtml(label);
+  return `${historyOrientationIconHtml(value)}<span class="history-filter-label">${escapeHtml(label)}</span>`;
 }
 
 function syncStateFromUrl(): void {
@@ -262,10 +328,10 @@ function renderFacetButtons(root: HTMLElement | null, key: HistoryFilterKey, ite
   const current = String(historyState[key] || "");
   const attr = historyFilterAttribute(key);
   root.innerHTML = [
-    `<button class="history-filter-button ${current ? "" : "active"}" type="button" data-history-${attr}="">${escapeHtml(allLabel)}</button>`,
+    `<button class="history-filter-button ${current ? "" : "active"}" type="button" data-history-filter-key="${key}" data-history-${attr}="">${historyFilterButtonLabelHtml(key, allLabel)}</button>`,
     ...items.map((item) => {
       const active = current === item.value ? " active" : "";
-      return `<button class="history-filter-button${active}" type="button" data-history-${attr}="${escapeHtml(item.value)}">${escapeHtml(facetDisplayValue(key, item.value))} <span>${item.count}</span></button>`;
+      return `<button class="history-filter-button${active}" type="button" data-history-filter-key="${key}" data-history-${attr}="${escapeHtml(item.value)}">${historyFilterButtonLabelHtml(key, facetDisplayValue(key, item.value), item.value)}<span class="history-filter-count">${item.count}</span></button>`;
     }),
   ].join("");
 }
@@ -315,11 +381,41 @@ function historyGridLayoutSettings(): HistoryGridLayoutSettings {
   return { targetHeight: 220, minWidth: 150, maxWidth: 430 };
 }
 
-function scheduleHistoryGridLayout(): void {
+function historyTaskCardElement(taskId: string): HTMLElement | null {
+  if (!taskId || !els.taskList) return null;
+  return historyTaskCards(els.taskList).find((card) => card.dataset.historyTaskCardId === taskId) || null;
+}
+
+function isHistoryTaskCardVisible(taskId: string): boolean {
+  const list = els.taskList;
+  const card = historyTaskCardElement(taskId);
+  if (!list || !card) return false;
+  const listRect = list.getBoundingClientRect();
+  const cardRect = card.getBoundingClientRect();
+  return cardRect.bottom > listRect.top
+    && cardRect.top < listRect.bottom
+    && cardRect.right > listRect.left
+    && cardRect.left < listRect.right;
+}
+
+function activeHistoryTaskVisible(): string {
+  const taskId = historyState.selectedTaskId;
+  return taskId && isHistoryTaskCardVisible(taskId) ? taskId : "";
+}
+
+function ensureHistoryTaskCardVisible(taskId: string): void {
+  historyTaskCardElement(taskId)?.scrollIntoView({ block: "nearest", inline: "nearest" });
+}
+
+function scheduleHistoryGridLayout(options: { keepTaskId?: string } = {}): void {
+  if (options.keepTaskId) pendingHistoryGridKeepTaskId = options.keepTaskId;
   if (historyGridLayoutFrame) window.cancelAnimationFrame(historyGridLayoutFrame);
   historyGridLayoutFrame = window.requestAnimationFrame(() => {
     historyGridLayoutFrame = 0;
+    const keepTaskId = pendingHistoryGridKeepTaskId;
+    pendingHistoryGridKeepTaskId = "";
     layoutJustifiedHistoryGrid();
+    if (keepTaskId) ensureHistoryTaskCardVisible(keepTaskId);
   });
 }
 
@@ -330,6 +426,192 @@ function parseCssPixels(value: string): number {
 
 function clampNumber(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
+}
+
+function isHistoryResizableLayout(): boolean {
+  return Boolean(els.page) && !window.matchMedia("(max-width: 1100px)").matches;
+}
+
+function readHistoryLayoutPreference(): { left: number; right: number } {
+  try {
+    const raw = localStorage.getItem(HISTORY_LAYOUT_STORAGE_KEY);
+    if (!raw) return { ...HISTORY_LAYOUT_DEFAULTS };
+    const parsed = JSON.parse(raw) as Partial<{ left: number; right: number }>;
+    return {
+      left: typeof parsed.left === "number" && Number.isFinite(parsed.left) ? parsed.left : HISTORY_LAYOUT_DEFAULTS.left,
+      right: typeof parsed.right === "number" && Number.isFinite(parsed.right) ? parsed.right : HISTORY_LAYOUT_DEFAULTS.right,
+    };
+  } catch {
+    return { ...HISTORY_LAYOUT_DEFAULTS };
+  }
+}
+
+function historyLayoutMaxCombinedWidth(): number {
+  const pageWidth = els.page?.getBoundingClientRect().width || window.innerWidth || 0;
+  return Math.max(
+    HISTORY_LAYOUT_LIMITS.leftMin + HISTORY_LAYOUT_LIMITS.rightMin,
+    pageWidth - HISTORY_LAYOUT_LIMITS.middleMin - (HISTORY_LAYOUT_LIMITS.resizerWidth * 2),
+  );
+}
+
+function constrainHistoryLayoutWidths(
+  left: number,
+  right: number,
+  prioritySide: HistoryResizerSide | "" = "",
+): { left: number; right: number } {
+  let nextLeft = clampNumber(Math.round(left), HISTORY_LAYOUT_LIMITS.leftMin, HISTORY_LAYOUT_LIMITS.leftMax);
+  let nextRight = clampNumber(Math.round(right), HISTORY_LAYOUT_LIMITS.rightMin, HISTORY_LAYOUT_LIMITS.rightMax);
+  let overflow = nextLeft + nextRight - historyLayoutMaxCombinedWidth();
+  if (overflow > 0) {
+    if (prioritySide === "left") {
+      const rightReduction = Math.min(overflow, nextRight - HISTORY_LAYOUT_LIMITS.rightMin);
+      nextRight -= rightReduction;
+      overflow -= rightReduction;
+      nextLeft -= Math.min(overflow, nextLeft - HISTORY_LAYOUT_LIMITS.leftMin);
+    } else {
+      const leftReduction = Math.min(overflow, nextLeft - HISTORY_LAYOUT_LIMITS.leftMin);
+      nextLeft -= leftReduction;
+      overflow -= leftReduction;
+      nextRight -= Math.min(overflow, nextRight - HISTORY_LAYOUT_LIMITS.rightMin);
+    }
+  }
+  return { left: Math.round(nextLeft), right: Math.round(nextRight) };
+}
+
+function getCurrentHistoryLayoutWidths(): { left: number; right: number } {
+  const fromStyle = {
+    left: parseCssPixels(els.page?.style.getPropertyValue("--history-sidebar-width") || ""),
+    right: parseCssPixels(els.page?.style.getPropertyValue("--history-detail-width") || ""),
+  };
+  if (fromStyle.left && fromStyle.right) return fromStyle;
+  const sidebarWidth = els.sidebar?.getBoundingClientRect().width || HISTORY_LAYOUT_DEFAULTS.left;
+  const detailWidth = els.detail?.getBoundingClientRect().width || HISTORY_LAYOUT_DEFAULTS.right;
+  return constrainHistoryLayoutWidths(sidebarWidth, detailWidth);
+}
+
+function updateHistoryResizerAria(widths: { left: number; right: number }): void {
+  els.leftResizer?.setAttribute("aria-valuenow", String(widths.left));
+  els.rightResizer?.setAttribute("aria-valuenow", String(widths.right));
+}
+
+function applyHistoryLayoutWidths(
+  left: number,
+  right: number,
+  options: { persist?: boolean; preserveActiveTask?: boolean; prioritySide?: HistoryResizerSide | "" } = {},
+): void {
+  if (!els.page) return;
+  const keepTaskId = options.preserveActiveTask ? activeHistoryTaskVisible() : "";
+  const widths = constrainHistoryLayoutWidths(left, right, options.prioritySide || "");
+  els.page.style.setProperty("--history-sidebar-width", `${widths.left}px`);
+  els.page.style.setProperty("--history-detail-width", `${widths.right}px`);
+  updateHistoryResizerAria(widths);
+  scheduleHistoryGridLayout({ keepTaskId });
+  if (options.persist) {
+    try {
+      localStorage.setItem(HISTORY_LAYOUT_STORAGE_KEY, JSON.stringify(widths));
+    } catch {
+      // Browser storage may be unavailable in restricted contexts.
+    }
+  }
+}
+
+function restoreHistoryLayoutPreference(): void {
+  const stored = readHistoryLayoutPreference();
+  const widths = constrainHistoryLayoutWidths(stored.left, stored.right);
+  applyHistoryLayoutWidths(widths.left, widths.right);
+}
+
+function resetHistoryLayoutSide(side: HistoryResizerSide): void {
+  const widths = getCurrentHistoryLayoutWidths();
+  const nextLeft = side === "left" ? HISTORY_LAYOUT_DEFAULTS.left : widths.left;
+  const nextRight = side === "right" ? HISTORY_LAYOUT_DEFAULTS.right : widths.right;
+  applyHistoryLayoutWidths(nextLeft, nextRight, { persist: true, preserveActiveTask: true, prioritySide: side });
+}
+
+function resizeHistoryLayoutByKeyboard(side: HistoryResizerSide, event: KeyboardEvent): boolean {
+  const step = event.shiftKey ? 48 : 16;
+  const widths = getCurrentHistoryLayoutWidths();
+  let nextLeft = widths.left;
+  let nextRight = widths.right;
+  if (event.key === "ArrowLeft") {
+    if (side === "left") nextLeft -= step;
+    else nextRight += step;
+  } else if (event.key === "ArrowRight") {
+    if (side === "left") nextLeft += step;
+    else nextRight -= step;
+  } else if (event.key === "Home") {
+    if (side === "left") nextLeft = HISTORY_LAYOUT_LIMITS.leftMin;
+    else nextRight = HISTORY_LAYOUT_LIMITS.rightMax;
+  } else if (event.key === "End") {
+    if (side === "left") nextLeft = HISTORY_LAYOUT_LIMITS.leftMax;
+    else nextRight = HISTORY_LAYOUT_LIMITS.rightMin;
+  } else if (event.key === "Enter" || event.key === " ") {
+    resetHistoryLayoutSide(side);
+    return true;
+  } else {
+    return false;
+  }
+  applyHistoryLayoutWidths(nextLeft, nextRight, { persist: true, preserveActiveTask: true, prioritySide: side });
+  return true;
+}
+
+function startHistoryResize(side: HistoryResizerSide, event: PointerEvent, element: HTMLElement): void {
+  if (event.button !== 0 || !isHistoryResizableLayout()) return;
+  const widths = getCurrentHistoryLayoutWidths();
+  activeHistoryResizer = {
+    side,
+    pointerId: event.pointerId,
+    startX: event.clientX,
+    startLeft: widths.left,
+    startRight: widths.right,
+    element,
+  };
+  closeHistoryContextMenu();
+  event.preventDefault();
+  element.setPointerCapture?.(event.pointerId);
+  els.page?.classList.add("history-resizing");
+}
+
+function updateHistoryResize(event: PointerEvent): void {
+  if (!activeHistoryResizer || event.pointerId !== activeHistoryResizer.pointerId) return;
+  const delta = event.clientX - activeHistoryResizer.startX;
+  const nextLeft = activeHistoryResizer.side === "left"
+    ? activeHistoryResizer.startLeft + delta
+    : activeHistoryResizer.startLeft;
+  const nextRight = activeHistoryResizer.side === "right"
+    ? activeHistoryResizer.startRight - delta
+    : activeHistoryResizer.startRight;
+  applyHistoryLayoutWidths(nextLeft, nextRight, { preserveActiveTask: true, prioritySide: activeHistoryResizer.side });
+}
+
+function endHistoryResize(event?: PointerEvent): void {
+  if (!activeHistoryResizer) return;
+  if (event && event.pointerId !== activeHistoryResizer.pointerId) return;
+  if (activeHistoryResizer.element.hasPointerCapture?.(activeHistoryResizer.pointerId)) {
+    activeHistoryResizer.element.releasePointerCapture?.(activeHistoryResizer.pointerId);
+  }
+  const widths = getCurrentHistoryLayoutWidths();
+  applyHistoryLayoutWidths(widths.left, widths.right, { persist: true, preserveActiveTask: true, prioritySide: activeHistoryResizer.side });
+  activeHistoryResizer = null;
+  els.page?.classList.remove("history-resizing");
+}
+
+function bindHistoryResizerEvents(): void {
+  for (const resizer of [els.leftResizer, els.rightResizer]) {
+    const side = resizer?.dataset.historyResizer as HistoryResizerSide | undefined;
+    if (!resizer || (side !== "left" && side !== "right")) continue;
+    resizer.addEventListener("pointerdown", (event) => startHistoryResize(side, event, resizer));
+    resizer.addEventListener("dblclick", () => resetHistoryLayoutSide(side));
+    resizer.addEventListener("keydown", (event) => {
+      if (!isHistoryResizableLayout()) return;
+      if (!resizeHistoryLayoutByKeyboard(side, event)) return;
+      event.preventDefault();
+      event.stopPropagation();
+    });
+  }
+  window.addEventListener("pointermove", updateHistoryResize);
+  window.addEventListener("pointerup", endHistoryResize);
+  window.addEventListener("pointercancel", endHistoryResize);
 }
 
 function historyTaskCardRatio(card: HTMLElement): number {
@@ -771,7 +1053,9 @@ function renderTaskDetail(task: any): void {
   const taskId = String(task.task_id || historyState.selectedTaskId || "");
   const urls = taskOutputRecords(task);
   const selectedCount = taskSelectedOutputIndexes(task).size;
-  const images = urls.map((record, index) => historyDetailImageHtml(taskId, record, index, selectedCount)).join("");
+  const images = historyDetailImagesHtml(taskId, urls, selectedCount);
+  const imageLayoutClass = historyDetailImagesLayoutClass(urls);
+  const inputReferences = historyInputReferencesHtml(task);
   const zipHref = `/api/tasks/${encodeURIComponent(taskId)}/outputs.zip`;
   const canZip = urls.length > 1;
   const canDeleteUnselected = selectedCount > 0 && selectedCount < urls.length;
@@ -805,7 +1089,8 @@ function renderTaskDetail(task: any): void {
       ${canDeleteUnselected ? `<button class="ghost-button text-sm danger-button" type="button" data-history-delete-unselected="${escapeHtml(taskId)}">${escapeHtml(confirmingDeleteUnselected ? translate("history.confirmDeleteUnselected") : translate("history.deleteUnselected"))}</button>` : ""}
       ${confirmingDeleteUnselected ? `<button class="ghost-button text-sm" type="button" data-history-delete-unselected-cancel>${escapeHtml(translate("action.cancel"))}</button>` : ""}
     </div>
-    <div class="history-detail-images">${images || `<div class="history-detail-empty">${escapeHtml(translate("history.noPreview"))}</div>`}</div>
+    <div class="history-detail-images${imageLayoutClass}">${images || `<div class="history-detail-empty">${escapeHtml(translate("history.noPreview"))}</div>`}</div>
+    ${inputReferences}
     ${promptCompareHtml(task)}
   `;
 }
@@ -838,82 +1123,6 @@ function historyTaskSummary(taskId: string): HistoryTask | null {
 
 function historyTaskPromptForClipboard(task: any): string {
   return String(task?.prompt || task?.prompt_preview || task?.prompt_for_model || "").trim();
-}
-
-function taskOutputRecords(task: any): Array<{ url: string; index: number; selected: boolean; revisedPrompt: string }> {
-  const selectedIndexes = taskSelectedOutputIndexes(task);
-  const records: Array<{ url: string; index: number; selected: boolean; revisedPrompt: string }> = [];
-  const outputs = Array.isArray(task.outputs) ? task.outputs : [];
-  outputs.forEach((output: any, fallbackIndex: number) => {
-    if (!output || output.deleted || output.status === "deleted") return;
-    const url = String(output.url || output.output_url || "");
-    if (!url || output.status === "failed") return;
-    const outputIndex = positiveInt(output.index) || fallbackIndex + 1;
-    records.push({
-      url,
-      index: outputIndex,
-      selected: selectedIndexes.has(outputIndex),
-      revisedPrompt: String(output.revised_prompt || ""),
-    });
-  });
-  if (records.length) return records;
-  const urls = Array.isArray(task.output_urls) ? task.output_urls : (task.output_url ? [task.output_url] : []);
-  return urls
-    .filter(Boolean)
-    .map((url: string, index: number) => {
-      const outputIndex = index + 1;
-      return {
-        url: String(url),
-        index: outputIndex,
-        selected: selectedIndexes.has(outputIndex),
-        revisedPrompt: String(task.revised_prompts?.[index] || task.revised_prompt || ""),
-      };
-    });
-}
-
-function historyDetailImageHtml(
-  taskId: string,
-  record: { url: string; index: number; selected: boolean; revisedPrompt: string },
-  index: number,
-  selectedCount: number,
-): string {
-  const selectedClass = record.selected ? " selected" : "";
-  const selectedText = record.selected ? translate("history.selected") : translate("history.select");
-  return `
-    <div class="history-detail-image${selectedClass}">
-      <button
-        class="history-detail-image-preview"
-        type="button"
-        data-history-lightbox-url="${escapeHtml(record.url)}"
-        aria-label="${escapeHtml(translate("history.openPreview"))}"
-      >
-        <img src="${escapeHtml(record.url)}" alt="" loading="lazy" decoding="async">
-      </button>
-      <div class="history-detail-image-actions">
-        <button
-          class="ghost-button text-sm"
-          type="button"
-          aria-pressed="${record.selected ? "true" : "false"}"
-          data-history-output-selected-task-id="${escapeHtml(taskId)}"
-          data-history-output-selected-index="${record.index}"
-        >${selectedText}</button>
-        <a class="ghost-button text-sm" href="${escapeHtml(record.url)}" download>${escapeHtml(formatTranslation("history.downloadIndex", { index: index + 1 }))}</a>
-        <button class="ghost-button text-sm" type="button" data-history-reference-handoff-url="${escapeHtml(record.url)}">${escapeHtml(translate("history.addReference"))}</button>
-        ${selectedCount === 1 && record.selected ? `<a class="ghost-button text-sm" href="${escapeHtml(record.url)}" download>${escapeHtml(translate("history.downloadSelected"))}</a>` : ""}
-      </div>
-    </div>
-  `;
-}
-
-function taskSelectedOutputIndexes(task: any): Set<number> {
-  const indexes = new Set<number>();
-  if (Array.isArray(task.selected_output_indexes)) {
-    task.selected_output_indexes.forEach((value: any) => {
-      const index = positiveInt(value);
-      if (index !== null) indexes.add(index);
-    });
-  }
-  return indexes;
 }
 
 function promptCompareHtml(task: any): string {
@@ -1520,36 +1729,26 @@ function handoffReferenceToMain(url: string): void {
   window.location.href = "/";
 }
 
-function ensureHistoryLightbox(): HTMLElement {
-  let lightbox = document.querySelector<HTMLElement>(".history-lightbox");
-  if (lightbox) return lightbox;
-  lightbox = document.createElement("div");
-  lightbox.className = "history-lightbox";
-  lightbox.hidden = true;
-  lightbox.innerHTML = `
-    <button class="drawer-close-button history-lightbox-close" type="button" data-history-lightbox-close aria-label="${escapeHtml(translate("history.closePreview"))}">×</button>
-    <img alt="">
-  `;
-  document.body.append(lightbox);
-  return lightbox;
+function openHistoryDetailLightbox(index: number): void {
+  const urls = historyLightboxUrlsFromTask(historyState.detailTask || {});
+  openHistoryLightbox(urls, index);
 }
 
-function openHistoryLightbox(url: string): void {
-  if (!url) return;
-  const lightbox = ensureHistoryLightbox();
-  const image = lightbox.querySelector<HTMLImageElement>("img");
-  if (image) image.src = url;
-  lightbox.hidden = false;
-  document.body.classList.add("history-lightbox-open");
+function openHistoryInputLightbox(index: number): void {
+  const urls = historyInputLightboxUrlsFromTask(historyState.detailTask || {});
+  openHistoryLightbox(urls, index);
 }
 
-function closeHistoryLightbox(): void {
-  const lightbox = document.querySelector<HTMLElement>(".history-lightbox");
-  if (!lightbox || lightbox.hidden) return;
-  lightbox.hidden = true;
-  const image = lightbox.querySelector<HTMLImageElement>("img");
-  if (image) image.removeAttribute("src");
-  document.body.classList.remove("history-lightbox-open");
+async function openHistoryTaskLightbox(taskId: string): Promise<void> {
+  if (!taskId) return;
+  try {
+    const detail = historyState.detailTask?.task_id === taskId ? historyState.detailTask : await fetchHistoryTaskDetail(taskId);
+    const urls = historyLightboxUrlsFromTask(detail);
+    if (!urls.length) throw new Error(translate("history.noPreview"));
+    openHistoryLightbox(urls, 0);
+  } catch (error) {
+    setText(els.resultSummary, errorMessage(error, translate("history.detailFailed")));
+  }
 }
 
 function closeDetail(): void {
@@ -1561,6 +1760,7 @@ function closeDetail(): void {
 }
 
 function bindEvents(): void {
+  bindHistoryResizerEvents();
   let searchTimer = 0;
   els.search?.addEventListener("input", () => {
     window.clearTimeout(searchTimer);
@@ -1656,7 +1856,14 @@ function bindEvents(): void {
     }
     const lightboxButton = target?.closest<HTMLElement>("[data-history-lightbox-url]");
     if (lightboxButton) {
-      openHistoryLightbox(lightboxButton.dataset.historyLightboxUrl || "");
+      const index = Number.parseInt(lightboxButton.dataset.historyLightboxIndex || "0", 10) || 0;
+      openHistoryDetailLightbox(index);
+      return;
+    }
+    const inputLightboxButton = target?.closest<HTMLElement>("[data-history-input-lightbox-index]");
+    if (inputLightboxButton) {
+      const index = Number.parseInt(inputLightboxButton.dataset.historyInputLightboxIndex || "0", 10) || 0;
+      openHistoryInputLightbox(index);
       return;
     }
     if (target?.closest("[data-history-lightbox-close]")) {
@@ -1694,6 +1901,15 @@ function bindEvents(): void {
     event.stopPropagation();
     openHistoryContextMenu(card.dataset.historyTaskCardId || "", event.clientX, event.clientY);
   });
+  els.taskList?.addEventListener("dblclick", (event) => {
+    const target = event.target as HTMLElement | null;
+    if (target?.closest("[data-history-task-select]")) return;
+    const card = target?.closest<HTMLElement>(".history-task-card[data-history-task-card-id]");
+    if (!card || !els.taskList?.contains(card)) return;
+    event.preventDefault();
+    event.stopPropagation();
+    void openHistoryTaskLightbox(card.dataset.historyTaskCardId || "");
+  });
   els.taskList?.addEventListener("keydown", (event) => {
     if (event.key !== "ContextMenu" && !(event.shiftKey && event.key === "F10")) return;
     const target = event.target as HTMLElement | null;
@@ -1730,7 +1946,8 @@ function bindEvents(): void {
   }, { passive: true });
   window.addEventListener("resize", () => {
     closeHistoryContextMenu();
-    scheduleHistoryGridLayout();
+    const widths = getCurrentHistoryLayoutWidths();
+    applyHistoryLayoutWidths(widths.left, widths.right, { preserveActiveTask: true });
   }, { passive: true });
   document.addEventListener(LOCALE_CHANGE_EVENT, () => {
     document.title = translate("history.documentTitle");
@@ -1761,8 +1978,7 @@ function bindEvents(): void {
       closeHistoryContextMenu();
       return;
     }
-    const lightbox = document.querySelector<HTMLElement>(".history-lightbox");
-    if (lightbox && !lightbox.hidden) {
+    if (isHistoryLightboxOpen()) {
       closeHistoryLightbox();
       return;
     }
@@ -1778,6 +1994,7 @@ async function bootHistoryPage(): Promise<void> {
   restoreHistoryThemePreference();
   bindHistoryThemePreference();
   applyHistoryLocale();
+  restoreHistoryLayoutPreference();
   syncStateFromUrl();
   renderDetailShell(translate("history.detailEmpty"));
   bindEvents();

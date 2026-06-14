@@ -68,6 +68,64 @@ class WebUISettingsTests(unittest.TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertFalse(response.json()["auth_available"])
+
+    def test_app_version_reports_source_version_without_portable_notice(self) -> None:
+        from codex_image.version import APP_VERSION
+        from codex_image.webui.app import create_app
+
+        with patch.dict(os.environ, {"ILAB_CONJURE_BUNDLE_DIR": "", "ILAB_CONJURE_DATA_DIR": ""}):
+            app = create_app(output_root=Path(tempfile.mkdtemp()), auto_start_queue=False)
+            response = TestClient(app).get("/api/app-version")
+
+        self.assertEqual(response.status_code, 200)
+        payload = response.json()
+        self.assertEqual(payload["current_version"], APP_VERSION)
+        self.assertEqual(payload["current_version_label"], f"v{APP_VERSION}")
+        self.assertFalse(payload["portable"])
+        self.assertFalse(payload["update_available"])
+        self.assertFalse(payload["updater_available"])
+
+    def test_app_version_reports_portable_update_notice(self) -> None:
+        from codex_image.webui.app import create_app
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            bundle_dir = root / "bundle"
+            data_dir = bundle_dir / "data"
+            output_root = data_dir / "webui-outputs"
+            bundle_dir.mkdir()
+            data_dir.mkdir()
+            output_root.mkdir()
+            (bundle_dir / "portable-version.txt").write_text("0.3.6\n", encoding="utf-8")
+            (bundle_dir / "Update WebUI Portable.command").write_text("#!/bin/zsh\n", encoding="utf-8")
+            (bundle_dir / "Update WebUI Portable.bat").write_text("@echo off\n", encoding="utf-8")
+            (data_dir / "update-notice.json").write_text(
+                json.dumps(
+                    {
+                        "current_version": "0.3.6",
+                        "latest_version": "0.3.7",
+                        "checked_at": "2026-06-14T00:00:00Z",
+                        "release_url": "https://github.com/kadevin/ilab-gpt-conjure/releases/tag/v0.3.7",
+                    }
+                ),
+                encoding="utf-8",
+            )
+            with patch.dict(
+                os.environ,
+                {"ILAB_CONJURE_BUNDLE_DIR": str(bundle_dir), "ILAB_CONJURE_DATA_DIR": str(data_dir)},
+            ):
+                app = create_app(output_root=output_root, auto_start_queue=False)
+                response = TestClient(app).get("/api/app-version")
+
+        self.assertEqual(response.status_code, 200)
+        payload = response.json()
+        self.assertTrue(payload["portable"])
+        self.assertEqual(payload["current_version"], "0.3.6")
+        self.assertEqual(payload["latest_version"], "0.3.7")
+        self.assertTrue(payload["update_available"])
+        self.assertTrue(payload["updater_available"])
+        self.assertEqual(payload["updater_label"], "Update WebUI Portable.command")
+
     def test_auth_routes_report_and_persist_codex_or_api_source(self) -> None:
         from codex_image.auth import AuthState
         from codex_image.webui.app import create_app

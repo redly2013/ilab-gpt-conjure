@@ -36,7 +36,7 @@
         document.documentElement.dataset.locale = locale;
       })();
     </script>
-    <link rel="stylesheet" href="/static/styles.css?v=runtime-300" />
+    <link rel="stylesheet" href="/static/styles.css?v=runtime-316" />
   </head>
   <body>
     <div class="layout-container">
@@ -151,7 +151,17 @@
             <div id="apiStatus" class="status-dot"></div>
             <span data-i18n="footer.apiStatus">API 状态: 正常</span>
           </div>
-          <div class="version-info" data-i18n="footer.version">版本 v1.0.0</div>
+          <button
+            id="versionInfo"
+            class="version-info"
+            type="button"
+            aria-label="版本信息"
+            title="版本信息"
+            data-i18n-attr="aria-label:footer.versionInfo;title:footer.versionInfo"
+          >
+            <span id="versionLabel" class="version-label" data-i18n="footer.versionLoading">版本 ...</span>
+            <span id="versionUpdateBadge" class="version-update-badge hidden" aria-hidden="true"></span>
+          </button>
         </div>
         <div
           id="sidebarResizeHandle"
@@ -761,6 +771,40 @@
       </div>
     </div>
 
+    <div id="versionModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-hidden="true" aria-label="版本与更新" data-i18n-attr="aria-label:version.title">
+      <div class="modal-panel version-modal-panel">
+        <div class="modal-heading">
+          <div>
+            <h2 data-i18n="version.title">版本与更新</h2>
+            <p id="versionModalStatus" data-i18n="version.loading">正在读取版本状态</p>
+          </div>
+          <button id="versionModalClose" class="ghost-button drawer-close-button" type="button" aria-label="关闭版本更新面板" title="关闭" data-i18n-attr="aria-label:close.version;title:action.close">
+            <svg class="drawer-close-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M7 7L17 17M17 7L7 17" />
+            </svg>
+          </button>
+        </div>
+        <div class="version-detail-grid">
+          <div class="version-detail-row">
+            <span data-i18n="version.current">当前版本</span>
+            <strong id="versionCurrent">...</strong>
+          </div>
+          <div class="version-detail-row">
+            <span data-i18n="version.latest">最新版本</span>
+            <strong id="versionLatest">...</strong>
+          </div>
+          <div class="version-detail-row">
+            <span data-i18n="version.source">运行方式</span>
+            <strong id="versionSource">...</strong>
+          </div>
+        </div>
+        <div class="version-modal-actions">
+          <a id="versionReleaseLink" class="ghost-button text-sm" href="https://github.com/kadevin/ilab-gpt-conjure/releases" target="_blank" rel="noreferrer" data-i18n="version.release">查看发布页</a>
+          <button id="versionUpdateButton" class="run-button" type="button" disabled data-i18n="version.openUpdater">启动更新器</button>
+        </div>
+      </div>
+    </div>
+
     <div id="apiSettingsModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-hidden="true" aria-label="API 设置" data-i18n-attr="aria-label:apiSettings.title">
       <div class="modal-panel api-settings-modal-panel">
         <div class="modal-heading">
@@ -981,7 +1025,7 @@
     </div>
 
     <div id="taskNotificationToastRegion" class="task-notification-toast-region" aria-live="polite"></div>
-  <script src="/static/app.js?v=runtime-300"></script>
+  <script src="/static/app.js?v=runtime-316"></script>
     <script>
       (() => {
         document.querySelectorAll(".radio-group").forEach((group) => {

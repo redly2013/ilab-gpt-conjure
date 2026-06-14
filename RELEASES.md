@@ -1,20 +1,20 @@
 # 下载 / Releases
 
-当前正式版本：[v0.3.6](https://github.com/kadevin/ilab-gpt-conjure/releases/tag/v0.3.6)
+当前正式版本：[v0.3.7](https://github.com/kadevin/ilab-gpt-conjure/releases/tag/v0.3.7)
 
 ## 版本说明
 
-当前版本：`v0.3.6`。这个版本提供 Windows x64、macOS Apple Silicon、macOS Intel 三种免安装一键包；下载对应平台的 zip 后解压即可启动本地 WebUI，并可在包内一键更新到后续版本。
+当前版本：`v0.3.7`。这个版本提供 Windows x64、macOS Apple Silicon、macOS Intel 三种免安装一键包；下载对应平台的 zip 后解压即可启动本地 WebUI，并可在包内一键更新到后续版本。
 
-本版重点：强化历史库的任务管理和右键操作。历史任务详情新增单任务归档 / 删除，缩略图右键菜单区分单选与多选，批量菜单只保留批量下载、归档、恢复和删除，右键未选中卡片时会切换到当前任务，避免误操作。本版同时优化预览结果浮层按钮的主题色匹配，补齐便携包更新脚本的下载校验与备份流程，并修复短屏布局、上传标签、SVG 关闭按钮和静态资源缓存版本等细节。
+本版重点：让生成页左下角显示真实一键包版本，并在启动脚本检测到新 GitHub Release 时于 WebUI 内给出提醒；点击版本提示可查看最新版本、打开 Release 页面，并在一键包环境中启动更新器。本版同时保留便携包更新脚本的下载校验、备份和本地 data 保留流程，避免自动更新打断当前工作。
 
 ## 免安装一键包
 
 | 平台 | 适用设备 | 下载 | SHA256 |
 | --- | --- | --- | --- |
-| Windows x64 | Windows 10/11 x64 | [ilab-gpt-conjure_windows_portable_x64_0.3.6.zip](https://github.com/kadevin/ilab-gpt-conjure/releases/download/v0.3.6/ilab-gpt-conjure_windows_portable_x64_0.3.6.zip) | [sha256](https://github.com/kadevin/ilab-gpt-conjure/releases/download/v0.3.6/ilab-gpt-conjure_windows_portable_x64_0.3.6.zip.sha256.txt) |
-| macOS Apple Silicon | M1/M2/M3/M4 | [ilab-gpt-conjure_macos_portable_arm64_0.3.6.zip](https://github.com/kadevin/ilab-gpt-conjure/releases/download/v0.3.6/ilab-gpt-conjure_macos_portable_arm64_0.3.6.zip) | [sha256](https://github.com/kadevin/ilab-gpt-conjure/releases/download/v0.3.6/ilab-gpt-conjure_macos_portable_arm64_0.3.6.zip.sha256.txt) |
-| macOS Intel | Intel x64 | [ilab-gpt-conjure_macos_portable_x64_0.3.6.zip](https://github.com/kadevin/ilab-gpt-conjure/releases/download/v0.3.6/ilab-gpt-conjure_macos_portable_x64_0.3.6.zip) | [sha256](https://github.com/kadevin/ilab-gpt-conjure/releases/download/v0.3.6/ilab-gpt-conjure_macos_portable_x64_0.3.6.zip.sha256.txt) |
+| Windows x64 | Windows 10/11 x64 | [ilab-gpt-conjure_windows_portable_x64_0.3.7.zip](https://github.com/kadevin/ilab-gpt-conjure/releases/download/v0.3.7/ilab-gpt-conjure_windows_portable_x64_0.3.7.zip) | [sha256](https://github.com/kadevin/ilab-gpt-conjure/releases/download/v0.3.7/ilab-gpt-conjure_windows_portable_x64_0.3.7.zip.sha256.txt) |
+| macOS Apple Silicon | M1/M2/M3/M4 | [ilab-gpt-conjure_macos_portable_arm64_0.3.7.zip](https://github.com/kadevin/ilab-gpt-conjure/releases/download/v0.3.7/ilab-gpt-conjure_macos_portable_arm64_0.3.7.zip) | [sha256](https://github.com/kadevin/ilab-gpt-conjure/releases/download/v0.3.7/ilab-gpt-conjure_macos_portable_arm64_0.3.7.zip.sha256.txt) |
+| macOS Intel | Intel x64 | [ilab-gpt-conjure_macos_portable_x64_0.3.7.zip](https://github.com/kadevin/ilab-gpt-conjure/releases/download/v0.3.7/ilab-gpt-conjure_macos_portable_x64_0.3.7.zip) | [sha256](https://github.com/kadevin/ilab-gpt-conjure/releases/download/v0.3.7/ilab-gpt-conjure_macos_portable_x64_0.3.7.zip.sha256.txt) |
 
 使用方式：
 
@@ -24,7 +24,7 @@
    `Start WebUI Portable.command`。
 4. 如果浏览器没有自动打开，访问 `http://127.0.0.1:8787/`。
 
-启动脚本会短暂检测最新 GitHub Release；发现新版本时只显示提醒，不会自动更新。
+启动脚本会短暂检测最新 GitHub Release；发现新版本时会在 WebUI 左下角版本入口显示提醒，不会自动更新。
 更新已经解压的一键包时，先关闭 WebUI 服务窗口，然后运行 Windows 的
 `Update WebUI Portable.bat` 或 macOS 的 `Update WebUI Portable.command`。
 更新脚本会下载当前平台对应的最新 GitHub Release 资产，校验 SHA256，保留本地 `data/`，并把被替换文件备份到 `.backup/`。如果不希望启动时检查版本，可在启动前设置

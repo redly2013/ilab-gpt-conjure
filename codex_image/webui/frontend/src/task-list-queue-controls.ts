@@ -21,6 +21,7 @@ let queueDragOriginalOrder: string[] = [];
 let queueDragCommitted = false;
 let queueDragOverTargetId = "";
 let queueDragOverPlacement: "before" | "after" = "after";
+let queueTransparentDragImage: HTMLElement | null = null;
 
 function eventTargetElement(event: Event): Element | null {
   return event.target instanceof Element ? event.target : null;
@@ -145,6 +146,16 @@ function animateWaitingQueueReorder(applyReorder: () => void): void {
   });
 }
 
+function taskQueueTransparentDragImage(): HTMLElement {
+  if (queueTransparentDragImage?.isConnected) return queueTransparentDragImage;
+  const element = document.createElement("div");
+  element.className = "task-queue-transparent-drag-image";
+  element.setAttribute("aria-hidden", "true");
+  document.body.append(element);
+  queueTransparentDragImage = element;
+  return element;
+}
+
 function moveWaitingQueueDragPlaceholder(targetCard: HTMLElement, placement: "before" | "after"): void {
   const draggedId = String(state.queueDragTaskId || "");
   if (!draggedId) return;
@@ -176,7 +187,7 @@ function handleTaskListQueueDragStart(event: DragEvent): void {
   stopQueueDragEvent(event);
   card.classList.add("queue-dragging");
   if (event.dataTransfer) {
-    event.dataTransfer.setDragImage(card, Math.min(28, card.clientWidth / 2), Math.min(28, card.clientHeight / 2));
+    event.dataTransfer.setDragImage(taskQueueTransparentDragImage(), 0, 0);
   }
   handleQueueDragStart(event);
   queueDragOriginalOrder = waitingQueueDomOrder();

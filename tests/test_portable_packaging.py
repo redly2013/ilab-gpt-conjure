@@ -52,9 +52,12 @@ class PortablePackagingTests(unittest.TestCase):
         self.assertIn("api/health", launcher_text)
         self.assertIn("data", launcher_text)
         self.assertIn("portable-version.txt", launcher_text)
+        self.assertIn("update-notice.json", launcher_text)
         self.assertIn("LATEST_RELEASE_URL", launcher_text)
+        self.assertIn("ILAB_CONJURE_BUNDLE_DIR", launcher_text)
         self.assertIn("ILAB_SKIP_VERSION_CHECK", launcher_text)
         self.assertIn("Invoke-RestMethod", launcher_text)
+        self.assertIn("Set-Content -Path $env:UPDATE_NOTICE_FILE", launcher_text)
         self.assertIn("ilab-gpt-conjure-portable-launcher", launcher_text)
         self.assertIn("Update WebUI Portable.bat", launcher_text)
 
@@ -75,6 +78,8 @@ class PortablePackagingTests(unittest.TestCase):
         self.assertIn("Get-CurrentPortableVersion", updater_helper_text)
         self.assertIn("Test-VersionCurrentOrNewer", updater_helper_text)
         self.assertIn("Already up to date", updater_helper_text)
+        self.assertIn("update-notice.json", updater_helper_text)
+        self.assertIn("Clear-UpdateNotice", updater_helper_text)
         self.assertLess(
             updater_helper_text.index('Write-Step "Checking latest release"'),
             updater_helper_text.index('Write-Host "Close the WebUI server window before updating."'),
@@ -137,10 +142,13 @@ class PortablePackagingTests(unittest.TestCase):
         self.assertIn("api/health", launcher_text)
         self.assertIn("data", launcher_text)
         self.assertIn("portable-version.txt", launcher_text)
+        self.assertIn("update-notice.json", launcher_text)
         self.assertIn("LATEST_RELEASE_URL", launcher_text)
         self.assertIn("check_latest_release_notice", launcher_text)
+        self.assertIn("ILAB_CONJURE_BUNDLE_DIR", launcher_text)
         self.assertIn("--max-time 2", launcher_text)
         self.assertIn("ILAB_SKIP_VERSION_CHECK", launcher_text)
+        self.assertIn("json.dump", launcher_text)
         self.assertIn("ilab-gpt-conjure-portable-launcher", launcher_text)
         self.assertIn("Update WebUI Portable.command", launcher_text)
 
@@ -158,6 +166,8 @@ class PortablePackagingTests(unittest.TestCase):
         self.assertIn("current_portable_version", updater_text)
         self.assertIn("version_is_current_or_newer", updater_text)
         self.assertIn("Already up to date", updater_text)
+        self.assertIn("update-notice.json", updater_text)
+        self.assertIn("clear_update_notice", updater_text)
         self.assertLess(
             updater_text.index('step "Checking latest release"'),
             updater_text.index('echo "Close the WebUI server window before updating."'),

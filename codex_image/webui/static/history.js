@@ -178,6 +178,8 @@
       "history.detail": "\u4EFB\u52A1\u8BE6\u60C5",
       "history.detailTitle": "\u5386\u53F2\u4EFB\u52A1",
       "history.closeDetail": "\u5173\u95ED\u4EFB\u52A1\u8BE6\u60C5",
+      "history.resizeFilters": "\u8C03\u6574\u7B5B\u9009\u680F\u5BBD\u5EA6",
+      "history.resizeDetail": "\u8C03\u6574\u8BE6\u60C5\u680F\u5BBD\u5EA6",
       "history.detailEmpty": "\u9009\u62E9\u4E00\u4E2A\u5386\u53F2\u4EFB\u52A1\u67E5\u770B\u8BE6\u60C5",
       "history.loadingDetail": "\u8F7D\u5165\u8BE6\u60C5...",
       "history.loadMore": "\u7EE7\u7EED\u8F7D\u5165",
@@ -201,6 +203,9 @@
       "history.select": "\u7CBE\u9009",
       "history.downloadIndex": "\u4E0B\u8F7D {index}",
       "history.addReference": "\u52A0\u5165\u53C2\u8003\u56FE",
+      "history.outputActions": "\u7ED3\u679C\u56FE\u64CD\u4F5C",
+      "history.inputReferences": "\u8F93\u5165\u53C2\u8003\u56FE",
+      "history.inputReferenceIndex": "\u8F93\u5165\u53C2\u8003\u56FE {index}",
       "history.copyPrompt": "\u590D\u5236\u63D0\u793A\u8BCD",
       "history.copyPrompts": "\u590D\u5236\u63D0\u793A\u8BCD",
       "history.copyPromptShort": "\u590D\u5236",
@@ -240,7 +245,25 @@
       "footer.batch": "\u6279\u91CF\u7BA1\u7406",
       "footer.storage": "\u5B58\u50A8\u8BBE\u7F6E",
       "footer.apiStatus": "API \u72B6\u6001: \u6B63\u5E38",
-      "footer.version": "\u7248\u672C v1.0.0",
+      "footer.version": "\u7248\u672C {version}",
+      "footer.versionInfo": "\u7248\u672C\u4FE1\u606F",
+      "footer.versionLoading": "\u7248\u672C ...",
+      "footer.updateBadge": "\u6709\u65B0\u7248\u672C",
+      "footer.updateAvailable": "\u6709\u65B0\u7248\u672C {version}",
+      "version.title": "\u7248\u672C\u4E0E\u66F4\u65B0",
+      "version.loading": "\u6B63\u5728\u8BFB\u53D6\u7248\u672C\u72B6\u6001",
+      "version.current": "\u5F53\u524D\u7248\u672C",
+      "version.latest": "\u6700\u65B0\u7248\u672C",
+      "version.source": "\u8FD0\u884C\u65B9\u5F0F",
+      "version.sourcePortable": "\u4E00\u952E\u5305",
+      "version.sourceSource": "\u6E90\u7801\u8FD0\u884C",
+      "version.upToDate": "\u5F53\u524D\u5DF2\u7ECF\u662F\u6700\u65B0\u7248",
+      "version.updateAvailable": "\u53D1\u73B0\u65B0\u7248\u672C {version}\u3002\u5173\u95ED WebUI \u670D\u52A1\u7A97\u53E3\u540E\u8FD0\u884C\u66F4\u65B0\u5668\u5373\u53EF\u5347\u7EA7\u3002",
+      "version.noUpdater": "\u5F53\u524D\u4E0D\u662F\u4E00\u952E\u5305\u8FD0\u884C\uFF0C\u4E0D\u80FD\u81EA\u52A8\u542F\u52A8\u66F4\u65B0\u5668\u3002",
+      "version.openUpdater": "\u542F\u52A8\u66F4\u65B0\u5668",
+      "version.release": "\u67E5\u770B\u53D1\u5E03\u9875",
+      "version.updaterStarted": "\u66F4\u65B0\u5668\u5DF2\u542F\u52A8\u3002\u8BF7\u5173\u95ED\u5F53\u524D WebUI \u670D\u52A1\u7A97\u53E3\uFF0C\u518D\u6309\u66F4\u65B0\u5668\u63D0\u793A\u64CD\u4F5C\u3002",
+      "version.updaterFailed": "\u542F\u52A8\u66F4\u65B0\u5668\u5931\u8D25\uFF0C\u8BF7\u624B\u52A8\u8FD0\u884C\u5305\u5185\u66F4\u65B0\u811A\u672C\u3002",
       "notifications.title": "\u4EFB\u52A1\u901A\u77E5",
       "notifications.unread": "\u4EFB\u52A1\u901A\u77E5\uFF0C{count} \u6761\u672A\u8BFB",
       "notifications.unreadSummary": "{count} \u672A\u8BFB",
@@ -787,7 +810,8 @@
       "close.apiSettings": "\u5173\u95ED API \u8BBE\u7F6E\u9762\u677F",
       "close.imageEditor": "\u5173\u95ED\u7F16\u8F91\u8F93\u5165\u56FE\u7247\u9762\u677F",
       "close.gallery": "\u5173\u95ED\u516C\u7528\u56FE\u5E93\u9762\u677F",
-      "close.addGallery": "\u5173\u95ED\u6DFB\u52A0\u5230\u56FE\u5E93\u9762\u677F"
+      "close.addGallery": "\u5173\u95ED\u6DFB\u52A0\u5230\u56FE\u5E93\u9762\u677F",
+      "close.version": "\u5173\u95ED\u7248\u672C\u66F4\u65B0\u9762\u677F"
     },
     en: {
       "app.newTask": "New",
@@ -953,6 +977,8 @@
       "history.detail": "Task detail",
       "history.detailTitle": "History task",
       "history.closeDetail": "Close task detail",
+      "history.resizeFilters": "Resize filter sidebar",
+      "history.resizeDetail": "Resize detail pane",
       "history.detailEmpty": "Select a historical task to view details",
       "history.loadingDetail": "Loading detail...",
       "history.loadMore": "Load more",
@@ -976,6 +1002,9 @@
       "history.select": "Select",
       "history.downloadIndex": "Download {index}",
       "history.addReference": "Add reference",
+      "history.outputActions": "Result image actions",
+      "history.inputReferences": "Input references",
+      "history.inputReferenceIndex": "Input reference {index}",
       "history.copyPrompt": "Copy prompt",
       "history.copyPrompts": "Copy prompts",
       "history.copyPromptShort": "Copy",
@@ -1015,7 +1044,25 @@
       "footer.batch": "Batch",
       "footer.storage": "Storage",
       "footer.apiStatus": "API status: OK",
-      "footer.version": "Version v1.0.0",
+      "footer.version": "Version {version}",
+      "footer.versionInfo": "Version info",
+      "footer.versionLoading": "Version ...",
+      "footer.updateBadge": "New version available",
+      "footer.updateAvailable": "New version {version}",
+      "version.title": "Version & Update",
+      "version.loading": "Reading version status",
+      "version.current": "Current version",
+      "version.latest": "Latest version",
+      "version.source": "Runtime",
+      "version.sourcePortable": "Portable package",
+      "version.sourceSource": "Source checkout",
+      "version.upToDate": "You are already on the latest version",
+      "version.updateAvailable": "Version {version} is available. Close the WebUI server window, then run the updater to upgrade.",
+      "version.noUpdater": "This runtime is not a portable package, so the updater cannot be started automatically.",
+      "version.openUpdater": "Start updater",
+      "version.release": "View release",
+      "version.updaterStarted": "Updater started. Close the current WebUI server window, then follow the updater prompts.",
+      "version.updaterFailed": "Could not start the updater. Run the updater script from the package manually.",
       "notifications.title": "Notifications",
       "notifications.unread": "Notifications, {count} unread",
       "notifications.unreadSummary": "{count} unread",
@@ -1562,7 +1609,8 @@
       "close.apiSettings": "Close API settings panel",
       "close.imageEditor": "Close image editor panel",
       "close.gallery": "Close gallery panel",
-      "close.addGallery": "Close add to gallery panel"
+      "close.addGallery": "Close add to gallery panel",
+      "close.version": "Close version update panel"
     }
   };
   var currentLocale = DEFAULT_LOCALE;
@@ -1638,6 +1686,182 @@
     setLocale(normalizeLocale(saved), { persist: false });
   }
 
+  // codex_image/webui/frontend/src/webui-utils.ts
+  function escapeHtml(value) {
+    return String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+  }
+
+  // codex_image/webui/frontend/src/history-detail-media.ts
+  function positiveInt(value) {
+    const parsed = Number.parseInt(String(value ?? ""), 10);
+    return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
+  }
+  function parseSizeParts(value) {
+    const match = String(value || "").trim().toLowerCase().match(/^(\d+)\s*x\s*(\d+)$/);
+    if (!match) return null;
+    const width = positiveInt(match[1]);
+    const height = positiveInt(match[2]);
+    return width && height ? [width, height] : null;
+  }
+  function outputSizeForTask(task, index, output = {}) {
+    return parseSizeParts(output?.size || output?.output_size) || parseSizeParts(Array.isArray(task?.output_sizes) ? task.output_sizes[index] : "") || parseSizeParts(task?.output_size) || parseSizeParts(task?.params?.size);
+  }
+  function outputOrientation(record) {
+    if (!record.width || !record.height) return "unknown";
+    if (record.width > record.height) return "landscape";
+    if (record.height > record.width) return "portrait";
+    return "square";
+  }
+  function taskSelectedOutputIndexes(task) {
+    const indexes = /* @__PURE__ */ new Set();
+    if (Array.isArray(task?.selected_output_indexes)) {
+      task.selected_output_indexes.forEach((value) => {
+        const index = positiveInt(value);
+        if (index !== null) indexes.add(index);
+      });
+    }
+    return indexes;
+  }
+  function taskOutputRecords(task) {
+    const selectedIndexes = taskSelectedOutputIndexes(task);
+    const records = [];
+    const outputs = Array.isArray(task?.outputs) ? task.outputs : [];
+    outputs.forEach((output, fallbackIndex) => {
+      if (!output || output.deleted || output.status === "deleted") return;
+      const url = String(output.url || output.output_url || "");
+      if (!url || output.status === "failed") return;
+      const outputIndex = positiveInt(output.index) || fallbackIndex + 1;
+      const size = outputSizeForTask(task, fallbackIndex, output);
+      records.push({
+        url,
+        index: outputIndex,
+        selected: selectedIndexes.has(outputIndex),
+        revisedPrompt: String(output.revised_prompt || ""),
+        width: size?.[0] || null,
+        height: size?.[1] || null
+      });
+    });
+    if (records.length) return records;
+    const urls = Array.isArray(task?.output_urls) ? task.output_urls : task?.output_url ? [task.output_url] : [];
+    return urls.filter(Boolean).map((url, index) => {
+      const outputIndex = index + 1;
+      const size = outputSizeForTask(task, index);
+      return {
+        url: String(url),
+        index: outputIndex,
+        selected: selectedIndexes.has(outputIndex),
+        revisedPrompt: String(task?.revised_prompts?.[index] || task?.revised_prompt || ""),
+        width: size?.[0] || null,
+        height: size?.[1] || null
+      };
+    });
+  }
+  function historyDetailImagesLayoutClass(records) {
+    if (records.length <= 1) return "";
+    const orientations = records.map(outputOrientation);
+    const known = orientations.filter((orientation2) => orientation2 !== "unknown");
+    const allKnown = known.length === records.length;
+    const orientation = allKnown && known.every((value) => value === "portrait") ? "portrait" : allKnown && known.every((value) => value === "landscape") ? "landscape" : allKnown && known.every((value) => value === "square") ? "square" : "mixed";
+    const stack = records.length === 2 && (orientation === "landscape" || orientation === "square");
+    return ` history-detail-images-multi history-detail-images-count-${Math.min(records.length, 4)} history-detail-images-${orientation}${stack ? " history-detail-images-stack" : ""}`;
+  }
+  function inputRecordLabel(source, fallbackIndex) {
+    return String(source?.name || source?.filename || source?.category_name || source?.category || formatTranslation("history.inputReferenceIndex", { index: fallbackIndex }));
+  }
+  function taskInputRecords(task) {
+    const records = [];
+    const seen = /* @__PURE__ */ new Set();
+    const addRecord = (url, thumbnailUrl, label) => {
+      const fullUrl = String(url || thumbnailUrl || "");
+      const thumb = String(thumbnailUrl || url || "");
+      if (!fullUrl || seen.has(fullUrl)) return;
+      seen.add(fullUrl);
+      records.push({
+        url: fullUrl,
+        thumbnailUrl: thumb,
+        label: String(label || formatTranslation("history.inputReferenceIndex", { index: records.length + 1 }))
+      });
+    };
+    if (Array.isArray(task?.input_sources)) {
+      task.input_sources.forEach((source, index) => {
+        if (!source || source.missing) return;
+        addRecord(source.image_url || source.url, source.thumbnail_url || source.image_url || source.url, inputRecordLabel(source, index + 1));
+      });
+    }
+    if (!records.length) {
+      const inputUrls = Array.isArray(task?.input_urls) ? task.input_urls : [];
+      const inputThumbnailUrls = Array.isArray(task?.input_thumbnail_urls) ? task.input_thumbnail_urls : [];
+      inputUrls.forEach((url, index) => {
+        addRecord(url, inputThumbnailUrls[index] || url, formatTranslation("history.inputReferenceIndex", { index: index + 1 }));
+      });
+    }
+    return records;
+  }
+  function historyDetailImageHtml(taskId, record, index, selectedCount, totalCount) {
+    const selectedClass = record.selected ? " selected" : "";
+    const selectedText = record.selected ? translate("history.selected") : translate("history.select");
+    const outputBadge = totalCount > 1 ? `<span class="history-detail-output-index">${index + 1} / ${totalCount}</span>` : "";
+    return `
+    <article class="history-detail-image history-detail-output-card${selectedClass}">
+      <button
+        class="history-detail-image-preview history-detail-output-preview"
+        type="button"
+        data-history-lightbox-url="${escapeHtml(record.url)}"
+        data-history-lightbox-index="${index}"
+        aria-label="${escapeHtml(translate("history.openPreview"))}"
+      >
+        ${outputBadge}
+        <img src="${escapeHtml(record.url)}" alt="" loading="lazy" decoding="async">
+      </button>
+      <div class="history-detail-image-actions" aria-label="${escapeHtml(translate("history.outputActions"))}">
+        <button
+          class="history-detail-overlay-button"
+          type="button"
+          aria-pressed="${record.selected ? "true" : "false"}"
+          data-history-output-selected-task-id="${escapeHtml(taskId)}"
+          data-history-output-selected-index="${record.index}"
+        >${selectedText}</button>
+        <a class="history-detail-overlay-button" href="${escapeHtml(record.url)}" download>${escapeHtml(formatTranslation("history.downloadIndex", { index: index + 1 }))}</a>
+        <button class="history-detail-overlay-button primary" type="button" data-history-reference-handoff-url="${escapeHtml(record.url)}">${escapeHtml(translate("history.addReference"))}</button>
+        ${selectedCount === 1 && record.selected ? `<a class="history-detail-overlay-button" href="${escapeHtml(record.url)}" download>${escapeHtml(translate("history.downloadSelected"))}</a>` : ""}
+      </div>
+    </article>
+  `;
+  }
+  function historyDetailImagesHtml(taskId, records, selectedCount) {
+    return records.map((record, index) => historyDetailImageHtml(taskId, record, index, selectedCount, records.length)).join("");
+  }
+  function historyInputReferencesHtml(task) {
+    const records = taskInputRecords(task);
+    if (!records.length) return "";
+    const thumbs = records.map((record, index) => `
+    <button
+      class="history-detail-input-thumb"
+      type="button"
+      title="${escapeHtml(record.label)}"
+      data-history-input-lightbox-index="${index}"
+      aria-label="${escapeHtml(formatTranslation("history.inputReferenceIndex", { index: index + 1 }))}"
+    >
+      <img src="${escapeHtml(record.thumbnailUrl)}" alt="" loading="lazy" decoding="async">
+    </button>
+  `).join("");
+    return `
+    <section class="history-detail-inputs" aria-label="${escapeHtml(translate("history.inputReferences"))}">
+      <div class="history-detail-inputs-header">
+        <h3>${escapeHtml(translate("history.inputReferences"))}</h3>
+        <span>${records.length}</span>
+      </div>
+      <div class="history-detail-inputs-list">${thumbs}</div>
+    </section>
+  `;
+  }
+  function historyLightboxUrlsFromTask(task) {
+    return taskOutputRecords(task).map((record) => record.url).filter(Boolean);
+  }
+  function historyInputLightboxUrlsFromTask(task) {
+    return taskInputRecords(task).map((record) => record.url).filter(Boolean);
+  }
+
   // codex_image/webui/frontend/src/history-window.ts
   function historyTaskCards(root) {
     return [...root.querySelectorAll(".history-task-card[data-history-task-card-id]")];
@@ -1679,6 +1903,168 @@
     root.scrollTop += nextOffset - anchor.offset;
   }
 
+  // codex_image/webui/frontend/src/history-lightbox.ts
+  var historyLightboxEl = null;
+  var historyLightboxState = {
+    urls: [],
+    index: 0,
+    scale: 1,
+    pointX: 0,
+    pointY: 0,
+    panning: false,
+    startX: 0,
+    startY: 0
+  };
+  function normalizedHistoryLightboxIndex(index, count) {
+    if (!count) return 0;
+    return (index % count + count) % count;
+  }
+  function historyLightboxImage() {
+    return historyLightboxEl?.querySelector("[data-history-lightbox-image]") || null;
+  }
+  function isHistoryLightboxActive() {
+    return Boolean(historyLightboxEl && !historyLightboxEl.hidden);
+  }
+  function stopHistoryLightboxPanning() {
+    historyLightboxState.panning = false;
+  }
+  function setHistoryLightboxTransform() {
+    const image = historyLightboxImage();
+    if (!image) return;
+    image.style.transform = `translate(${historyLightboxState.pointX}px, ${historyLightboxState.pointY}px) scale(${historyLightboxState.scale})`;
+  }
+  function resetHistoryLightboxTransform() {
+    historyLightboxState.scale = 1;
+    historyLightboxState.pointX = 0;
+    historyLightboxState.pointY = 0;
+    stopHistoryLightboxPanning();
+    setHistoryLightboxTransform();
+  }
+  function updateHistoryLightboxControls() {
+    if (!historyLightboxEl) return;
+    const hasMultipleImages = historyLightboxState.urls.length > 1;
+    const prevButton = historyLightboxEl.querySelector("[data-history-lightbox-prev]");
+    const nextButton = historyLightboxEl.querySelector("[data-history-lightbox-next]");
+    const counter = historyLightboxEl.querySelector("[data-history-lightbox-counter]");
+    [prevButton, nextButton, counter].forEach((element) => {
+      element?.classList.toggle("hidden", !hasMultipleImages);
+    });
+    if (counter) {
+      counter.textContent = hasMultipleImages ? `${historyLightboxState.index + 1} / ${historyLightboxState.urls.length}` : "";
+    }
+  }
+  function showHistoryLightboxImage(index) {
+    if (!historyLightboxEl || !historyLightboxState.urls.length) return;
+    const image = historyLightboxImage();
+    if (!image) return;
+    historyLightboxState.index = normalizedHistoryLightboxIndex(index, historyLightboxState.urls.length);
+    image.src = historyLightboxState.urls[historyLightboxState.index] || "";
+    resetHistoryLightboxTransform();
+    updateHistoryLightboxControls();
+  }
+  function showPreviousHistoryLightboxImage() {
+    if (!isHistoryLightboxActive() || historyLightboxState.urls.length < 2) return;
+    showHistoryLightboxImage(historyLightboxState.index - 1);
+  }
+  function showNextHistoryLightboxImage() {
+    if (!isHistoryLightboxActive() || historyLightboxState.urls.length < 2) return;
+    showHistoryLightboxImage(historyLightboxState.index + 1);
+  }
+  function ensureHistoryLightbox() {
+    if (historyLightboxEl) return historyLightboxEl;
+    historyLightboxEl = document.createElement("div");
+    historyLightboxEl.className = "history-lightbox";
+    historyLightboxEl.hidden = true;
+    historyLightboxEl.setAttribute("role", "dialog");
+    historyLightboxEl.setAttribute("aria-modal", "true");
+    historyLightboxEl.setAttribute("aria-label", translate("lightbox.label"));
+    historyLightboxEl.innerHTML = `
+    <button class="history-lightbox-close" type="button" data-history-lightbox-close aria-label="${escapeHtml(translate("lightbox.close"))}">
+      <svg class="drawer-close-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M6 6l12 12M18 6L6 18"></path>
+      </svg>
+    </button>
+    <button class="history-lightbox-nav history-lightbox-prev" type="button" data-history-lightbox-prev aria-label="${escapeHtml(translate("lightbox.previous"))}">&lsaquo;</button>
+    <img alt="" draggable="false" data-history-lightbox-image>
+    <button class="history-lightbox-nav history-lightbox-next" type="button" data-history-lightbox-next aria-label="${escapeHtml(translate("lightbox.next"))}">&rsaquo;</button>
+    <div class="history-lightbox-counter" data-history-lightbox-counter aria-live="polite"></div>
+  `;
+    document.body.append(historyLightboxEl);
+    historyLightboxEl.querySelector("[data-history-lightbox-close]")?.addEventListener("click", closeHistoryLightbox);
+    historyLightboxEl.querySelector("[data-history-lightbox-prev]")?.addEventListener("click", showPreviousHistoryLightboxImage);
+    historyLightboxEl.querySelector("[data-history-lightbox-next]")?.addEventListener("click", showNextHistoryLightboxImage);
+    historyLightboxEl.addEventListener("wheel", (event) => {
+      if (!isHistoryLightboxActive()) return;
+      event.preventDefault();
+      const delta = event.deltaY * -5e-3;
+      historyLightboxState.scale = Math.min(Math.max(0.5, historyLightboxState.scale + delta), 5);
+      setHistoryLightboxTransform();
+    }, { passive: false });
+    historyLightboxEl.addEventListener("click", (event) => {
+      if (event.target === historyLightboxEl) closeHistoryLightbox();
+    });
+    const image = historyLightboxImage();
+    image?.addEventListener("mousedown", (event) => {
+      if (event.button !== 0) {
+        stopHistoryLightboxPanning();
+        return;
+      }
+      event.preventDefault();
+      historyLightboxState.panning = true;
+      historyLightboxState.startX = event.clientX - historyLightboxState.pointX;
+      historyLightboxState.startY = event.clientY - historyLightboxState.pointY;
+    });
+    image?.addEventListener("contextmenu", stopHistoryLightboxPanning);
+    window.addEventListener("mousemove", (event) => {
+      if (!historyLightboxState.panning) return;
+      if (event.buttons !== void 0 && (event.buttons & 1) !== 1) {
+        stopHistoryLightboxPanning();
+        return;
+      }
+      historyLightboxState.pointX = event.clientX - historyLightboxState.startX;
+      historyLightboxState.pointY = event.clientY - historyLightboxState.startY;
+      setHistoryLightboxTransform();
+    });
+    window.addEventListener("mouseup", stopHistoryLightboxPanning);
+    window.addEventListener("blur", stopHistoryLightboxPanning);
+    window.addEventListener("keydown", (event) => {
+      if (!isHistoryLightboxActive()) return;
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        showPreviousHistoryLightboxImage();
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        showNextHistoryLightboxImage();
+      }
+    });
+    return historyLightboxEl;
+  }
+  function openHistoryLightbox(urls, index = 0) {
+    const nextUrls = Array.isArray(urls) ? urls.filter(Boolean) : [];
+    if (!nextUrls.length) return;
+    const lightbox = ensureHistoryLightbox();
+    historyLightboxState.urls = nextUrls;
+    historyLightboxState.index = normalizedHistoryLightboxIndex(index, nextUrls.length);
+    showHistoryLightboxImage(historyLightboxState.index);
+    lightbox.hidden = false;
+    document.body.classList.add("history-lightbox-open");
+    updateHistoryLightboxControls();
+  }
+  function closeHistoryLightbox() {
+    if (!historyLightboxEl || historyLightboxEl.hidden) return;
+    historyLightboxEl.hidden = true;
+    const image = historyLightboxImage();
+    if (image) image.removeAttribute("src");
+    stopHistoryLightboxPanning();
+    historyLightboxState.urls = [];
+    historyLightboxState.index = 0;
+    resetHistoryLightboxTransform();
+    document.body.classList.remove("history-lightbox-open");
+  }
+  function isHistoryLightboxOpen() {
+    return isHistoryLightboxActive();
+  }
+
   // codex_image/webui/frontend/src/history.ts
   var HISTORY_FILTER_KEYS = ["month", "prompt_mode", "quality", "ratio", "orientation", "backend", "provider", "archived"];
   var HISTORY_RATIO_OTHER_VALUE = "__other__";
@@ -1689,6 +2075,16 @@
   var HISTORY_THEME_STORAGE_KEY = "codex-image-theme-preference";
   var HISTORY_THUMBNAIL_CACHE_VERSION = "thumb-768-fit";
   var HISTORY_GRID_DEFAULT_GAP = 14;
+  var HISTORY_LAYOUT_STORAGE_KEY = "codex-image-history-layout";
+  var HISTORY_LAYOUT_DEFAULTS = { left: 280, right: 380 };
+  var HISTORY_LAYOUT_LIMITS = {
+    leftMin: 220,
+    leftMax: 420,
+    rightMin: 300,
+    rightMax: 620,
+    middleMin: 360,
+    resizerWidth: 8
+  };
   var historyState = {
     q: "",
     month: "",
@@ -1725,9 +2121,14 @@
     requestId: 0
   };
   var historyGridLayoutFrame = 0;
+  var pendingHistoryGridKeepTaskId = "";
   var historyContextMenuEl = null;
+  var activeHistoryResizer = null;
   var els = {
     page: document.querySelector(".history-page"),
+    sidebar: document.querySelector(".history-sidebar"),
+    leftResizer: document.querySelector('[data-history-resizer="left"]'),
+    rightResizer: document.querySelector('[data-history-resizer="right"]'),
     total: document.querySelector("#historyTotal"),
     search: document.querySelector("#historySearch"),
     searchClear: document.querySelector("#historySearchClear"),
@@ -1753,7 +2154,7 @@
     sentinel: document.querySelector("[data-history-load-more]"),
     refresh: document.querySelector("#historyRefreshButton")
   };
-  function escapeHtml(value) {
+  function escapeHtml2(value) {
     return String(value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
   }
   function formatDate(value) {
@@ -1813,8 +2214,39 @@
       if (value === "low") return translate("history.quality.low");
       if (value === "auto") return translate("history.quality.auto");
     }
+    if (key === "orientation") {
+      if (value === "portrait") return translate("output.portrait");
+      if (value === "landscape") return translate("output.landscape");
+      if (value === "square") return translate("output.square");
+    }
     if (key === "ratio" && value === HISTORY_RATIO_OTHER_VALUE) return translate("history.ratioOther");
     return value;
+  }
+  function historyOrientationIconHtml(value) {
+    if (value === "portrait") {
+      return `<svg class="history-filter-icon history-filter-icon-portrait" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+        <rect x="6.5" y="3" width="7" height="14" rx="2"></rect>
+      </svg>`;
+    }
+    if (value === "landscape") {
+      return `<svg class="history-filter-icon history-filter-icon-landscape" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+        <rect x="3" y="6.5" width="14" height="7" rx="2"></rect>
+      </svg>`;
+    }
+    if (value === "square") {
+      return `<svg class="history-filter-icon history-filter-icon-square" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+        <rect x="5" y="5" width="10" height="10" rx="2"></rect>
+      </svg>`;
+    }
+    return `<svg class="history-filter-icon history-filter-icon-all" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+      <rect x="3.5" y="4" width="5" height="8" rx="1.5"></rect>
+      <rect x="10.5" y="5" width="6" height="4.5" rx="1.4"></rect>
+      <rect x="10.5" y="11.5" width="5" height="5" rx="1.4"></rect>
+    </svg>`;
+  }
+  function historyFilterButtonLabelHtml(key, label, value = "") {
+    if (key !== "orientation") return escapeHtml2(label);
+    return `${historyOrientationIconHtml(value)}<span class="history-filter-label">${escapeHtml2(label)}</span>`;
   }
   function syncStateFromUrl() {
     const params = new URLSearchParams(window.location.search);
@@ -1865,10 +2297,10 @@
     const current = String(historyState[key] || "");
     const attr = historyFilterAttribute(key);
     root.innerHTML = [
-      `<button class="history-filter-button ${current ? "" : "active"}" type="button" data-history-${attr}="">${escapeHtml(allLabel)}</button>`,
+      `<button class="history-filter-button ${current ? "" : "active"}" type="button" data-history-filter-key="${key}" data-history-${attr}="">${historyFilterButtonLabelHtml(key, allLabel)}</button>`,
       ...items.map((item) => {
         const active = current === item.value ? " active" : "";
-        return `<button class="history-filter-button${active}" type="button" data-history-${attr}="${escapeHtml(item.value)}">${escapeHtml(facetDisplayValue(key, item.value))} <span>${item.count}</span></button>`;
+        return `<button class="history-filter-button${active}" type="button" data-history-filter-key="${key}" data-history-${attr}="${escapeHtml2(item.value)}">${historyFilterButtonLabelHtml(key, facetDisplayValue(key, item.value), item.value)}<span class="history-filter-count">${item.count}</span></button>`;
       })
     ].join("");
   }
@@ -1912,11 +2344,34 @@
     }
     return { targetHeight: 220, minWidth: 150, maxWidth: 430 };
   }
-  function scheduleHistoryGridLayout() {
+  function historyTaskCardElement(taskId) {
+    if (!taskId || !els.taskList) return null;
+    return historyTaskCards(els.taskList).find((card) => card.dataset.historyTaskCardId === taskId) || null;
+  }
+  function isHistoryTaskCardVisible(taskId) {
+    const list = els.taskList;
+    const card = historyTaskCardElement(taskId);
+    if (!list || !card) return false;
+    const listRect = list.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    return cardRect.bottom > listRect.top && cardRect.top < listRect.bottom && cardRect.right > listRect.left && cardRect.left < listRect.right;
+  }
+  function activeHistoryTaskVisible() {
+    const taskId = historyState.selectedTaskId;
+    return taskId && isHistoryTaskCardVisible(taskId) ? taskId : "";
+  }
+  function ensureHistoryTaskCardVisible(taskId) {
+    historyTaskCardElement(taskId)?.scrollIntoView({ block: "nearest", inline: "nearest" });
+  }
+  function scheduleHistoryGridLayout(options = {}) {
+    if (options.keepTaskId) pendingHistoryGridKeepTaskId = options.keepTaskId;
     if (historyGridLayoutFrame) window.cancelAnimationFrame(historyGridLayoutFrame);
     historyGridLayoutFrame = window.requestAnimationFrame(() => {
       historyGridLayoutFrame = 0;
+      const keepTaskId = pendingHistoryGridKeepTaskId;
+      pendingHistoryGridKeepTaskId = "";
       layoutJustifiedHistoryGrid();
+      if (keepTaskId) ensureHistoryTaskCardVisible(keepTaskId);
     });
   }
   function parseCssPixels(value) {
@@ -1925,6 +2380,165 @@
   }
   function clampNumber(value, min, max) {
     return Math.min(max, Math.max(min, value));
+  }
+  function isHistoryResizableLayout() {
+    return Boolean(els.page) && !window.matchMedia("(max-width: 1100px)").matches;
+  }
+  function readHistoryLayoutPreference() {
+    try {
+      const raw = localStorage.getItem(HISTORY_LAYOUT_STORAGE_KEY);
+      if (!raw) return { ...HISTORY_LAYOUT_DEFAULTS };
+      const parsed = JSON.parse(raw);
+      return {
+        left: typeof parsed.left === "number" && Number.isFinite(parsed.left) ? parsed.left : HISTORY_LAYOUT_DEFAULTS.left,
+        right: typeof parsed.right === "number" && Number.isFinite(parsed.right) ? parsed.right : HISTORY_LAYOUT_DEFAULTS.right
+      };
+    } catch {
+      return { ...HISTORY_LAYOUT_DEFAULTS };
+    }
+  }
+  function historyLayoutMaxCombinedWidth() {
+    const pageWidth = els.page?.getBoundingClientRect().width || window.innerWidth || 0;
+    return Math.max(
+      HISTORY_LAYOUT_LIMITS.leftMin + HISTORY_LAYOUT_LIMITS.rightMin,
+      pageWidth - HISTORY_LAYOUT_LIMITS.middleMin - HISTORY_LAYOUT_LIMITS.resizerWidth * 2
+    );
+  }
+  function constrainHistoryLayoutWidths(left, right, prioritySide = "") {
+    let nextLeft = clampNumber(Math.round(left), HISTORY_LAYOUT_LIMITS.leftMin, HISTORY_LAYOUT_LIMITS.leftMax);
+    let nextRight = clampNumber(Math.round(right), HISTORY_LAYOUT_LIMITS.rightMin, HISTORY_LAYOUT_LIMITS.rightMax);
+    let overflow = nextLeft + nextRight - historyLayoutMaxCombinedWidth();
+    if (overflow > 0) {
+      if (prioritySide === "left") {
+        const rightReduction = Math.min(overflow, nextRight - HISTORY_LAYOUT_LIMITS.rightMin);
+        nextRight -= rightReduction;
+        overflow -= rightReduction;
+        nextLeft -= Math.min(overflow, nextLeft - HISTORY_LAYOUT_LIMITS.leftMin);
+      } else {
+        const leftReduction = Math.min(overflow, nextLeft - HISTORY_LAYOUT_LIMITS.leftMin);
+        nextLeft -= leftReduction;
+        overflow -= leftReduction;
+        nextRight -= Math.min(overflow, nextRight - HISTORY_LAYOUT_LIMITS.rightMin);
+      }
+    }
+    return { left: Math.round(nextLeft), right: Math.round(nextRight) };
+  }
+  function getCurrentHistoryLayoutWidths() {
+    const fromStyle = {
+      left: parseCssPixels(els.page?.style.getPropertyValue("--history-sidebar-width") || ""),
+      right: parseCssPixels(els.page?.style.getPropertyValue("--history-detail-width") || "")
+    };
+    if (fromStyle.left && fromStyle.right) return fromStyle;
+    const sidebarWidth = els.sidebar?.getBoundingClientRect().width || HISTORY_LAYOUT_DEFAULTS.left;
+    const detailWidth = els.detail?.getBoundingClientRect().width || HISTORY_LAYOUT_DEFAULTS.right;
+    return constrainHistoryLayoutWidths(sidebarWidth, detailWidth);
+  }
+  function updateHistoryResizerAria(widths) {
+    els.leftResizer?.setAttribute("aria-valuenow", String(widths.left));
+    els.rightResizer?.setAttribute("aria-valuenow", String(widths.right));
+  }
+  function applyHistoryLayoutWidths(left, right, options = {}) {
+    if (!els.page) return;
+    const keepTaskId = options.preserveActiveTask ? activeHistoryTaskVisible() : "";
+    const widths = constrainHistoryLayoutWidths(left, right, options.prioritySide || "");
+    els.page.style.setProperty("--history-sidebar-width", `${widths.left}px`);
+    els.page.style.setProperty("--history-detail-width", `${widths.right}px`);
+    updateHistoryResizerAria(widths);
+    scheduleHistoryGridLayout({ keepTaskId });
+    if (options.persist) {
+      try {
+        localStorage.setItem(HISTORY_LAYOUT_STORAGE_KEY, JSON.stringify(widths));
+      } catch {
+      }
+    }
+  }
+  function restoreHistoryLayoutPreference() {
+    const stored = readHistoryLayoutPreference();
+    const widths = constrainHistoryLayoutWidths(stored.left, stored.right);
+    applyHistoryLayoutWidths(widths.left, widths.right);
+  }
+  function resetHistoryLayoutSide(side) {
+    const widths = getCurrentHistoryLayoutWidths();
+    const nextLeft = side === "left" ? HISTORY_LAYOUT_DEFAULTS.left : widths.left;
+    const nextRight = side === "right" ? HISTORY_LAYOUT_DEFAULTS.right : widths.right;
+    applyHistoryLayoutWidths(nextLeft, nextRight, { persist: true, preserveActiveTask: true, prioritySide: side });
+  }
+  function resizeHistoryLayoutByKeyboard(side, event) {
+    const step = event.shiftKey ? 48 : 16;
+    const widths = getCurrentHistoryLayoutWidths();
+    let nextLeft = widths.left;
+    let nextRight = widths.right;
+    if (event.key === "ArrowLeft") {
+      if (side === "left") nextLeft -= step;
+      else nextRight += step;
+    } else if (event.key === "ArrowRight") {
+      if (side === "left") nextLeft += step;
+      else nextRight -= step;
+    } else if (event.key === "Home") {
+      if (side === "left") nextLeft = HISTORY_LAYOUT_LIMITS.leftMin;
+      else nextRight = HISTORY_LAYOUT_LIMITS.rightMax;
+    } else if (event.key === "End") {
+      if (side === "left") nextLeft = HISTORY_LAYOUT_LIMITS.leftMax;
+      else nextRight = HISTORY_LAYOUT_LIMITS.rightMin;
+    } else if (event.key === "Enter" || event.key === " ") {
+      resetHistoryLayoutSide(side);
+      return true;
+    } else {
+      return false;
+    }
+    applyHistoryLayoutWidths(nextLeft, nextRight, { persist: true, preserveActiveTask: true, prioritySide: side });
+    return true;
+  }
+  function startHistoryResize(side, event, element) {
+    if (event.button !== 0 || !isHistoryResizableLayout()) return;
+    const widths = getCurrentHistoryLayoutWidths();
+    activeHistoryResizer = {
+      side,
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startLeft: widths.left,
+      startRight: widths.right,
+      element
+    };
+    closeHistoryContextMenu();
+    event.preventDefault();
+    element.setPointerCapture?.(event.pointerId);
+    els.page?.classList.add("history-resizing");
+  }
+  function updateHistoryResize(event) {
+    if (!activeHistoryResizer || event.pointerId !== activeHistoryResizer.pointerId) return;
+    const delta = event.clientX - activeHistoryResizer.startX;
+    const nextLeft = activeHistoryResizer.side === "left" ? activeHistoryResizer.startLeft + delta : activeHistoryResizer.startLeft;
+    const nextRight = activeHistoryResizer.side === "right" ? activeHistoryResizer.startRight - delta : activeHistoryResizer.startRight;
+    applyHistoryLayoutWidths(nextLeft, nextRight, { preserveActiveTask: true, prioritySide: activeHistoryResizer.side });
+  }
+  function endHistoryResize(event) {
+    if (!activeHistoryResizer) return;
+    if (event && event.pointerId !== activeHistoryResizer.pointerId) return;
+    if (activeHistoryResizer.element.hasPointerCapture?.(activeHistoryResizer.pointerId)) {
+      activeHistoryResizer.element.releasePointerCapture?.(activeHistoryResizer.pointerId);
+    }
+    const widths = getCurrentHistoryLayoutWidths();
+    applyHistoryLayoutWidths(widths.left, widths.right, { persist: true, preserveActiveTask: true, prioritySide: activeHistoryResizer.side });
+    activeHistoryResizer = null;
+    els.page?.classList.remove("history-resizing");
+  }
+  function bindHistoryResizerEvents() {
+    for (const resizer of [els.leftResizer, els.rightResizer]) {
+      const side = resizer?.dataset.historyResizer;
+      if (!resizer || side !== "left" && side !== "right") continue;
+      resizer.addEventListener("pointerdown", (event) => startHistoryResize(side, event, resizer));
+      resizer.addEventListener("dblclick", () => resetHistoryLayoutSide(side));
+      resizer.addEventListener("keydown", (event) => {
+        if (!isHistoryResizableLayout()) return;
+        if (!resizeHistoryLayoutByKeyboard(side, event)) return;
+        event.preventDefault();
+        event.stopPropagation();
+      });
+    }
+    window.addEventListener("pointermove", updateHistoryResize);
+    window.addEventListener("pointerup", endHistoryResize);
+    window.addEventListener("pointercancel", endHistoryResize);
   }
   function historyTaskCardRatio(card) {
     const ratio = Number.parseFloat(card.style.getPropertyValue("--history-task-card-ratio"));
@@ -2096,7 +2710,7 @@
   }
   function renderTaskListMessage(className, message) {
     if (!els.taskList) return;
-    els.taskList.innerHTML = `<div class="${className}">${escapeHtml(message)}</div>`;
+    els.taskList.innerHTML = `<div class="${className}">${escapeHtml2(message)}</div>`;
   }
   function trimMountedTaskCards(edge) {
     if (!els.taskList) return;
@@ -2121,10 +2735,10 @@
     els.taskList.querySelector(".history-window-notice")?.remove();
   }
   function taskCardHtml(task) {
-    const taskId = escapeHtml(task.task_id);
+    const taskId = escapeHtml2(task.task_id);
     const thumbnailUrl = historyThumbnailUrl(task);
     const ratioStyle = historyThumbnailRatioStyle(task);
-    const thumb = thumbnailUrl ? `<img src="${escapeHtml(thumbnailUrl)}" alt="" loading="lazy" decoding="async" draggable="false">` : "";
+    const thumb = thumbnailUrl ? `<img src="${escapeHtml2(thumbnailUrl)}" alt="" loading="lazy" decoding="async" draggable="false">` : "";
     const counts = `${task.generated_count || 0}/${task.total_count || 0}`;
     const selected = historyState.selectedTaskIds.has(task.task_id);
     const active = historyState.selectedTaskId === task.task_id;
@@ -2144,21 +2758,21 @@
     <article
       class="history-task-card${active ? " active" : ""}${selected ? " selected" : ""}"
       data-history-task-card-id="${taskId}"
-      data-history-created-at="${escapeHtml(task.created_at)}"
+      data-history-created-at="${escapeHtml2(task.created_at)}"
       role="option"
       aria-selected="${active ? "true" : "false"}"
       ${ratioStyle}
     >
-      <label class="history-task-select" aria-label="${escapeHtml(translate("history.selectTask"))}">
+      <label class="history-task-select" aria-label="${escapeHtml2(translate("history.selectTask"))}">
         <input type="checkbox" data-history-task-select="${taskId}" ${selected ? "checked" : ""}>
       </label>
-      <span class="history-task-active-badge" aria-hidden="${active ? "false" : "true"}">${escapeHtml(translate("history.viewing"))}</span>
+      <span class="history-task-active-badge" aria-hidden="${active ? "false" : "true"}">${escapeHtml2(translate("history.viewing"))}</span>
       <button class="history-task-open" type="button" data-history-task-id="${taskId}">
         <span class="history-task-thumb">${thumb}</span>
         <span class="history-task-copy">
-          <span class="history-task-title">${escapeHtml(task.prompt_preview || task.mode || task.task_id)}</span>
+          <span class="history-task-title">${escapeHtml2(task.prompt_preview || task.mode || task.task_id)}</span>
           <span class="history-task-meta">
-            ${metaItems.map((item) => `<span data-history-meta-kind="${escapeHtml(item.kind)}">${escapeHtml(item.value)}</span>`).join("")}
+            ${metaItems.map((item) => `<span data-history-meta-kind="${escapeHtml2(item.kind)}">${escapeHtml2(item.value)}</span>`).join("")}
           </span>
         </span>
       </button>
@@ -2302,12 +2916,12 @@
     els.detail.innerHTML = `
     <div class="history-detail-header">
       <div>
-        <p class="history-detail-kicker">${escapeHtml(translate("history.detail"))}</p>
-        <h2 class="history-detail-title">${escapeHtml(translate("history.detailTitle"))}</h2>
+        <p class="history-detail-kicker">${escapeHtml2(translate("history.detail"))}</p>
+        <h2 class="history-detail-title">${escapeHtml2(translate("history.detailTitle"))}</h2>
       </div>
-      <button id="historyDetailClose" class="drawer-close-button history-detail-close" type="button" data-history-detail-close aria-label="${escapeHtml(translate("history.closeDetail"))}">\xD7</button>
+      <button id="historyDetailClose" class="drawer-close-button history-detail-close" type="button" data-history-detail-close aria-label="${escapeHtml2(translate("history.closeDetail"))}">\xD7</button>
     </div>
-    <div class="${className}">${escapeHtml(message)}</div>
+    <div class="${className}">${escapeHtml2(message)}</div>
   `;
   }
   function historyTaskModeLabel(mode) {
@@ -2322,7 +2936,9 @@
     const taskId = String(task.task_id || historyState.selectedTaskId || "");
     const urls = taskOutputRecords(task);
     const selectedCount = taskSelectedOutputIndexes(task).size;
-    const images = urls.map((record, index) => historyDetailImageHtml(taskId, record, index, selectedCount)).join("");
+    const images = historyDetailImagesHtml(taskId, urls, selectedCount);
+    const imageLayoutClass = historyDetailImagesLayoutClass(urls);
+    const inputReferences = historyInputReferencesHtml(task);
     const zipHref = `/api/tasks/${encodeURIComponent(taskId)}/outputs.zip`;
     const canZip = urls.length > 1;
     const canDeleteUnselected = selectedCount > 0 && selectedCount < urls.length;
@@ -2334,29 +2950,30 @@
     els.detail.innerHTML = `
     <div class="history-detail-header">
       <div>
-        <p class="history-detail-kicker">${escapeHtml(historyTaskModeLabel(task.mode))}</p>
-        <h2 class="history-detail-title" title="${escapeHtml(task.prompt || title)}">${escapeHtml(title)}</h2>
+        <p class="history-detail-kicker">${escapeHtml2(historyTaskModeLabel(task.mode))}</p>
+        <h2 class="history-detail-title" title="${escapeHtml2(task.prompt || title)}">${escapeHtml2(title)}</h2>
       </div>
-      <button id="historyDetailClose" class="drawer-close-button history-detail-close" type="button" data-history-detail-close aria-label="${escapeHtml(translate("history.closeDetail"))}">\xD7</button>
+      <button id="historyDetailClose" class="drawer-close-button history-detail-close" type="button" data-history-detail-close aria-label="${escapeHtml2(translate("history.closeDetail"))}">\xD7</button>
     </div>
     <div class="history-detail-meta">
-      <span>${escapeHtml(formatDate(task.created_at || ""))}</span>
-      <span>${escapeHtml(task.status || "")}</span>
-      <span>${escapeHtml(task.params?.size || task.output_size || "")}</span>
-      <span>${escapeHtml(facetDisplayValue("prompt_mode", task.params?.prompt_fidelity || ""))}</span>
-      <span>${escapeHtml(facetDisplayValue("quality", task.params?.quality || task.quality || ""))}</span>
-      <span>${escapeHtml(task.backend || task.api_provider_name || "")}</span>
+      <span>${escapeHtml2(formatDate(task.created_at || ""))}</span>
+      <span>${escapeHtml2(task.status || "")}</span>
+      <span>${escapeHtml2(task.params?.size || task.output_size || "")}</span>
+      <span>${escapeHtml2(facetDisplayValue("prompt_mode", task.params?.prompt_fidelity || ""))}</span>
+      <span>${escapeHtml2(facetDisplayValue("quality", task.params?.quality || task.quality || ""))}</span>
+      <span>${escapeHtml2(task.backend || task.api_provider_name || "")}</span>
     </div>
     <div class="history-detail-actions">
-      <button class="ghost-button text-sm" type="button" data-history-reuse-task="${escapeHtml(taskId)}">${escapeHtml(translate("history.reuseTask"))}</button>
-      <button class="ghost-button text-sm" type="button" data-history-archive-task="${escapeHtml(taskId)}" data-history-archive-value="${archived ? "false" : "true"}">${escapeHtml(archived ? translate("archive.restore") : translate("action.archive"))}</button>
-      <button class="ghost-button text-sm danger-button" type="button" data-history-delete-task="${escapeHtml(taskId)}" ${deleteBlocked ? "disabled" : ""}>${escapeHtml(confirmingDeleteTask ? translate("history.confirmDelete") : translate("action.delete"))}</button>
-      ${canZip ? `<a class="ghost-button text-sm" href="${escapeHtml(zipHref)}" download>${escapeHtml(translate("history.downloadAll"))}</a>` : ""}
-      ${selectedCount > 1 ? `<a class="ghost-button text-sm" href="${escapeHtml(zipHref)}?selected=1" download>${escapeHtml(translate("history.downloadSelected"))}</a>` : ""}
-      ${canDeleteUnselected ? `<button class="ghost-button text-sm danger-button" type="button" data-history-delete-unselected="${escapeHtml(taskId)}">${escapeHtml(confirmingDeleteUnselected ? translate("history.confirmDeleteUnselected") : translate("history.deleteUnselected"))}</button>` : ""}
-      ${confirmingDeleteUnselected ? `<button class="ghost-button text-sm" type="button" data-history-delete-unselected-cancel>${escapeHtml(translate("action.cancel"))}</button>` : ""}
+      <button class="ghost-button text-sm" type="button" data-history-reuse-task="${escapeHtml2(taskId)}">${escapeHtml2(translate("history.reuseTask"))}</button>
+      <button class="ghost-button text-sm" type="button" data-history-archive-task="${escapeHtml2(taskId)}" data-history-archive-value="${archived ? "false" : "true"}">${escapeHtml2(archived ? translate("archive.restore") : translate("action.archive"))}</button>
+      <button class="ghost-button text-sm danger-button" type="button" data-history-delete-task="${escapeHtml2(taskId)}" ${deleteBlocked ? "disabled" : ""}>${escapeHtml2(confirmingDeleteTask ? translate("history.confirmDelete") : translate("action.delete"))}</button>
+      ${canZip ? `<a class="ghost-button text-sm" href="${escapeHtml2(zipHref)}" download>${escapeHtml2(translate("history.downloadAll"))}</a>` : ""}
+      ${selectedCount > 1 ? `<a class="ghost-button text-sm" href="${escapeHtml2(zipHref)}?selected=1" download>${escapeHtml2(translate("history.downloadSelected"))}</a>` : ""}
+      ${canDeleteUnselected ? `<button class="ghost-button text-sm danger-button" type="button" data-history-delete-unselected="${escapeHtml2(taskId)}">${escapeHtml2(confirmingDeleteUnselected ? translate("history.confirmDeleteUnselected") : translate("history.deleteUnselected"))}</button>` : ""}
+      ${confirmingDeleteUnselected ? `<button class="ghost-button text-sm" type="button" data-history-delete-unselected-cancel>${escapeHtml2(translate("action.cancel"))}</button>` : ""}
     </div>
-    <div class="history-detail-images">${images || `<div class="history-detail-empty">${escapeHtml(translate("history.noPreview"))}</div>`}</div>
+    <div class="history-detail-images${imageLayoutClass}">${images || `<div class="history-detail-empty">${escapeHtml2(translate("history.noPreview"))}</div>`}</div>
+    ${inputReferences}
     ${promptCompareHtml(task)}
   `;
   }
@@ -2371,7 +2988,7 @@
     return Boolean(task?.local_pending || status === "running" || status === "submitting" || status === "queued");
   }
   function historyTaskGeneratedCount(task) {
-    const generated = positiveInt(task?.generated_count);
+    const generated = positiveInt2(task?.generated_count);
     if (generated !== null) return generated;
     const outputs = Array.isArray(task?.outputs) ? task.outputs.filter((output) => output && !output.deleted && output.status !== "failed") : [];
     if (outputs.length) return outputs.length;
@@ -2383,72 +3000,6 @@
   }
   function historyTaskPromptForClipboard(task) {
     return String(task?.prompt || task?.prompt_preview || task?.prompt_for_model || "").trim();
-  }
-  function taskOutputRecords(task) {
-    const selectedIndexes = taskSelectedOutputIndexes(task);
-    const records = [];
-    const outputs = Array.isArray(task.outputs) ? task.outputs : [];
-    outputs.forEach((output, fallbackIndex) => {
-      if (!output || output.deleted || output.status === "deleted") return;
-      const url = String(output.url || output.output_url || "");
-      if (!url || output.status === "failed") return;
-      const outputIndex = positiveInt(output.index) || fallbackIndex + 1;
-      records.push({
-        url,
-        index: outputIndex,
-        selected: selectedIndexes.has(outputIndex),
-        revisedPrompt: String(output.revised_prompt || "")
-      });
-    });
-    if (records.length) return records;
-    const urls = Array.isArray(task.output_urls) ? task.output_urls : task.output_url ? [task.output_url] : [];
-    return urls.filter(Boolean).map((url, index) => {
-      const outputIndex = index + 1;
-      return {
-        url: String(url),
-        index: outputIndex,
-        selected: selectedIndexes.has(outputIndex),
-        revisedPrompt: String(task.revised_prompts?.[index] || task.revised_prompt || "")
-      };
-    });
-  }
-  function historyDetailImageHtml(taskId, record, index, selectedCount) {
-    const selectedClass = record.selected ? " selected" : "";
-    const selectedText = record.selected ? translate("history.selected") : translate("history.select");
-    return `
-    <div class="history-detail-image${selectedClass}">
-      <button
-        class="history-detail-image-preview"
-        type="button"
-        data-history-lightbox-url="${escapeHtml(record.url)}"
-        aria-label="${escapeHtml(translate("history.openPreview"))}"
-      >
-        <img src="${escapeHtml(record.url)}" alt="" loading="lazy" decoding="async">
-      </button>
-      <div class="history-detail-image-actions">
-        <button
-          class="ghost-button text-sm"
-          type="button"
-          aria-pressed="${record.selected ? "true" : "false"}"
-          data-history-output-selected-task-id="${escapeHtml(taskId)}"
-          data-history-output-selected-index="${record.index}"
-        >${selectedText}</button>
-        <a class="ghost-button text-sm" href="${escapeHtml(record.url)}" download>${escapeHtml(formatTranslation("history.downloadIndex", { index: index + 1 }))}</a>
-        <button class="ghost-button text-sm" type="button" data-history-reference-handoff-url="${escapeHtml(record.url)}">${escapeHtml(translate("history.addReference"))}</button>
-        ${selectedCount === 1 && record.selected ? `<a class="ghost-button text-sm" href="${escapeHtml(record.url)}" download>${escapeHtml(translate("history.downloadSelected"))}</a>` : ""}
-      </div>
-    </div>
-  `;
-  }
-  function taskSelectedOutputIndexes(task) {
-    const indexes = /* @__PURE__ */ new Set();
-    if (Array.isArray(task.selected_output_indexes)) {
-      task.selected_output_indexes.forEach((value) => {
-        const index = positiveInt(value);
-        if (index !== null) indexes.add(index);
-      });
-    }
-    return indexes;
   }
   function promptCompareHtml(task) {
     const originalPrompt = promptTextValue(task.prompt || "");
@@ -2469,7 +3020,7 @@
     if (!hasRevisedPanel) {
       addPanel("submitted", translate("history.promptSubmitted"), submittedPrompt);
     }
-    return panels.length ? `<section class="history-prompt-compare" aria-label="${escapeHtml(translate("history.promptCompare"))}">${panels.join("")}</section>` : "";
+    return panels.length ? `<section class="history-prompt-compare" aria-label="${escapeHtml2(translate("history.promptCompare"))}">${panels.join("")}</section>` : "";
   }
   function promptTextValue(value) {
     return String(value || "").trim();
@@ -2504,19 +3055,19 @@
     return `
     <article class="history-prompt-panel">
       <div class="history-prompt-panel-header">
-        <h3>${escapeHtml(title)}</h3>
+        <h3>${escapeHtml2(title)}</h3>
         <button
           class="ghost-button text-sm history-prompt-copy"
           type="button"
-          data-history-copy-prompt-kind="${escapeHtml(kind)}"
-          aria-label="${escapeHtml(formatTranslation("history.copyPromptPanel", { title }))}"
-        >${escapeHtml(translate("history.copyPromptShort"))}</button>
+          data-history-copy-prompt-kind="${escapeHtml2(kind)}"
+          aria-label="${escapeHtml2(formatTranslation("history.copyPromptPanel", { title }))}"
+        >${escapeHtml2(translate("history.copyPromptShort"))}</button>
       </div>
-      <div class="history-detail-prompt">${escapeHtml(text || translate("history.promptEmpty"))}</div>
+      <div class="history-detail-prompt">${escapeHtml2(text || translate("history.promptEmpty"))}</div>
     </article>
   `;
   }
-  function positiveInt(value) {
+  function positiveInt2(value) {
     const parsed = Number.parseInt(String(value ?? ""), 10);
     return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
   }
@@ -2660,7 +3211,7 @@
   }
   async function updateOutputSelection(button) {
     const taskId = button.dataset.historyOutputSelectedTaskId || historyState.selectedTaskId;
-    const outputIndex = positiveInt(button.dataset.historyOutputSelectedIndex);
+    const outputIndex = positiveInt2(button.dataset.historyOutputSelectedIndex);
     if (!taskId || outputIndex === null) return;
     const selected = button.getAttribute("aria-pressed") !== "true";
     try {
@@ -2921,7 +3472,7 @@
   function historyContextButton(action, label, disabled = false, danger = false) {
     const disabledAttr = disabled ? " disabled" : "";
     const dangerClass = danger ? " danger" : "";
-    return `<button class="history-context-menu-button${dangerClass}" type="button" role="menuitem" data-history-context-action="${escapeHtml(action)}"${disabledAttr}>${escapeHtml(label)}</button>`;
+    return `<button class="history-context-menu-button${dangerClass}" type="button" role="menuitem" data-history-context-action="${escapeHtml2(action)}"${disabledAttr}>${escapeHtml2(label)}</button>`;
   }
   function bindHistoryContextMenuActionEvents(menu) {
     menu.querySelectorAll("[data-history-context-action]").forEach((button) => {
@@ -3006,34 +3557,24 @@
     localStorage.setItem(HISTORY_REFERENCE_HANDOFF_KEY, JSON.stringify([{ url, source: "history", added_at: (/* @__PURE__ */ new Date()).toISOString() }]));
     window.location.href = "/";
   }
-  function ensureHistoryLightbox() {
-    let lightbox = document.querySelector(".history-lightbox");
-    if (lightbox) return lightbox;
-    lightbox = document.createElement("div");
-    lightbox.className = "history-lightbox";
-    lightbox.hidden = true;
-    lightbox.innerHTML = `
-    <button class="drawer-close-button history-lightbox-close" type="button" data-history-lightbox-close aria-label="${escapeHtml(translate("history.closePreview"))}">\xD7</button>
-    <img alt="">
-  `;
-    document.body.append(lightbox);
-    return lightbox;
+  function openHistoryDetailLightbox(index) {
+    const urls = historyLightboxUrlsFromTask(historyState.detailTask || {});
+    openHistoryLightbox(urls, index);
   }
-  function openHistoryLightbox(url) {
-    if (!url) return;
-    const lightbox = ensureHistoryLightbox();
-    const image = lightbox.querySelector("img");
-    if (image) image.src = url;
-    lightbox.hidden = false;
-    document.body.classList.add("history-lightbox-open");
+  function openHistoryInputLightbox(index) {
+    const urls = historyInputLightboxUrlsFromTask(historyState.detailTask || {});
+    openHistoryLightbox(urls, index);
   }
-  function closeHistoryLightbox() {
-    const lightbox = document.querySelector(".history-lightbox");
-    if (!lightbox || lightbox.hidden) return;
-    lightbox.hidden = true;
-    const image = lightbox.querySelector("img");
-    if (image) image.removeAttribute("src");
-    document.body.classList.remove("history-lightbox-open");
+  async function openHistoryTaskLightbox(taskId) {
+    if (!taskId) return;
+    try {
+      const detail = historyState.detailTask?.task_id === taskId ? historyState.detailTask : await fetchHistoryTaskDetail(taskId);
+      const urls = historyLightboxUrlsFromTask(detail);
+      if (!urls.length) throw new Error(translate("history.noPreview"));
+      openHistoryLightbox(urls, 0);
+    } catch (error) {
+      setText(els.resultSummary, errorMessage(error, translate("history.detailFailed")));
+    }
   }
   function closeDetail() {
     historyState.selectedTaskId = "";
@@ -3043,6 +3584,7 @@
     renderDetailShell(translate("history.detailEmpty"));
   }
   function bindEvents() {
+    bindHistoryResizerEvents();
     let searchTimer = 0;
     els.search?.addEventListener("input", () => {
       window.clearTimeout(searchTimer);
@@ -3138,7 +3680,14 @@
       }
       const lightboxButton = target?.closest("[data-history-lightbox-url]");
       if (lightboxButton) {
-        openHistoryLightbox(lightboxButton.dataset.historyLightboxUrl || "");
+        const index = Number.parseInt(lightboxButton.dataset.historyLightboxIndex || "0", 10) || 0;
+        openHistoryDetailLightbox(index);
+        return;
+      }
+      const inputLightboxButton = target?.closest("[data-history-input-lightbox-index]");
+      if (inputLightboxButton) {
+        const index = Number.parseInt(inputLightboxButton.dataset.historyInputLightboxIndex || "0", 10) || 0;
+        openHistoryInputLightbox(index);
         return;
       }
       if (target?.closest("[data-history-lightbox-close]")) {
@@ -3176,6 +3725,15 @@
       event.stopPropagation();
       openHistoryContextMenu(card.dataset.historyTaskCardId || "", event.clientX, event.clientY);
     });
+    els.taskList?.addEventListener("dblclick", (event) => {
+      const target = event.target;
+      if (target?.closest("[data-history-task-select]")) return;
+      const card = target?.closest(".history-task-card[data-history-task-card-id]");
+      if (!card || !els.taskList?.contains(card)) return;
+      event.preventDefault();
+      event.stopPropagation();
+      void openHistoryTaskLightbox(card.dataset.historyTaskCardId || "");
+    });
     els.taskList?.addEventListener("keydown", (event) => {
       if (event.key !== "ContextMenu" && !(event.shiftKey && event.key === "F10")) return;
       const target = event.target;
@@ -3212,7 +3770,8 @@
     }, { passive: true });
     window.addEventListener("resize", () => {
       closeHistoryContextMenu();
-      scheduleHistoryGridLayout();
+      const widths = getCurrentHistoryLayoutWidths();
+      applyHistoryLayoutWidths(widths.left, widths.right, { preserveActiveTask: true });
     }, { passive: true });
     document.addEventListener(LOCALE_CHANGE_EVENT, () => {
       document.title = translate("history.documentTitle");
@@ -3239,8 +3798,7 @@
         closeHistoryContextMenu();
         return;
       }
-      const lightbox = document.querySelector(".history-lightbox");
-      if (lightbox && !lightbox.hidden) {
+      if (isHistoryLightboxOpen()) {
         closeHistoryLightbox();
         return;
       }
@@ -3254,6 +3812,7 @@
     restoreHistoryThemePreference();
     bindHistoryThemePreference();
     applyHistoryLocale();
+    restoreHistoryLayoutPreference();
     syncStateFromUrl();
     renderDetailShell(translate("history.detailEmpty"));
     bindEvents();

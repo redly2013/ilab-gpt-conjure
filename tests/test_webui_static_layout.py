@@ -135,8 +135,8 @@ class WebUIStaticLayoutTests(WebUIStaticTestCase):
         script = self._frontend_script_source()
         styles = Path("codex_image/webui/static/styles.css").read_text(encoding="utf-8")
 
-        self.assertIn('/static/app.js?v=runtime-300', html)
-        self.assertIn('/static/styles.css?v=runtime-300', html)
+        self.assertIn('/static/app.js?v=runtime-316', html)
+        self.assertIn('/static/styles.css?v=runtime-316', html)
         self.assertIn('id="recentAssetDock"', html)
         self.assertRegex(html, r'class="image-input-footer"[\s\S]*id="recentAssetDock"[\s\S]*id="recentAssetList"')
         self.assertRegex(html, r'id="recentAssetDock"[\s\S]*id="quickGalleryDock"[\s\S]*id="galleryManagePanel"')
@@ -686,9 +686,28 @@ class WebUIStaticLayoutTests(WebUIStaticTestCase):
         self.assertRegex(styles, r"\.api-status-bar\s*\{[^}]*border-radius:\s*999px")
         self.assertRegex(styles, r"\.version-info\s*\{[^}]*text-align:\s*center")
         self.assertRegex(styles, r"\.version-info\s*\{[^}]*font-size:\s*11px")
+        self.assertIn('id="versionInfo"', html)
+        self.assertIn('id="versionUpdateBadge"', html)
+        self.assertIn('id="versionModal"', html)
+        self.assertRegex(styles, r"\.version-info\.has-update\s*\{[^}]*color:\s*var\(--primary\)")
+        self.assertRegex(styles, r"\.version-update-badge\s*\{[^}]*background:\s*var\(--accent\)")
+        self.assertRegex(styles, r"\.version-modal-panel\s*\{[^}]*width:\s*min\(430px,\s*94vw\)")
         self.assertRegex(styles, r"\.batch-toolbar\s*\{[^}]*align-self:\s*stretch")
         self.assertRegex(styles, r"\.batch-toolbar\s*\{[^}]*gap:\s*7px")
         self.assertRegex(styles, r"\.batch-toolbar\s*\{[^}]*padding:\s*8px\s+10px")
+
+    def test_app_version_status_uses_api_and_updater_action(self) -> None:
+        html = Path("codex_image/webui/static/index.html").read_text(encoding="utf-8")
+        script = Path("codex_image/webui/static/app.js").read_text(encoding="utf-8")
+
+        self.assertIn('id="versionLabel"', html)
+        self.assertIn('data-i18n-attr="aria-label:footer.versionInfo;title:footer.versionInfo"', html)
+        self.assertIn('id="versionUpdateButton"', html)
+        self.assertIn("/api/app-version", script)
+        self.assertIn("/api/app-version/open-updater", script)
+        self.assertIn("footer.version", script)
+        self.assertIn("version.updaterStarted", script)
+        self.assertIn("document.addEventListener(LOCALE_CHANGE_EVENT", script)
     def test_short_desktop_layout_compacts_sidebar_footer_and_workbench(self) -> None:
         styles = Path("codex_image/webui/static/styles.css").read_text(encoding="utf-8")
 
@@ -712,6 +731,10 @@ class WebUIStaticLayoutTests(WebUIStaticTestCase):
         self.assertRegex(
             styles,
             r"@media \(max-height:\s*1080px\) and \(min-width:\s*1024px\)\s*\{[\s\S]*\.version-info\s*\{[^}]*display:\s*none",
+        )
+        self.assertRegex(
+            styles,
+            r"@media \(max-height:\s*1080px\) and \(min-width:\s*1024px\)\s*\{[\s\S]*\.version-info\.has-update\s*\{[^}]*display:\s*inline-flex",
         )
         self.assertRegex(
             styles,
@@ -2559,8 +2582,8 @@ class WebUIStaticLayoutTests(WebUIStaticTestCase):
         script = self._frontend_script_source()
         styles = Path("codex_image/webui/static/styles.css").read_text(encoding="utf-8")
 
-        self.assertIn('/static/app.js?v=runtime-300', html)
-        self.assertIn('/static/styles.css?v=runtime-300', html)
+        self.assertIn('/static/app.js?v=runtime-316', html)
+        self.assertIn('/static/styles.css?v=runtime-316', html)
         self.assertIn('id="pasteClipboardButton"', html)
         self.assertIn('id="statusText"', html)
         self.assertRegex(
@@ -2849,8 +2872,8 @@ class WebUIStaticLayoutTests(WebUIStaticTestCase):
         script = self._frontend_script_source()
         styles = Path("codex_image/webui/static/styles.css").read_text(encoding="utf-8")
 
-        self.assertIn("/static/app.js?v=runtime-300", html)
-        self.assertIn("/static/styles.css?v=runtime-300", html)
+        self.assertIn("/static/app.js?v=runtime-316", html)
+        self.assertIn("/static/styles.css?v=runtime-316", html)
         self.assertIn('const THEME_STORAGE_KEY = "codex-image-theme-preference";', script)
         self.assertIn('themePreference: "system"', script)
         self.assertIn('call(methods, "restoreThemePreference")', script)

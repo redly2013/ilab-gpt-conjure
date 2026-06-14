@@ -8,6 +8,7 @@ LATEST_RELEASE_URL="https://api.github.com/repos/kadevin/ilab-gpt-conjure/releas
 BUNDLE_DIR="$(cd "$(dirname "$0")" && pwd)"
 DATA_DIR="${BUNDLE_DIR}/data"
 VERSION_FILE="${BUNDLE_DIR}/portable-version.txt"
+UPDATE_NOTICE_FILE="${DATA_DIR}/update-notice.json"
 PYTHON_BIN="${BUNDLE_DIR}/python/Python.framework/Versions/3.11/bin/python3"
 HOST_ARCH="$(uname -m)"
 TIMESTAMP="$(date +"%Y%m%d-%H%M%S")"
@@ -87,6 +88,10 @@ current_portable_version() {
     return 0
   fi
   head -n 1 "$VERSION_FILE" | tr -d '[:space:]'
+}
+
+clear_update_notice() {
+  rm -f "$UPDATE_NOTICE_FILE" 2>/dev/null || true
 }
 
 version_is_current_or_newer() {
@@ -173,6 +178,7 @@ HASH_URL="$(printf "%s\n" "$ASSET_INFO" | sed -n '5p')"
 
 CURRENT_VERSION="$(current_portable_version)"
 if [[ "$(version_is_current_or_newer "$CURRENT_VERSION" "$RELEASE_TAG")" == "1" ]]; then
+  clear_update_notice
   echo ""
   echo "Already up to date (${RELEASE_TAG})."
   echo "No app files were changed."
@@ -252,6 +258,7 @@ done
 chmod +x "${BUNDLE_DIR}/Start WebUI Portable.command" 2>/dev/null || true
 chmod +x "${BUNDLE_DIR}/Update WebUI Portable.command" 2>/dev/null || true
 xattr -dr com.apple.quarantine "$BUNDLE_DIR" 2>/dev/null || true
+clear_update_notice
 
 step "Update complete"
 echo "Updated to ${RELEASE_TAG}."

@@ -16,7 +16,7 @@ without installing Python separately.
    images, unless you intentionally use the advanced local OAuth mode.
 
 On startup, the launcher may briefly check the latest GitHub Release. If a newer
-version is available, it only prints a reminder to close WebUI and run
+version is available, the WebUI version entry shows a reminder and can start
 `Update WebUI Portable.command`; it never updates automatically. Set
 `ILAB_SKIP_VERSION_CHECK=1` before launching to skip this check.
 

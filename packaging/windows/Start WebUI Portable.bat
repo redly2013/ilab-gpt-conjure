@@ -10,6 +10,7 @@ set "URL=http://127.0.0.1:%PORT%/"
 set "HEALTH_URL=%URL%api/health"
 set "WAIT_ATTEMPTS=30"
 set "VERSION_FILE=%BUNDLE_DIR%portable-version.txt"
+set "UPDATE_NOTICE_FILE=%DATA_DIR%\update-notice.json"
 set "LATEST_RELEASE_URL=https://api.github.com/repos/kadevin/ilab-gpt-conjure/releases/latest"
 
 if not exist "%PYTHON_BIN%" (
@@ -27,6 +28,7 @@ if not exist "%APP_DIR%\portable_webui_app.py" (
 if not exist "%DATA_DIR%" mkdir "%DATA_DIR%"
 if not exist "%DATA_DIR%\logs" mkdir "%DATA_DIR%\logs"
 
+set "ILAB_CONJURE_BUNDLE_DIR=%BUNDLE_DIR%"
 set "ILAB_CONJURE_DATA_DIR=%DATA_DIR%"
 set "PYTHONPATH=%APP_DIR%;%APP_DIR%\.deps"
 set "CERTIFI_CA_BUNDLE=%BUNDLE_DIR%python\Lib\site-packages\certifi\cacert.pem"
@@ -70,9 +72,12 @@ timeout /t 3600 /nobreak >nul
 goto keep_server_window_open
 
 :check_latest_release_notice
-if "%ILAB_SKIP_VERSION_CHECK%"=="1" exit /b 0
+if "%ILAB_SKIP_VERSION_CHECK%"=="1" (
+  if exist "%UPDATE_NOTICE_FILE%" del /q "%UPDATE_NOTICE_FILE%" >nul 2>nul
+  exit /b 0
+)
 if not exist "%VERSION_FILE%" exit /b 0
-powershell -NoProfile -ExecutionPolicy Bypass -Command "try { $current = (Get-Content -Path $env:VERSION_FILE -TotalCount 1 -ErrorAction Stop).Trim(); if (-not $current) { exit 0 }; $release = Invoke-RestMethod -Uri $env:LATEST_RELEASE_URL -Headers @{ 'User-Agent' = 'ilab-gpt-conjure-portable-launcher' } -TimeoutSec 2 -ErrorAction Stop; $latest = ([string]$release.tag_name).Trim(); function Read-SemVer([string]$value) { if ($value -match '^[vV]?(\d+)\.(\d+)\.(\d+)') { return [version]::new([int]$Matches[1], [int]$Matches[2], [int]$Matches[3]) }; return $null }; $currentVersion = Read-SemVer $current; $latestVersion = Read-SemVer $latest; if ($currentVersion -and $latestVersion -and $latestVersion -gt $currentVersion) { Write-Host ('New version available: v{0}. Close WebUI and run Update WebUI Portable.bat to update.' -f $latestVersion.ToString()) } } catch { }"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "try { $current = (Get-Content -Path $env:VERSION_FILE -TotalCount 1 -ErrorAction Stop).Trim(); if (-not $current) { exit 0 }; $release = Invoke-RestMethod -Uri $env:LATEST_RELEASE_URL -Headers @{ 'User-Agent' = 'ilab-gpt-conjure-portable-launcher' } -TimeoutSec 2 -ErrorAction Stop; $latest = ([string]$release.tag_name).Trim(); function Read-SemVer([string]$value) { if ($value -match '^[vV]?(\d+)\.(\d+)\.(\d+)') { return [version]::new([int]$Matches[1], [int]$Matches[2], [int]$Matches[3]) }; return $null }; $currentVersion = Read-SemVer $current; $latestVersion = Read-SemVer $latest; if ($currentVersion -and $latestVersion -and $latestVersion -gt $currentVersion) { $latestText = $latestVersion.ToString(); $releaseUrl = if ($release.html_url) { [string]$release.html_url } else { 'https://github.com/kadevin/ilab-gpt-conjure/releases/tag/v' + $latestText }; $notice = @{ current_version = $current; latest_version = $latestText; checked_at = (Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ'); release_url = $releaseUrl; updater = 'Update WebUI Portable.bat' } | ConvertTo-Json -Compress; Set-Content -Path $env:UPDATE_NOTICE_FILE -Value $notice -Encoding UTF8; Write-Host ('New version available: v{0}. Close WebUI and run Update WebUI Portable.bat to update.' -f $latestText) } elseif (Test-Path $env:UPDATE_NOTICE_FILE) { Remove-Item -Force $env:UPDATE_NOTICE_FILE } } catch { }"
 exit /b 0
 
 :is_webui_ready
