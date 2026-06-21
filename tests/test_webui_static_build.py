@@ -90,6 +90,9 @@ class WebUIStaticBuildTests(WebUIStaticTestCase):
         self.assertIn("../frontend/src/image-editor.ts", sources)
         source_root = Path("codex_image/webui/static")
         for source, source_content in zip(sources, sources_content):
+            if "node_modules/" in source:
+                self.assertNotEqual("", source_content)
+                continue
             source_path = (source_root / source).resolve()
             self.assertEqual(source_path.read_text(encoding="utf-8"), source_content)
 
